@@ -1,15 +1,17 @@
 import { useState } from 'react'
-import { Button } from './components/ui/button'
+import NavBar from './components/NavBar'
 
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <Button>
-        Click
-      </Button>
+      <>
+        <div className="flex flex-col">
+          <NavBar />
+
+        </div>
+      </>
     </>
   )
 }

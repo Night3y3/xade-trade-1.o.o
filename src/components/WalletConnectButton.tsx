@@ -1,9 +1,5 @@
 import React, { useEffect } from 'react';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { signIn, useSession } from "next-auth/react";
-import { useAccount, useSignMessage } from "wagmi";
-import { useRouter } from "next/router";
-import { useAuthRequestChallengeEvm } from "@moralisweb3/next";
 
 interface WalletConnectButtonProps {
     // Define prop types here
@@ -55,6 +51,8 @@ const WalletConnectButton: React.FC<WalletConnectButtonProps> = () => {
                     openConnectModal,
                     authenticationStatus,
                     mounted,
+
+
                 }) => {
                     // Note: If your app doesn't use authentication, you
                     // can remove all 'authenticationStatus' checks

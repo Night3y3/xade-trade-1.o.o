@@ -61,3 +61,23 @@ export async function registerAccount(
     .then((response) => console.log("registration response.......", response))
     .catch((err) => console.error(err));
 }
+export async function authenticateWallet(
+  registerMessage: any,
+  userAddress: string,
+  signature: string
+): Promise<any> {
+  const options = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      message: registerMessage,
+      signature,
+      userAddress,
+    }),
+  };
+
+  fetch("https://testnet-api-evm.orderly.network/v1/orderly_key", options)
+    .then((response) => response.json())
+    .then((response) => console.log("wallet auth.......", response))
+    .catch((err) => console.error(err));
+}

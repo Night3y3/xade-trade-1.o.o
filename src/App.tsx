@@ -10,13 +10,17 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { config } from "./config";
 import PriceBar from "./components/PriceBar";
 import {
+  authenticateWallet,
   checkAccount,
   getRegistrationNonce,
   registerAccount,
 } from "./apiCalls/accountRegistration";
 import { BROKER_ID } from "./utils/constantValues";
 import { useEffect } from "react";
-import { getRegisterNonceSignature } from "./utils/signature";
+import {
+  getRegisterNonceSignature,
+  getWalletAuthSignature,
+} from "./utils/signature";
 
 const queryClient = new QueryClient();
 
@@ -113,6 +117,10 @@ function App() {
             console.error("Error fetching nonce: ", error);
           }
         }
+        const { result, addKeyMessage } = await getWalletAuthSignature(
+          account.address
+        );
+        await authenticateWallet(addKeyMessage, account.address, result);
       }
     };
     initialUserAccountSetup();

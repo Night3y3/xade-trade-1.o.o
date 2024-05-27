@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export async function checkAccount(
   address: string | undefined,
   BROKER_ID: string
@@ -23,7 +24,7 @@ export async function getRegistrationNonce(): Promise<string | null> {
   const options: RequestInit = { method: "GET" };
   try {
     const response = await fetch(
-      "https://api-evm.orderly.network/v1/registration_nonce",
+      "https://testnet-api-evm.orderly.network/v1/registration_nonce",
       options
     );
     if (!response.ok) {
@@ -40,22 +41,23 @@ export async function getRegistrationNonce(): Promise<string | null> {
   }
 }
 
-// export async function registerAccount(
-//   broker_id: string,
-//   chain_id: number,
-//   userAddress: string,
-//   nonce: string,
-//   signature: string
-// ): Promise<boolean> {
-//     const options = {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: '{"message":{"brokerId":"<string>","chainId":123,"timestamp":"<string>","registrationNonce":"<string>"},"signature":"<string>","userAddress":"<string>"}',
-//     };
+export async function registerAccount(
+  registerMessage: any,
+  userAddress: string,
+  signature: string
+): Promise<any> {
+  const options = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      message: registerMessage,
+      signature,
+      userAddress,
+    }),
+  };
 
-//     fetch("https://api-evm.orderly.network/v1/register_account", options)
-//       .then((response) => response.json())
-//       .then((response) => console.log(response))
-//       .catch((err) => console.error(err));
-
-// }
+  fetch("https://testnet-api-evm.orderly.network/v1/register_account", options)
+    .then((response) => response.json())
+    .then((response) => console.log("registration response.......", response))
+    .catch((err) => console.error(err));
+}

@@ -4,6 +4,10 @@ import { useAccount } from "wagmi";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setAddress } from "@/redux/slices/address";
 import { setNonce } from "@/redux/slices/nonceSlice";
+import {
+  checkAccount,
+  getRegistrationNonce,
+} from "@/apiCalls/accountRegistration";
 
 const BROKER_ID = "xade_finance";
 
@@ -14,50 +18,20 @@ export const useNonce = () => {
   const nonce = useAppSelector((state) => state.nonce);
 
   useEffect(() => {
-    function getRegistrationNonce() {
-      const options = { method: "GET" };
-
-      fetch("https://api-evm.orderly.network/v1/registration_nonce", options)
-        .then((response) => response.json())
-        .then((response) => {
-          //   console.log(response);
-          const nonceJson = response as {
-            data: { registration_nonce: string };
-          };
-          console.log("nonceJson : ", nonceJson);
-          const registrationNonce = nonceJson.data.registration_nonce as string;
-          dispatch(setNonce(registrationNonce));
-
-          return;
-        })
-        .catch((err) => console.error(err));
-    }
-
-    function checkAccount(address: string | undefined) {
-      if (!address) return;
-      const options = { method: "GET" };
-
-      fetch(
-        `https://testnet-api-evm.orderly.network/v1/get_account?address=${address}&broker_id=${BROKER_ID}`,
-        options
-      )
-        .then((response) => response.json())
-        .then((response) => {
-          console.log(response);
-          if (!response.success) {
-            return getRegistrationNonce();
-          }
-        })
-        .catch((err) => console.error(err));
-    }
-
     if (account.isConnected && nonce === null) {
-      //   console.log("address : ", account.address);
       dispatch(setAddress(account.address));
       console.log("address : ", address);
-
-      checkAccount(account.address);
+      checkAccount(account.address, BROKER_ID).then(async (isValid) => {
+        if (!isValid) {
+          try {
+            const fetchedNonce = await getRegistrationNonce();
+            dispatch(setNonce(fetchedNonce));
+            console.log("nonce : ", fetchedNonce);
+          } catch (error) {
+            console.error("Error fetching nonce: ", error);
+          }
+        }
+      });
     }
-    console.log("nonce : ", nonce);
   }, [account]);
 };

@@ -43,7 +43,7 @@ const NavBar = ({ center, customID }: NavBarProps) => {
     return (
         <div
             className={` ${center ? 'justify-center ' : ''
-                } border-gray-500/25 mb-8 flex flex-wrap justify-between border-b px-10`}
+                } border-[#4B4B4B] flex flex-wrap justify-between border-b px-10`}
         >
             <div className='flex flex-wrap items-center gap-7'>
                 <img src={logo} alt="" />

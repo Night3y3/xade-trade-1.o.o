@@ -11,6 +11,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 // import { SiweMessage } from 'siwe';
 import { config } from './config';
 import { useNonce } from './hooks/useNonce';
+import PriceBar from './components/PriceBar';
 
 
 
@@ -102,6 +103,7 @@ function App() {
         >
           <div className="flex flex-col">
             <NavBar />
+            <PriceBar />
 
           </div>
         </RainbowKitProvider>

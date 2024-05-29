@@ -21,6 +21,7 @@ import {
   getRegisterNonceSignature,
   getWalletAuthSignature,
 } from "./utils/signature";
+import { ThemeProvider } from "./components/theme-provider";
 
 const queryClient = new QueryClient();
 
@@ -138,10 +139,12 @@ function App() {
             overlayBlur: "small",
           })}
         >
-          <div className="flex flex-col">
-            <NavBar />
-            <PriceBar />
-          </div>
+          <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+            <div className="flex flex-col">
+              <NavBar />
+              <PriceBar />
+            </div>
+          </ThemeProvider>
         </RainbowKitProvider>
         {/* </RainbowKitAuthenticationProvider> */}
       </QueryClientProvider>

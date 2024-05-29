@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button } from './ui/button';
-import ethlogo from '../assets/eth-logo.svg';
-import { ChevronDownIcon } from '@radix-ui/react-icons'
+
 import { Separator } from './ui/separator';
+import SelectingMarket from './SelectingMarket';
 
 interface PriceBarProps {
     // Define prop types here
@@ -13,11 +13,8 @@ const PriceBar: React.FC<PriceBarProps> = () => {
     return (
         <div className=' text-white flex justify-between items-center border-b border-[#4B4B4B]'>
             <div className=' flex gap-4  h-[7vh] py-3 items-center'>
-                <div className='flex gap-4 items-center pl-5'>
-                    <img src={ethlogo} alt="" />
-                    <h1 className=' font-medium text-xl'>ETH/USDC</h1>
-                    <ChevronDownIcon className='w-5 h-5' />
-                </div>
+                <SelectingMarket />
+
                 <Separator className="h-full w-[1px] bg-[#4B4B4B] dark:bg-gray-700" />
                 <h1 className='text-green-500 text-xl font-bold'>3,751.6</h1>
                 <Separator className="h-full w-[1px] bg-[#4B4B4B] dark:bg-gray-700" />

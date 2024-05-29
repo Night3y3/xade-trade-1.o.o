@@ -39,7 +39,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
             <Select>
                 <SelectTrigger className=' border-none focus:border-none selection:border-none default:border-none flex gap-2'>
 
-                    <SelectValue placeholder={parseString(data?.data.rows[0].symbol)} className=' font-medium text-xl' />
+                    <SelectValue placeholder={"Select a Market"} className=' font-medium text-xl' />
                 </SelectTrigger>
                 <SelectContent>
                     <Table>

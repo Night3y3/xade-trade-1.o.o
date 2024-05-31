@@ -22,6 +22,7 @@ import {
   getWalletAuthSignature,
 } from "./utils/signature";
 import { ThemeProvider } from "./components/theme-provider";
+import MarketSection from "./components/MarketSection";
 
 const queryClient = new QueryClient();
 
@@ -143,6 +144,7 @@ function App() {
             <div className="flex flex-col">
               <NavBar />
               <PriceBar />
+              {/* <MarketSection /> */}
             </div>
           </ThemeProvider>
         </RainbowKitProvider>

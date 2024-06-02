@@ -75,9 +75,20 @@ export async function authenticateWallet(
       userAddress,
     }),
   };
+  try {
+    const res = await fetch(
+      "https://testnet-api-evm.orderly.network/v1/orderly_key",
+      options
+    );
+    const response = await res.json();
+    return response;
+  } catch (error) {
+    console.log("error", error);
+  }
 
-  fetch("https://testnet-api-evm.orderly.network/v1/orderly_key", options)
-    .then((response) => response.json())
-    .then((response) => console.log("wallet auth.......", response))
-    .catch((err) => console.error(err));
+  // .then((response) => response.json())
+  // .then((response) => {
+  //   return response;
+  // })
+  // .catch((err) => console.error(err));
 }

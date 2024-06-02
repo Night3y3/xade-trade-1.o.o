@@ -9,25 +9,32 @@ import { WagmiProvider, useAccount } from "wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { config } from "./config";
 import PriceBar from "./components/PriceBar";
-import {
-  authenticateWallet,
-  checkAccount,
-  getRegistrationNonce,
-  registerAccount,
-} from "./apiCalls/accountRegistration";
+// import {
+//   authenticateWallet,
+//   checkAccount,
+//   getRegistrationNonce,
+//   registerAccount,
+// } from "./apiCalls/accountRegistration";
 import { BROKER_ID } from "./utils/constantValues";
-import { useEffect } from "react";
-import {
-  getRegisterNonceSignature,
-  getWalletAuthSignature,
-} from "./utils/signature";
+// import { useState } from "react";
+// import {
+//   getRegisterNonceSignature,
+//   getWalletAuthSignature,
+// } from "./utils/signature";
 import { ThemeProvider } from "./components/theme-provider";
+import { OrderlyConfigProvider } from "@orderly.network/hooks";
+// import type { ConfigStore } from "@orderly.network/core";
+// import { store } from "./redux/store";
 import MarketSection from "./components/MarketSection";
 
 const queryClient = new QueryClient();
+// const myConfigStore: ConfigStore = store;
+// const myKeyStore: OrderlyKeyStore = new <Your OrderlyKeyStore class>;
 
 function App() {
   const account = useAccount({ config });
+  // const [isWalletAuth, setIsWalletAuth] = useState(false);
+  // const { account: orderlyAccount } = useOrderlyAccount();
   // useNonce();
 
   // const [status, setStatus] = useState<AuthenticationStatus>("loading");
@@ -94,63 +101,81 @@ function App() {
   //   });
   // }, []);
 
-  useEffect(() => {
-    const initialUserAccountSetup = async () => {
-      if (account.isConnected && account.address) {
-        const isValid = await checkAccount(account.address, BROKER_ID);
-        if (!isValid) {
-          try {
-            const fetchedNonce = await getRegistrationNonce();
-            const { result, registerMessage } = await getRegisterNonceSignature(
-              account.address,
-              parseInt(fetchedNonce ?? "")
-            );
-            console.log(
-              "nonce : ",
-              fetchedNonce,
-              result,
-              registerMessage,
-              account.address
-            );
-            if (result && registerMessage) {
-              await registerAccount(registerMessage, account.address, result);
-            }
-          } catch (error) {
-            console.error("Error fetching nonce: ", error);
-          }
-        }
-        const { result, addKeyMessage } = await getWalletAuthSignature(
-          account.address
-        );
-        await authenticateWallet(addKeyMessage, account.address, result);
-      }
-    };
-    initialUserAccountSetup();
-  }, [account]);
+  // useEffect(() => {
+  //   const initialUserAccountSetup = async () => {
+  //     if (account.isConnected && account.address) {
+  //       const isValid = await checkAccount(account.address, BROKER_ID);
+  //       if (!isValid) {
+  //         try {
+  //           const fetchedNonce = await getRegistrationNonce();
+  //           const { result, registerMessage } = await getRegisterNonceSignature(
+  //             account.address,
+  //             parseInt(fetchedNonce ?? "")
+  //           );
+  //           console.log(
+  //             "nonce : ",
+  //             fetchedNonce,
+  //             result,
+  //             registerMessage,
+  //             account.address
+  //           );
+  //           if (result && registerMessage) {
+  //             await registerAccount(registerMessage, account.address, result);
+  //           }
+  //         } catch (error) {
+  //           console.error("Error fetching nonce: ", error);
+  //         }
+  //       }
+  //       const { result, addKeyMessage } = await getWalletAuthSignature(
+  //         account.address
+  //       );
+  //       const walletAuth = await authenticateWallet(
+  //         addKeyMessage,
+  //         account.address,
+  //         result
+  //       );
+  //       if (walletAuth) {
+  //         setIsWalletAuth(true);
+  //         console.log("wallet auth", walletAuth);
+  //       }
+  //     }
+  //   };
+  //   initialUserAccountSetup();
+  // }, [account]);
   return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        {/* <RainbowKitAuthenticationProvider adapter={authAdapter} status={status}> */}
-        <RainbowKitProvider
-          theme={darkTheme({
-            accentColor: "#7b3fe4",
-            accentColorForeground: "black",
-            borderRadius: "small",
-            fontStack: "system",
-            overlayBlur: "small",
-          })}
-        >
-          <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-            <div className="flex flex-col">
-              <NavBar />
-              <PriceBar />
-              {/* <MarketSection /> */}
-            </div>
-          </ThemeProvider>
-        </RainbowKitProvider>
-        {/* </RainbowKitAuthenticationProvider> */}
-      </QueryClientProvider>
-    </WagmiProvider>
+    <OrderlyConfigProvider
+      // configStore={myConfigStore}
+      // // keyStore={myKeyStore}
+      brokerId={BROKER_ID}
+      networkId="testnet"
+    >
+      <WagmiProvider config={config}>
+        <QueryClientProvider client={queryClient}>
+          {/* <RainbowKitAuthenticationProvider adapter={authAdapter} status={status}> */}
+          <RainbowKitProvider
+            theme={darkTheme({
+              accentColor: "#7b3fe4",
+              accentColorForeground: "black",
+              borderRadius: "small",
+              fontStack: "system",
+              overlayBlur: "small",
+            })}
+          >
+            <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+              <div className="flex flex-col">
+                <NavBar />
+                <PriceBar />
+                <MarketSection
+                  accountInfo={account}
+                  // isWalletAuthenticated={isWalletAuth}
+                />
+              </div>
+            </ThemeProvider>
+          </RainbowKitProvider>
+          {/* </RainbowKitAuthenticationProvider> */}
+        </QueryClientProvider>
+      </WagmiProvider>
+    </OrderlyConfigProvider>
   );
 }
 

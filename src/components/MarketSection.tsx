@@ -100,7 +100,7 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
           // padding: 24,
         }}
       >
-        <TradePanel />
+        <TradePanel symbol="PERP_ETH_USDC" />
         {/* / trade panel here/ */}
       </div>
       {/* <div className=" flex gap-5 items-center p-3 border border-[#241C2F] w-full">

@@ -26,6 +26,7 @@ import { OrderlyConfigProvider } from "@orderly.network/hooks";
 // import type { ConfigStore } from "@orderly.network/core";
 // import { store } from "./redux/store";
 import MarketSection from "./components/MarketSection";
+import AdvanceCharts from "./components/AdvanceCharts";
 
 const queryClient = new QueryClient();
 // const myConfigStore: ConfigStore = store;
@@ -167,8 +168,9 @@ function App() {
                 <PriceBar />
                 <MarketSection
                   accountInfo={account}
-                  // isWalletAuthenticated={isWalletAuth}
+                // isWalletAuthenticated={isWalletAuth}
                 />
+                <AdvanceCharts />
               </div>
             </ThemeProvider>
           </RainbowKitProvider>

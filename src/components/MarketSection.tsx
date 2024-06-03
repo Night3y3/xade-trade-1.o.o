@@ -74,7 +74,6 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
       <div
         style={{
           display: "flex",
-          // background: "green",
           height: "100%",
           width: "20%",
         }}
@@ -84,7 +83,6 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
       <div
         style={{
           display: "flex",
-          // background: "blue",
           height: "100%",
           width: "60%",
         }}
@@ -95,7 +93,7 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
         style={{
           display: "flex",
           height: "100%",
-          width: "25%",
+          width: "20%",
           background: "#171717",
           // padding: 24,
         }}

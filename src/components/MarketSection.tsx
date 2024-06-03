@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { PaperPlaneIcon } from "@radix-ui/react-icons";
-import { Button } from "@/components/ui/button";
-import { Slider } from "./ui/slider";
-import { cn } from "@/lib/utils";
+// import { PaperPlaneIcon } from "@radix-ui/react-icons";
+// import { Button } from "@/components/ui/button";
+// import { Slider } from "./ui/slider";
+// import { cn } from "@/lib/utils";
 import { useAccount } from "@orderly.network/hooks";
 import { UseAccountReturnType } from "wagmi";
 import { CHAIN_ID } from "@/utils/constantValues";
 // import { config } from "@/config";
 import { AccountStatusEnum } from "@orderly.network/types";
+import TradePanel from "./ui/TradePanel";
 
 interface MarketSectionProps {
   // Define prop types here
   accountInfo: UseAccountReturnType;
 }
 
-const percentTabs = ["0%", "25%", "50%", "75%", "MAX"];
+// const percentTabs = ["0%", "25%", "50%", "75%", "MAX"];
 
 const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
-  const [selected, setSelected] = useState<boolean>(true);
-  const [percent, setPercent] = useState<string>("0%");
+  // const [selected, setSelected] = useState<boolean>(true);
+  // const [percent, setPercent] = useState<string>("0%");
   const [initialLized, setInitialized] = useState(false);
   const [onProcess, setOnProcess] = useState(false);
   const { account, state } = useAccount();
@@ -61,10 +62,48 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
   }, [account, state]);
 
   // Component logic using props
-  console.log(state, accountInfo);
+  // console.log(state, accountInfo);
   return (
-    <div className="w-1/5 flex flex-col items-center gap-3">
-      <div className=" flex gap-5 items-center p-3 border border-[#241C2F] w-full">
+    <div
+      style={{
+        display: "flex",
+        height: "100vh",
+        width: "100%",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          // background: "green",
+          height: "100%",
+          width: "20%",
+        }}
+      >
+        {/* / portfolio here/ */}
+      </div>
+      <div
+        style={{
+          display: "flex",
+          // background: "blue",
+          height: "100%",
+          width: "60%",
+        }}
+      >
+        {/* / trading view here/ */}
+      </div>
+      <div
+        style={{
+          display: "flex",
+          height: "100%",
+          width: "25%",
+          background: "#171717",
+          // padding: 24,
+        }}
+      >
+        <TradePanel />
+        {/* / trade panel here/ */}
+      </div>
+      {/* <div className=" flex gap-5 items-center p-3 border border-[#241C2F] w-full">
         <div className="[font-family:'Sk-Modernist-Bold',Helvetica] font-bold text-neutral-300 text-lg tracking-[0] leading-[normal] whitespace-nowrap">
           Account
         </div>
@@ -135,7 +174,7 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
 
       <Button className="w-4/5 dark:bg-[#40F388]">
         <h1>BUY ETH</h1>
-      </Button>
+      </Button> */}
     </div>
   );
 };

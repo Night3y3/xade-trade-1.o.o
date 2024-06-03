@@ -162,13 +162,10 @@ function App() {
             })}
           >
             <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-              <div className="flex flex-col">
+              <div className="flex flex-col overflow-hidden">
                 <NavBar />
                 <PriceBar />
-                <MarketSection
-                  accountInfo={account}
-                  // isWalletAuthenticated={isWalletAuth}
-                />
+                <MarketSection accountInfo={account} />
               </div>
             </ThemeProvider>
           </RainbowKitProvider>

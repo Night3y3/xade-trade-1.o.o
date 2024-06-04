@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
-// import { PaperPlaneIcon } from "@radix-ui/react-icons";
-// import { Button } from "@/components/ui/button";
-// import { Slider } from "./ui/slider";
-// import { cn } from "@/lib/utils";
 import { useAccount } from "@orderly.network/hooks";
 import { UseAccountReturnType } from "wagmi";
-import { CHAIN_ID } from "@/utils/constantValues";
+import { CHAIN_ID_Hex } from "@/utils/constantValues";
 import { useOrderEntry } from "@orderly.network/hooks";
 import {
   AccountStatusEnum,
@@ -41,15 +37,14 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
     const initialUserAccountSetup = async () => {
       if (accountInfo.address && accountInfo.isConnected && !onProcess) {
         setOnProcess(true);
-        account.setAddress(accountInfo.address, {
-          provider: window?.ethereum,
+        await account.setAddress(accountInfo.address, {
+          provider: window.ethereum,
           chain: {
-            id: CHAIN_ID,
+            id: CHAIN_ID_Hex,
           },
         });
         setOnProcess(false);
         setInitialized(true);
-        console.log("acount info!!!!", state);
       }
     };
     initialUserAccountSetup();
@@ -57,7 +52,7 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
 
   useEffect(() => {
     const accountCheck = async () => {
-      console.log(initialized, !state.accountId);
+      console.log(state);
       if (initialized && !state.accountId && !onProcess) {
         setOnProcess(true);
         await account.createAccount();
@@ -72,10 +67,8 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
       }
     };
     accountCheck();
-  }, [account, state]);
+  }, [initialized]);
 
-  // Component logic using props
-  // console.log(state, accountInfo);
   return (
     <div
       style={{

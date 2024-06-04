@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "NODE_OPTIONS=--openssl-legacy-provider && vite",
-    "build": "tsc && vite build",
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider && vite",
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
@@ -15,6 +15,7 @@
     "@orderly.network/core": "^1.5.7",
     "@orderly.network/hooks": "^1.5.7",
     "@orderly.network/types": "^1.5.7",
+    "@orderly.network/react": "^1.5.7",
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-separator": "^1.0.3",
@@ -33,14 +34,15 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^9.1.2",
+    "react-scripts": "^5.0.1",
+    "react-scripts-ts": "^4.0.8",
     "siwe": "^2",
+    "styled-components": "^6.1.11",
     "swr": "^2.2.5",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "viem": "2.x",
-    "wagmi": "^2.9.4",
-    "react-scripts": "^5.0.1",
-    "react-scripts-ts": "^4.0.8"
+    "wagmi": "^2.9.4"
   },
   "devDependencies": {
     "@types/node": "^20.12.12",

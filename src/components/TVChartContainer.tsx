@@ -23,6 +23,7 @@ export interface ChartContainerProps {
     autosize: ChartingLibraryWidgetOptions['autosize'];
     studiesOverrides: ChartingLibraryWidgetOptions['studies_overrides'];
     container: ChartingLibraryWidgetOptions['container'];
+    theme: ChartingLibraryWidgetOptions["theme"]
 }
 
 const getLanguageFromURL = (): LanguageCode | null => {
@@ -46,6 +47,7 @@ export const TVChartContainer = () => {
         fullscreen: false,
         autosize: true,
         studiesOverrides: {},
+        theme: "dark"
     };
 
     useEffect(() => {
@@ -68,6 +70,7 @@ export const TVChartContainer = () => {
             fullscreen: defaultProps.fullscreen,
             autosize: defaultProps.autosize,
             studies_overrides: defaultProps.studiesOverrides,
+            theme: defaultProps.theme
         };
 
         const tvWidget = new widget(widgetOptions);

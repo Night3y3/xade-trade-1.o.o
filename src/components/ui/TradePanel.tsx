@@ -1,11 +1,17 @@
-import { useOrderEntry } from "@orderly.network/hooks";
 import { API, OrderSide, OrderType } from "@orderly.network/types";
-import React, { useState } from "react";
-import '.././../App.css';
+import React from "react";
+import ".././../App.css";
 import Account from "./account"; // Import the Account component
 
 interface MarketSectionProps {
-  symbol: string;
+  orderSide: OrderSide;
+  amountPrice: string;
+  symbolConfig: API.SymbolExt;
+  orderType: OrderType;
+  markPrice: number;
+  setAmountPrice: (x: string) => void;
+  setOrderSide: (x: OrderSide) => void;
+  setOrderType: (x: OrderType) => void;
 }
 
 const AmountInput = ({
@@ -45,7 +51,7 @@ const AmountInput = ({
             fontWeight: 400,
             font: "Sk-Modernist",
             color: "#4B4B4B",
-            textAlign: 'left'
+            textAlign: "left",
           }}
         >
           Order value
@@ -84,7 +90,7 @@ const AmountInput = ({
             fontWeight: 400,
             font: "Sk-Modernist",
             color: "#FF9900",
-        padding:"5%"
+            padding: "5%",
           }}
         >
           {orderSide === OrderSide.BUY
@@ -136,7 +142,7 @@ const OrderOverview = ({
             color: "#4B4B4B",
           }}
         >
-       BUY/LONG
+          BUY/LONG
         </div>
         <div
           style={{
@@ -265,20 +271,28 @@ const OrderOverview = ({
   );
 };
 
-const TradePanel: React.FC<MarketSectionProps> = ({ symbol }) => {
-  const [orderSide, setOrderSide] = useState<OrderSide>(OrderSide.BUY);
-  const [orderType, setOrderType] = useState<OrderType>(OrderType.MARKET);
-  const [amountPrice, setAmountPrice] = useState<string>("1000");
-  const { symbolConfig, markPrice } = useOrderEntry(
-    {
-      symbol: symbol,
-      side: orderSide,
-      order_type: orderType,
-    },
-    { watchOrderbook: true }
-  );
+const TradePanel: React.FC<MarketSectionProps> = ({
+  orderType,
+  orderSide,
+  amountPrice,
+  setOrderType,
+  setAmountPrice,
+  setOrderSide,
+  symbolConfig,
+  markPrice,
+}) => {
+  //   const [orderSide, setOrderSide] = useState<OrderSide>(OrderSide.BUY);
+  //   const [orderType, setOrderType] = useState<OrderType>(OrderType.MARKET);
+  //   const [amountPrice, setAmountPrice] = useState<string>("1000");
+  //   const { symbolConfig, markPrice } = useOrderEntry(
+  //     {
+  //       symbol: symbol,
+  //       side: orderSide,
+  //       order_type: orderType,
+  //     },
+  //     { watchOrderbook: true }
+  //   );
 
-  console.log(symbolConfig);
   return (
     <div
       style={{
@@ -310,7 +324,10 @@ const TradePanel: React.FC<MarketSectionProps> = ({ symbol }) => {
               key={type}
               onClick={() => setOrderType(type as OrderType)}
               style={{
-                border: orderType === type ? "1px solid #D4D4D4" : "1px solid #4B4B4B",
+                border:
+                  orderType === type
+                    ? "1px solid #D4D4D4"
+                    : "1px solid #4B4B4B",
                 width: "33.33%",
                 display: "flex",
                 justifyContent: "center",
@@ -411,7 +428,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({ symbol }) => {
           font: "Sk-Modernist",
           color: "#4B4B4B",
           marginTop: 6,
-          textAlign: 'left'
+          textAlign: "left",
         }}
       >
         {orderSide === OrderSide.BUY ? "You will get" : "This will cost"}
@@ -441,7 +458,6 @@ const TradePanel: React.FC<MarketSectionProps> = ({ symbol }) => {
         symbolConfig={symbolConfig}
         orderSide={orderSide}
       />
-
       <div
         style={{
           background: orderSide === OrderSide.SELL ? "#F07852" : "#40F388",

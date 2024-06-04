@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import { API, OrderSide, OrderType } from "@orderly.network/types";
 import React, { useState } from "react";
 import ".././../App.css";
 import Account from "./account"; // Import the Account component
+import { useOrderEntry } from "@orderly.network/hooks";
 
 interface MarketSectionProps {
   orderSide: OrderSide;
@@ -9,6 +12,7 @@ interface MarketSectionProps {
   symbolConfig: API.SymbolExt;
   orderType: OrderType;
   markPrice: number;
+  symbol: string;
   setAmountPrice: (x: string) => void;
   setOrderSide: (x: OrderSide) => void;
   setOrderType: (x: OrderType) => void;
@@ -37,7 +41,7 @@ const AmountInput = ({
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        marginTop:'10px',
+        marginTop: "10px",
       }}
     >
       <div
@@ -75,7 +79,7 @@ const AmountInput = ({
       </div>
       <div
         style={{
-fontFamily:'Sk-Modernist-Bold',
+          fontFamily: "Sk-Modernist-Bold",
           width: 50,
           display: "flex",
           justifyContent: "center",
@@ -90,8 +94,7 @@ fontFamily:'Sk-Modernist-Bold',
             fontSize: 16,
             font: "Sk-Modernist",
             color: "#FF9900",
-            marginTop:'10%'
-           
+            marginTop: "10%",
           }}
         >
           {orderSide === OrderSide.BUY
@@ -144,7 +147,7 @@ const OrderOverview = ({
             color: "#4B4B4B",
           }}
         >
-       Order Size
+          Order Size
         </div>
         <div
           style={{
@@ -252,7 +255,7 @@ const OrderOverview = ({
             color: "#4B4B4B",
           }}
         >
-        Fees:
+          Fees:
         </div>
         <div
           style={{
@@ -265,8 +268,8 @@ const OrderOverview = ({
           }}
         >
           {orderSide === OrderSide.BUY
-            ? parseInt(amountPrice) / markPrice
-            : markPrice * parseInt(amountPrice)}
+            ? parseFloat(amountPrice) / markPrice
+            : markPrice * parseFloat(amountPrice)}
         </div>
       </div>
     </div>
@@ -282,6 +285,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
   setOrderSide,
   symbolConfig,
   markPrice,
+  symbol,
 }) => {
   const [isBuy, setIsBuy] = useState(orderSide === OrderSide.BUY);
 
@@ -289,19 +293,31 @@ const TradePanel: React.FC<MarketSectionProps> = ({
     setOrderSide(side);
     setIsBuy(side === OrderSide.BUY);
   };
+  const {
+    helper: { calculate, validator },
+    onSubmit,
+  } = useOrderEntry(
+    {
+      symbol: symbol,
+      side: orderSide,
+      order_type: orderType,
+    },
+    { watchOrderbook: true }
+  );
+  const [processing, setIsProcessing] = useState(false);
 
   return (
     <div
       style={{
         display: "flex",
         height: "100%", // Reduced height
-        width: "100%",  // Reduced width
+        width: "100%", // Reduced width
         alignItems: "center",
         flexDirection: "column",
         padding: "24px 0px",
       }}
     >
-      <Account /> {/* Add the Account component here */}
+      <Account />
       <div
         style={{
           width: "100%",
@@ -371,7 +387,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             transition: "left 0.3s, background-color 0.3s",
             borderRadius: 8,
             border: isBuy ? "1px solid #40F388" : "1px solid #F35540",
-            alignItems:'center',
+            alignItems: "center",
           }}
         />
         <div
@@ -454,8 +470,8 @@ const TradePanel: React.FC<MarketSectionProps> = ({
         >
           {`  ≈ ${
             orderSide === OrderSide.BUY
-              ? parseInt(amountPrice) / markPrice
-              : markPrice * parseInt(amountPrice)
+              ? parseFloat(amountPrice) / markPrice
+              : markPrice * parseFloat(amountPrice)
           } ${
             orderSide === OrderSide.SELL
               ? symbolConfig?.quote
@@ -470,6 +486,34 @@ const TradePanel: React.FC<MarketSectionProps> = ({
         orderSide={orderSide}
       />
       <div
+        onClick={async () => {
+          if (!processing) {
+            setIsProcessing(true);
+            const newValue = calculate(
+              {
+                order_price:
+                  orderSide === OrderSide.BUY
+                    ? amountPrice
+                    : amountPrice * markPrice,
+                order_type: orderType,
+                side: orderSide,
+                symbol,
+              },
+              "order_quantity",
+              orderSide === OrderSide.BUY
+                ? parseFloat(amountPrice) / markPrice
+                : amountPrice
+            );
+            const errors = await validator(newValue);
+            try {
+              console.log("order placing", errors, newValue);
+              await onSubmit(newValue);
+              setIsProcessing(false);
+            } catch (error) {
+              setIsProcessing(false);
+            }
+          }
+        }}
         style={{
           background: orderSide === OrderSide.SELL ? "#F07852" : "#40F388",
           border: !isBuy ? "1px solid #FF0A0A" : "none",
@@ -480,8 +524,8 @@ const TradePanel: React.FC<MarketSectionProps> = ({
           borderRadius: 8,
           height: "55px",
           marginTop: 20,
+          cursor: "pointer",
         }}
-        // onClick={async () => await onSubmit()}
       >
         <div
           style={{
@@ -491,7 +535,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             color: "black",
           }}
         >
-          {orderSide} {symbolConfig?.base}
+          {processing ? "Executing..." : `${orderSide} ${symbolConfig?.base}`}
         </div>
       </div>
     </div>

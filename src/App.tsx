@@ -6,7 +6,7 @@ import Footer from "./components/ui/footer"; // Add this import
 // import TradingView from "./components/ui/tradingview";
 import { RainbowKitProvider, darkTheme } from "@rainbow-me/rainbowkit";
 import { WagmiProvider, useAccount } from "wagmi";
-import Portfolio from "./components/ui/portfolio";
+// import Portfolio from "./components/ui/portfolio";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { config } from "./config";
 import PriceBar from "./components/PriceBar";
@@ -21,7 +21,7 @@ function App() {
   const account = useAccount({ config });
 
   return (
-    <OrderlyConfigProvider brokerId={BROKER_ID} networkId="testnet">
+    <OrderlyConfigProvider brokerId={BROKER_ID} networkId="mainnet">
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
           <RainbowKitProvider
@@ -37,7 +37,6 @@ function App() {
               <div className="flex flex-col overflow-hidden">
                 <NavBar />
                 <PriceBar />
-
                 <MarketSection accountInfo={account} />
                 <Footer />
               </div>

@@ -51,8 +51,6 @@ const WalletConnectButton: React.FC<WalletConnectButtonProps> = () => {
                     openConnectModal,
                     authenticationStatus,
                     mounted,
-
-
                 }) => {
                     // Note: If your app doesn't use authentication, you
                     // can remove all 'authenticationStatus' checks
@@ -90,7 +88,7 @@ const WalletConnectButton: React.FC<WalletConnectButtonProps> = () => {
                                     );
                                 }
                                 return (
-                                    <div style={{ display: 'flex', gap: 12 }}>
+                                    <div style={{ backgroundColor: '#1e1e1e', fontFamily: 'Sk-Modernist-Bold', padding: '10px', borderRadius: '8px', display: 'flex', gap: '12px' }}>
                                         <button
                                             onClick={openChainModal}
                                             style={{ display: 'flex', alignItems: 'center' }}
@@ -101,8 +99,8 @@ const WalletConnectButton: React.FC<WalletConnectButtonProps> = () => {
                                                 <div
                                                     style={{
                                                         background: chain.iconBackground,
-                                                        width: 38,
-                                                        height: 38,
+                                                        width: 24,
+                                                        height: 24,
                                                         borderRadius: 999,
                                                         overflow: 'hidden',
                                                         marginRight: 0,
@@ -112,18 +110,18 @@ const WalletConnectButton: React.FC<WalletConnectButtonProps> = () => {
                                                         <img
                                                             alt={chain.name ?? 'Chain icon'}
                                                             src={chain.iconUrl}
-                                                            style={{ width: 38, height: 38 }}
+                                                            style={{ width: 24, height: 24}}
                                                         />
                                                     )}
                                                 </div>
                                             )}
                                             {/* {chain.name} */}
                                         </button>
-                                        <button title='Click to view address' onClick={openAccountModal} type="button" className='bg-gray-700 border-2 border-black text-white rounded-md px-3 py-1 shadow-xl  shadow-black/20 hover:bg-gray-800'>
+                                        <button title='Click to view address' onClick={openAccountModal} type="button" className='text-white rounded-md shadow-xl  shadow-black/20 hover:bg-gray-800'>
                                             {account.displayName}
                                             {/* {account.displayBalance
-                      ? ` ${account.displayBalance}`
-                      : ''} */}
+                                                ? ` ${account.displayBalance}`
+                                                : ''} */}
                                         </button>
                                     </div>
                                 );

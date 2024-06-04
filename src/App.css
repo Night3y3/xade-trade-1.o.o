@@ -242,3 +242,9 @@
     overflow-y: auto; /* Add this line to make the modal scrollable */
   }
 }
+
+@media (min-width: 769px) {
+  .trade-toggle-button {
+    display: none;
+  }
+}

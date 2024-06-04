@@ -105,9 +105,8 @@ const Account = () => {
     srcToken: token?.symbol,
     srcChainId: Number(CHAIN_ID),
   });
-  // const { unsettledPnL } = useWithdraw();
-  // console.log("deposit.....", deposit);
   const [depositAmount, setDepositAmount] = useState<string>("100");
+
   const renderStages = () => {
     switch (showStage) {
       case "account":
@@ -156,6 +155,7 @@ const Account = () => {
         );
     }
   };
+
   return (
     <div
       style={{
@@ -199,9 +199,11 @@ const Account = () => {
             fontWeight: 500,
             color: "#959595",
           }}
-          onClick={() => setShowStage("deposit")}
+          onClick={() =>
+            setShowStage((prevStage) => (prevStage === "deposit" ? "account" : "deposit"))
+          }
         >
-          Deposit
+          {showStage === "deposit" ? "Close" : "Deposit"}
         </button>
       </div>
       {renderStages()}

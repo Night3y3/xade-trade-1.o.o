@@ -41,12 +41,14 @@ const NavBar = ({ center, customID }: NavBarProps) => {
     const [selected, setSelected] = useState<string>(tabs[0])
     const isMobile = window.innerWidth <= 768
 
+    const visibleTabs = isMobile ? ['Leaderboard'] : tabs
+
     return (
         <div className={`navbar ${center ? 'justify-center' : ''}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div className="navbar-content" style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
                 <img src={logo} alt="Logo" className="navbar-logo" style={{ marginRight: '40px' }} />
                 <div className="tabs" style={{ display: isMobile ? 'none' : 'flex', gap: '16px', flex: 1, justifyContent: 'center' }}>
-                    {tabs.map((tab) => (
+                    {visibleTabs.map((tab) => (
                         <Tab
                             text={tab}
                             selected={selected === tab}

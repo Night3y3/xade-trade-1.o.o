@@ -11,7 +11,7 @@ import {
 import TradePanel from "./ui/TradePanel";
 import OrderBook from "./ui/orderbook";
 import TradingView from "./ui/tradingview";
-import Portfolio from "./ui/portfolio"; // Import the Portfolio component
+
 
 interface MarketSectionProps {
   accountInfo: UseAccountReturnType;

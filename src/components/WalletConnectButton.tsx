@@ -77,8 +77,8 @@ const WalletConnectButton: React.FC<WalletConnectButtonProps> = () => {
                             {(() => {
                                 if (!connected) {
                                     return (
-                                        <button onClick={openConnectModal} type="button" className='bg-white border-2 border-black text-black rounded-lg px-6 py-2 font-bold shadow-xl  shadow-black/30 hover:bg-gray-700 w'>
-                                            Connect Wallet
+                                        <button onClick={openConnectModal} type="button" className='bg-white border-2 border-black text-black rounded-lg px-8 py-1.5 font-bold shadow-xl  shadow-black/30 hover:bg-gray-700 w'>
+                                            Connect
                                         </button>
                                     );
                                 }

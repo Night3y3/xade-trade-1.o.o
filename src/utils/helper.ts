@@ -5,7 +5,7 @@ export function parseString(input: string): string | null {
 }
 
 export function change24hour(open: number, close: number): number {
-  return parseFloat(((close - open) / open).toFixed(5));
+  return parseFloat(((close - open)).toFixed(5));
 }
 
 export function change24hourPercent(open: number, close: number): number {

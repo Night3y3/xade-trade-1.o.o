@@ -94,8 +94,8 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
           display: "flex",
           height: "100%",
           width: "20%",
-          background: "#171717",
-          // padding: 24,
+          background: "#000",
+          borderLeft: "solid #4B4B4B 1px",
         }}
       >
         <TradePanel symbol="PERP_ETH_USDC" />

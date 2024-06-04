@@ -1,11 +1,13 @@
 import { useOrderEntry } from "@orderly.network/hooks";
 import { API, OrderSide, OrderType } from "@orderly.network/types";
 import React, { useState } from "react";
+import '.././../App.css';
+import Account from "./account"; // Import the Account component
 
 interface MarketSectionProps {
-  // Define prop types here
   symbol: string;
 }
+
 const AmountInput = ({
   orderSide,
   symbolConfig,
@@ -22,7 +24,8 @@ const AmountInput = ({
       style={{
         width: "90%",
         borderRadius: 12,
-        background: "#1E1E1E",
+        background: "#000",
+        border: "1px solid #4B4B4B",
         height: "64px",
         padding: 8,
         display: "flex",
@@ -42,6 +45,7 @@ const AmountInput = ({
             fontWeight: 400,
             font: "Sk-Modernist",
             color: "#4B4B4B",
+            textAlign: 'left'
           }}
         >
           Order value
@@ -70,7 +74,7 @@ const AmountInput = ({
           justifyContent: "center",
           alignItems: "center",
           borderRadius: 8,
-          height: "24px",
+          height: "28px",
           marginLeft: "8px",
         }}
       >
@@ -80,6 +84,7 @@ const AmountInput = ({
             fontWeight: 400,
             font: "Sk-Modernist",
             color: "#FF9900",
+        padding:"5%"
           }}
         >
           {orderSide === OrderSide.BUY
@@ -90,6 +95,7 @@ const AmountInput = ({
     </div>
   );
 };
+
 const OrderOverview = ({
   orderSide,
   symbolConfig,
@@ -108,8 +114,8 @@ const OrderOverview = ({
         padding: 8,
         borderRadius: "12px",
         width: "90%",
-        marginTop: 24,
-        marginBottom: 24,
+        marginTop: "24px",
+        marginBottom: "24px",
       }}
     >
       <div
@@ -117,7 +123,6 @@ const OrderOverview = ({
           display: "flex",
           flexDirection: "row",
           width: "100%",
-          justifyContent: "space-between",
           margin: "6px 0px",
         }}
       >
@@ -131,7 +136,7 @@ const OrderOverview = ({
             color: "#4B4B4B",
           }}
         >
-          You’re buying:
+       BUY/LONG
         </div>
         <div
           style={{
@@ -259,16 +264,16 @@ const OrderOverview = ({
     </div>
   );
 };
+
 const TradePanel: React.FC<MarketSectionProps> = ({ symbol }) => {
-  // Component logic using props
-  // console.log(state, accountInfo);
   const [orderSide, setOrderSide] = useState<OrderSide>(OrderSide.BUY);
+  const [orderType, setOrderType] = useState<OrderType>(OrderType.MARKET);
   const [amountPrice, setAmountPrice] = useState<string>("1000");
   const { symbolConfig, markPrice } = useOrderEntry(
     {
       symbol: symbol,
       side: orderSide,
-      order_type: OrderType.MARKET,
+      order_type: orderType,
     },
     { watchOrderbook: true }
   );
@@ -285,6 +290,112 @@ const TradePanel: React.FC<MarketSectionProps> = ({ symbol }) => {
         padding: "24px 0px",
       }}
     >
+      <Account /> {/* Add the Account component here */}
+      <div
+        style={{
+          width: "100%",
+          padding: "0px 0px",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            width: "100%",
+            justifyContent: "space-between",
+            padding: "10px 0px", // Added horizontal padding
+          }}
+        >
+          {["Market", "Limit", "Stop"].map((type) => (
+            <div
+              key={type}
+              onClick={() => setOrderType(type as OrderType)}
+              style={{
+                border: orderType === type ? "1px solid #D4D4D4" : "1px solid #4B4B4B",
+                width: "33.33%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "46px",
+                cursor: "pointer",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "12px",
+                  fontWeight: 400,
+                  font: "Sk-Modernist",
+                  color: orderType === type ? "#D4D4D4" : "#4B4B4B",
+                }}
+              >
+                {type}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          justifyContent: "space-between",
+          padding: "10px 24px",
+        }}
+      >
+        <div
+          onClick={() => setOrderSide(OrderSide.BUY)}
+          style={{
+            border:
+              orderSide === OrderSide.BUY
+                ? "1px solid #40F388"
+                : "1px solid #4B4B4B",
+            width: "48%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 8,
+            height: "46px",
+            cursor: "pointer",
+          }}
+        >
+          <div
+            style={{
+              fontSize: "12px",
+              fontWeight: 400,
+              font: "Sk-Modernist",
+              color: orderSide === OrderSide.BUY ? "#40F388" : "#4B4B4B",
+            }}
+          >
+            BUY/LONG
+          </div>
+        </div>
+        <div
+          onClick={() => setOrderSide(OrderSide.SELL)}
+          style={{
+            border:
+              orderSide === OrderSide.SELL
+                ? "1px solid #FF0A0A"
+                : "1px solid #4B4B4B",
+            width: "48%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 8,
+            height: "46px",
+            cursor: "pointer",
+          }}
+        >
+          <div
+            style={{
+              fontSize: "12px",
+              fontWeight: 400,
+              font: "Sk-Modernist",
+              color: orderSide === OrderSide.SELL ? "#FF0A0A" : "#4B4B4B",
+            }}
+          >
+            SELL/SHORT
+          </div>
+        </div>
+      </div>
       <AmountInput
         symbolConfig={symbolConfig}
         setAmountPrice={setAmountPrice}
@@ -300,6 +411,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({ symbol }) => {
           font: "Sk-Modernist",
           color: "#4B4B4B",
           marginTop: 6,
+          textAlign: 'left'
         }}
       >
         {orderSide === OrderSide.BUY ? "You will get" : "This will cost"}
@@ -329,72 +441,10 @@ const TradePanel: React.FC<MarketSectionProps> = ({ symbol }) => {
         symbolConfig={symbolConfig}
         orderSide={orderSide}
       />
+
       <div
         style={{
-          display: "flex",
-          width: "100%",
-          justifyContent: "space-between",
-          padding: "0px 24px",
-        }}
-      >
-        <div
-          onClick={() => setOrderSide(OrderSide.BUY)}
-          style={{
-            border:
-              orderSide === OrderSide.BUY
-                ? "1px solid #C7F052"
-                : "1px solid #4B4B4B",
-            width: "48%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            borderRadius: 8,
-            height: "46px",
-            cursor: "pointer",
-          }}
-        >
-          <div
-            style={{
-              fontSize: "12px",
-              fontWeight: 400,
-              font: "Sk-Modernist",
-              color: orderSide === OrderSide.BUY ? "#C7F052" : "#4B4B4B",
-            }}
-          >
-            You’re buying
-          </div>
-        </div>
-        <div
-          onClick={() => setOrderSide(OrderSide.SELL)}
-          style={{
-            border:
-              orderSide === OrderSide.SELL
-                ? "1px solid #C7F052"
-                : "1px solid #4B4B4B",
-            width: "48%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            borderRadius: 8,
-            height: "46px",
-            cursor: "pointer",
-          }}
-        >
-          <div
-            style={{
-              fontSize: "12px",
-              fontWeight: 400,
-              font: "Sk-Modernist",
-              color: orderSide === OrderSide.SELL ? "#C7F052" : "#4B4B4B",
-            }}
-          >
-            You’re selling
-          </div>
-        </div>
-      </div>
-      <div
-        style={{
-          background: "#C7F052",
+          background: orderSide === OrderSide.SELL ? "#F07852" : "#40F388",
           width: "90%",
           display: "flex",
           justifyContent: "center",

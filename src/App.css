@@ -205,12 +205,13 @@
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    padding: 10px 20px;
+    width: 90%; /* Add this line to set the width */
+    padding: 15px 20px;
     font-size: 1rem;
-    background-color: #007bff;
-    color: white;
+    background-color: #fff;
+    color: black;
     border: none;
-    border-radius: 5px;
+    border-radius: 30px; /* Add 'px' to the border-radius value */
     cursor: pointer;
     z-index: 1000;
   }

@@ -20,7 +20,7 @@ const queryClient = new QueryClient();
 function App() {
   const account = useAccount({ config });
   return (
-    <OrderlyConfigProvider brokerId={BROKER_ID} networkId="testnet">
+    <OrderlyConfigProvider brokerId={BROKER_ID} networkId={"testnet"}>
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
           <RainbowKitProvider

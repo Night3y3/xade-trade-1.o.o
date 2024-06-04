@@ -106,7 +106,7 @@ const Account = () => {
     srcChainId: Number(CHAIN_ID),
   });
   // const { unsettledPnL } = useWithdraw();
-  console.log("deposit.....", deposit);
+  // console.log("deposit.....", deposit);
   const [depositAmount, setDepositAmount] = useState<string>("100");
   const renderStages = () => {
     switch (showStage) {

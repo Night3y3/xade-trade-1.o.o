@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAccount } from "@orderly.network/hooks";
 import { UseAccountReturnType } from "wagmi";
-import { CHAIN_ID_Hex } from "@/utils/constantValues";
+import { CHAIN_ID } from "@/utils/constantValues";
 import { useOrderEntry } from "@orderly.network/hooks";
 import {
   AccountStatusEnum,
@@ -10,13 +10,11 @@ import {
 } from "@orderly.network/types";
 import TradePanel from "./ui/TradePanel";
 import OrderBook from "./ui/orderbook";
+import TradingView from "./ui/tradingview";
 
 interface MarketSectionProps {
-  // Define prop types here
   accountInfo: UseAccountReturnType;
 }
-
-// const percentTabs = ["0%", "25%", "50%", "75%", "MAX"];
 
 const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
   const [initialized, setInitialized] = useState(false);
@@ -33,18 +31,20 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
     },
     { watchOrderbook: true }
   );
+
   useEffect(() => {
     const initialUserAccountSetup = async () => {
       if (accountInfo.address && accountInfo.isConnected && !onProcess) {
         setOnProcess(true);
-        await account.setAddress(accountInfo.address, {
-          provider: window.ethereum,
+        account.setAddress(accountInfo.address, {
+          provider: window?.ethereum,
           chain: {
-            id: CHAIN_ID_Hex,
+            id: CHAIN_ID,
           },
         });
         setOnProcess(false);
         setInitialized(true);
+        console.log("account info!!!!", state);
       }
     };
     initialUserAccountSetup();
@@ -52,7 +52,7 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
 
   useEffect(() => {
     const accountCheck = async () => {
-      console.log(state);
+      console.log(initialized, !state.accountId);
       if (initialized && !state.accountId && !onProcess) {
         setOnProcess(true);
         await account.createAccount();
@@ -67,43 +67,17 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
       }
     };
     accountCheck();
-  }, [initialized]);
+  }, [account, state]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        height: "100vh",
-        width: "100%",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          height: "100%",
-          width: "60%",
-        }}
-      >
-        {/* / trading view here/ */}
+    <div className="market-section">
+      <div className="tradingview-container">
+        <TradingView />
       </div>
-      <div
-        style={{
-          display: "flex",
-          height: "100%",
-          width: "20%",
-        }}
-      >
+      <div className="orderbook-container">
         <OrderBook symbolConfig={symbolConfig} symbol="PERP_ETH_USDC" />
       </div>
-      <div
-        style={{
-          display: "flex",
-          height: "100%",
-          width: "20%",
-          background: "#000",
-          borderLeft: "solid #4B4B4B 1px",
-        }}
-      >
+      <div className="tradepanel-container">
         <TradePanel
           setAmountPrice={setAmountPrice}
           setOrderSide={setOrderSide}

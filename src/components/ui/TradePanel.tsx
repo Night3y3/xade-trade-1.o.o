@@ -1,10 +1,7 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
 import { API, OrderSide, OrderType } from "@orderly.network/types";
-import React, { useState } from "react";
+import React from "react";
 import ".././../App.css";
 import Account from "./account"; // Import the Account component
-import { useOrderEntry } from "@orderly.network/hooks";
 
 interface MarketSectionProps {
   orderSide: OrderSide;
@@ -12,7 +9,6 @@ interface MarketSectionProps {
   symbolConfig: API.SymbolExt;
   orderType: OrderType;
   markPrice: number;
-  symbol: string;
   setAmountPrice: (x: string) => void;
   setOrderSide: (x: OrderSide) => void;
   setOrderType: (x: OrderType) => void;
@@ -268,8 +264,8 @@ const OrderOverview = ({
           }}
         >
           {orderSide === OrderSide.BUY
-            ? parseFloat(amountPrice) / markPrice
-            : markPrice * parseFloat(amountPrice)}
+            ? parseInt(amountPrice) / markPrice
+            : markPrice * parseInt(amountPrice)}
         </div>
       </div>
     </div>
@@ -285,20 +281,18 @@ const TradePanel: React.FC<MarketSectionProps> = ({
   setOrderSide,
   symbolConfig,
   markPrice,
-  symbol,
 }) => {
-  const {
-    helper: { calculate, validator },
-    onSubmit,
-  } = useOrderEntry(
-    {
-      symbol: symbol,
-      side: orderSide,
-      order_type: orderType,
-    },
-    { watchOrderbook: true }
-  );
-  const [processing, setIsProcessing] = useState(false);
+  //   const [orderSide, setOrderSide] = useState<OrderSide>(OrderSide.BUY);
+  //   const [orderType, setOrderType] = useState<OrderType>(OrderType.MARKET);
+  //   const [amountPrice, setAmountPrice] = useState<string>("1000");
+  //   const { symbolConfig, markPrice } = useOrderEntry(
+  //     {
+  //       symbol: symbol,
+  //       side: orderSide,
+  //       order_type: orderType,
+  //     },
+  //     { watchOrderbook: true }
+  //   );
 
   return (
     <div
@@ -311,7 +305,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
         padding: "24px 0px",
       }}
     >
-      <Account />
+      <Account /> {/* Add the Account component here */}
       <div
         style={{
           width: "100%",
@@ -452,8 +446,8 @@ const TradePanel: React.FC<MarketSectionProps> = ({
         >
           {`  ≈ ${
             orderSide === OrderSide.BUY
-              ? parseFloat(amountPrice) / markPrice
-              : markPrice * parseFloat(amountPrice)
+              ? parseInt(amountPrice) / markPrice
+              : markPrice * parseInt(amountPrice)
           } ${
             orderSide === OrderSide.SELL
               ? symbolConfig?.quote
@@ -468,34 +462,6 @@ const TradePanel: React.FC<MarketSectionProps> = ({
         orderSide={orderSide}
       />
       <div
-        onClick={async () => {
-          if (!processing) {
-            setIsProcessing(true);
-            const newValue = calculate(
-              {
-                order_price:
-                  orderSide === OrderSide.BUY
-                    ? amountPrice
-                    : amountPrice * markPrice,
-                order_type: orderType,
-                side: orderSide,
-                symbol,
-              },
-              "order_quantity",
-              orderSide === OrderSide.BUY
-                ? parseFloat(amountPrice) / markPrice
-                : amountPrice
-            );
-            const errors = await validator(newValue);
-            try {
-              console.log("order placing", errors, newValue);
-              await onSubmit(newValue);
-              setIsProcessing(false);
-            } catch (error) {
-              setIsProcessing(false);
-            }
-          }
-        }}
         style={{
           background: orderSide === OrderSide.SELL ? "#F07852" : "#40F388",
           width: "90%",
@@ -505,8 +471,8 @@ const TradePanel: React.FC<MarketSectionProps> = ({
           borderRadius: 8,
           height: "55px",
           marginTop: 20,
-          cursor: "pointer",
         }}
+        // onClick={async () => await onSubmit()}
       >
         <div
           style={{
@@ -516,7 +482,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             color: "black",
           }}
         >
-          {processing ? "Executing..." : `${orderSide} ${symbolConfig?.base}`}
+          {orderSide} {symbolConfig?.base}
         </div>
       </div>
     </div>

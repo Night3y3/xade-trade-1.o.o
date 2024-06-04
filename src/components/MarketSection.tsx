@@ -12,7 +12,6 @@ import TradePanel from "./ui/TradePanel";
 import OrderBook from "./ui/orderbook";
 import TradingView from "./ui/tradingview";
 
-
 interface MarketSectionProps {
   accountInfo: UseAccountReturnType;
 }
@@ -79,8 +78,16 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
       <div className="orderbook-container">
         <OrderBook symbolConfig={symbolConfig} symbol="PERP_ETH_USDC" />
       </div>
-      <div className={`tradepanel-container ${showTradePanel ? 'visible' : 'hidden'}`} onClick={() => setShowTradePanel(false)}>
-        <div className="tradepanel-content" onClick={(e) => e.stopPropagation()}>
+      <div
+        className={`tradepanel-container ${
+          showTradePanel ? "visible" : "hidden"
+        }`}
+        onClick={() => setShowTradePanel(false)}
+      >
+        <div
+          className="tradepanel-content"
+          onClick={(e) => e.stopPropagation()}
+        >
           <TradePanel
             setAmountPrice={setAmountPrice}
             setOrderSide={setOrderSide}
@@ -93,7 +100,10 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
           />
         </div>
       </div>
-      <button className="trade-toggle-button" onClick={() => setShowTradePanel(!showTradePanel)}>
+      <button
+        className="trade-toggle-button"
+        onClick={() => setShowTradePanel(!showTradePanel)}
+      >
         Trade
       </button>
     </div>

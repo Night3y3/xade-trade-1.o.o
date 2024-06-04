@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import Portfolio from './portfolio';
+import React from "react";
+import styled from "styled-components";
+import Portfolio from "./portfolio";
 
 const Container = styled.div`
   height: 100%;

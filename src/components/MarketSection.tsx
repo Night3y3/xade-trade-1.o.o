@@ -24,6 +24,7 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
   const [orderSide, setOrderSide] = useState<OrderSide>(OrderSide.BUY);
   const [orderType, setOrderType] = useState<OrderType>(OrderType.MARKET);
   const [amountPrice, setAmountPrice] = useState<string>("1000");
+  const [showTradePanel, setShowTradePanel] = useState(false); // Add state
   const { symbolConfig, markPrice } = useOrderEntry(
     {
       symbol: "PERP_ETH_USDC",
@@ -78,22 +79,25 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
       <div className="orderbook-container">
         <OrderBook symbolConfig={symbolConfig} symbol="PERP_ETH_USDC" />
       </div>
-
-      <div className="tradepanel-container">
-        <TradePanel
-          setAmountPrice={setAmountPrice}
-          setOrderSide={setOrderSide}
-          setOrderType={setOrderType}
-          symbolConfig={symbolConfig}
-          markPrice={markPrice}
-          orderType={orderType}
-          orderSide={orderSide}
-          amountPrice={amountPrice}
-        />
+      <div className={`tradepanel-container ${showTradePanel ? 'visible' : 'hidden'}`} onClick={() => setShowTradePanel(false)}>
+        <div className="tradepanel-content" onClick={(e) => e.stopPropagation()}>
+          <TradePanel
+            setAmountPrice={setAmountPrice}
+            setOrderSide={setOrderSide}
+            setOrderType={setOrderType}
+            symbolConfig={symbolConfig}
+            markPrice={markPrice}
+            orderType={orderType}
+            orderSide={orderSide}
+            amountPrice={amountPrice}
+          />
+        </div>
       </div>
+      <button className="trade-toggle-button" onClick={() => setShowTradePanel(!showTradePanel)}>
+        Trade
+      </button>
     </div>
   );
 };
 
 export default MarketSection;
-

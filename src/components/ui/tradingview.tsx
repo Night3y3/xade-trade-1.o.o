@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Portfolio from './portfolio';
 
 const Container = styled.div`
-  height: 80vh;
+  height: 100%;
   width: 100%;
   background-color: red;
   display: flex;

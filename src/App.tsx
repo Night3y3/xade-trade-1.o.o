@@ -2,7 +2,7 @@ import "./polyfills";
 import "./index.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import NavBar from "./components/NavBar";
-
+import Footer from "./components/ui/footer"; // Add this import
 import { RainbowKitProvider, darkTheme } from "@rainbow-me/rainbowkit";
 import { WagmiProvider, useAccount } from "wagmi";
 import Portfolio from "./components/ui/portfolio";
@@ -38,6 +38,7 @@ function App() {
                 <PriceBar />
 
                 <MarketSection accountInfo={account} />
+                <Footer />
               </div>
             </ThemeProvider>
           </RainbowKitProvider>

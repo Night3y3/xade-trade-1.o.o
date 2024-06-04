@@ -13,6 +13,7 @@ import {
   OrderType,
 } from "@orderly.network/types";
 import TradePanel from "./ui/TradePanel";
+import OrderBook from "./ui/orderbook";
 
 interface MarketSectionProps {
   // Define prop types here
@@ -99,7 +100,7 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
           width: "20%",
         }}
       >
-        {/* / portfolio here/ */}
+        <OrderBook symbolConfig={symbolConfig} symbol="PERP_ETH_USDC" />
       </div>
       <div
         style={{

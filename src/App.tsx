@@ -2,7 +2,7 @@ import "./polyfills";
 import "./index.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import NavBar from "./components/NavBar";
-import TradingView from "./components/ui/tradingview";
+// import TradingView from "./components/ui/tradingview";
 import { RainbowKitProvider, darkTheme } from "@rainbow-me/rainbowkit";
 import { WagmiProvider, useAccount } from "wagmi";
 
@@ -20,7 +20,7 @@ function App() {
   const account = useAccount({ config });
 
   return (
-    <OrderlyConfigProvider brokerId={BROKER_ID} networkId="testnet">
+    <OrderlyConfigProvider brokerId={BROKER_ID} networkId="mainnet">
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
           <RainbowKitProvider
@@ -36,7 +36,6 @@ function App() {
               <div className="flex flex-col overflow-hidden">
                 <NavBar />
                 <PriceBar />
-
                 <MarketSection accountInfo={account} />
               </div>
             </ThemeProvider>

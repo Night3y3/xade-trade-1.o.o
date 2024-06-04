@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAccount } from "@orderly.network/hooks";
 import { UseAccountReturnType } from "wagmi";
-import { CHAIN_ID } from "@/utils/constantValues";
+import { CHAIN_ID_Hex1 } from "@/utils/constantValues";
 import { useOrderEntry } from "@orderly.network/hooks";
 import {
   AccountStatusEnum,
@@ -11,6 +11,8 @@ import {
 import TradePanel from "./ui/TradePanel";
 import OrderBook from "./ui/orderbook";
 import TradingView from "./ui/tradingview";
+// import { config } from "@/config";
+// import { ethers } from "ethers";
 
 interface MarketSectionProps {
   accountInfo: UseAccountReturnType;
@@ -23,6 +25,7 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
   const [orderSide, setOrderSide] = useState<OrderSide>(OrderSide.BUY);
   const [orderType, setOrderType] = useState<OrderType>(OrderType.MARKET);
   const [amountPrice, setAmountPrice] = useState<string>("1000");
+
   const { symbolConfig, markPrice } = useOrderEntry(
     {
       symbol: "PERP_ETH_USDC",
@@ -36,15 +39,16 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
     const initialUserAccountSetup = async () => {
       if (accountInfo.address && accountInfo.isConnected && !onProcess) {
         setOnProcess(true);
-        account.setAddress(accountInfo.address, {
-          provider: window?.ethereum,
+
+        await account.setAddress(accountInfo.address, {
+          provider: window.ethereum,
           chain: {
-            id: CHAIN_ID,
+            id: CHAIN_ID_Hex1,
           },
         });
         setOnProcess(false);
         setInitialized(true);
-        console.log("account info!!!!", state);
+        console.log("account info!!!!", window?.ethereum, account);
       }
     };
     initialUserAccountSetup();
@@ -87,6 +91,7 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
           orderType={orderType}
           orderSide={orderSide}
           amountPrice={amountPrice}
+          symbol="PERP_ETH_USDC"
         />
       </div>
     </div>

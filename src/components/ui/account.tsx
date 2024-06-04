@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CHAIN_ID } from "@/utils/constantValues";
-import { useChains, useDeposit } from "@orderly.network/hooks";
+import { CHAIN_ID_1 } from "@/utils/constantValues";
+import {
+  useChains,
+  useCollateral,
+  useDeposit,
+  useLeverage,
+  useMarginRatio,
+} from "@orderly.network/hooks";
 import { API } from "@orderly.network/types";
 import React, { useMemo, useState } from "react";
 import { useAccount } from "wagmi";
@@ -64,6 +70,16 @@ const DepositFlow = ({
         </div>
       </div>
       <div
+        onClick={async () => {
+          if (parseFloat(depositAmount) == null) return;
+          if (Number(deposit.allowance) < Number(depositAmount)) {
+            await deposit.approve(depositAmount);
+          } else {
+            deposit.setQuantity(depositAmount);
+            console.log("here....", parseInt(depositAmount));
+            await deposit.deposit();
+          }
+        }}
         style={{
           background: "#1B1B1B",
           border: "solid 1px #FF9900",
@@ -87,26 +103,29 @@ const DepositFlow = ({
 
 const Account = () => {
   const { isConnected } = useAccount();
+
   const [showStage, setShowStage] = useState<string>(
     isConnected ? "account" : "deposit"
   );
-  const [chains] = useChains("testnet", {
+  const [chains] = useChains("mainnet", {
     filter: (item: API.Chain) =>
-      item.network_infos?.chain_id === Number(CHAIN_ID),
+      item.network_infos?.chain_id === Number(CHAIN_ID_1),
   });
 
   const token = useMemo(() => {
     return Array.isArray(chains) ? chains[0].token_infos[0] : undefined;
   }, [chains]);
-
   const deposit = useDeposit({
     address: token?.address,
     decimals: token?.decimals,
     srcToken: token?.symbol,
-    srcChainId: Number(CHAIN_ID),
+    srcChainId: parseInt(CHAIN_ID_1),
   });
   // const { unsettledPnL } = useWithdraw();
-  // console.log("deposit.....", deposit);
+  const collateral = useCollateral();
+  const [maxLeverage, { update, config: leverageLevers, isMutating }] =
+    useLeverage();
+  const { currentLeverage } = useMarginRatio();
   const [depositAmount, setDepositAmount] = useState<string>("100");
   const renderStages = () => {
     switch (showStage) {
@@ -121,7 +140,9 @@ const Account = () => {
               }}
             >
               <div style={{ color: "#4B4B4B", fontSize: 14 }}>Buying Power</div>
-              <div style={{ color: "#D4D4D4", fontSize: 14 }}>$10,000</div>
+              <div style={{ color: "#D4D4D4", fontSize: 14 }}>
+                ${deposit.balance}
+              </div>
             </div>
             <div
               style={{
@@ -142,7 +163,9 @@ const Account = () => {
               }}
             >
               <div style={{ color: "#4B4B4B", fontSize: 14 }}>Leverage</div>
-              <div style={{ color: "#D4D4D4", fontSize: 14 }}>10x</div>
+              <div style={{ color: "#D4D4D4", fontSize: 14 }}>
+                {currentLeverage}x
+              </div>
             </div>
           </div>
         );

@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  width: 40%;
   height: 80vh;
+  width:100%;
   background-color: red;
   align-self: flex-start;
   margin-right: 0;

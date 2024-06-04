@@ -159,16 +159,15 @@
   width: 100%;
 }
 
-.tradingview-container
-{
+.tradingview-container {
   display: flex;
   height: 100%;
-  width: 50%;
+  width: 60%; /* Remaining space */
   margin: 0;
   padding: 0;
 }
-.orderbook-container,
-.tradepanel-container {
+
+.orderbook-container {
   display: flex;
   height: 100%;
   width: 20%;
@@ -177,10 +176,14 @@
 }
 
 .tradepanel-container {
+  display: flex;
+  height: 100%;
+  width: 20%;
   background: #000;
   border-left: solid #4b4b4b 1px;
+  margin: 0;
+  padding: 0;
 }
-
 @media (max-width: 768px) {
   .market-section {
     flex-direction: column;

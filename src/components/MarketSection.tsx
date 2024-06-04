@@ -11,6 +11,7 @@ import {
 import TradePanel from "./ui/TradePanel";
 import OrderBook from "./ui/orderbook";
 import TradingView from "./ui/tradingview";
+import Portfolio from "./ui/portfolio"; // Import the Portfolio component
 
 interface MarketSectionProps {
   accountInfo: UseAccountReturnType;
@@ -77,6 +78,7 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
       <div className="orderbook-container">
         <OrderBook symbolConfig={symbolConfig} symbol="PERP_ETH_USDC" />
       </div>
+
       <div className="tradepanel-container">
         <TradePanel
           setAmountPrice={setAmountPrice}
@@ -94,3 +96,4 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
 };
 
 export default MarketSection;
+

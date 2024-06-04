@@ -2,10 +2,10 @@ import "./polyfills";
 import "./index.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import NavBar from "./components/NavBar";
-import TradingView from "./components/ui/tradingview";
+
 import { RainbowKitProvider, darkTheme } from "@rainbow-me/rainbowkit";
 import { WagmiProvider, useAccount } from "wagmi";
-
+import Portfolio from "./components/ui/portfolio";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { config } from "./config";
 import PriceBar from "./components/PriceBar";

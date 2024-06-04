@@ -1,12 +1,12 @@
 @font-face {
     font-family: 'Sk-Modernist-Regular';
-    src: url('/public/fonts/Sk-Modernist-Regular.otf');
+    src: url('/fonts/Sk-Modernist-Regular.otf');
    
 }
 
 @font-face {
     font-family: 'Sk-Modernist-Bold';
-    src: url('/public/fonts/Sk-Modernist-Bold.otf') ;
+    src: url('/fonts/Sk-Modernist-Bold.otf') ;
 
 }
 

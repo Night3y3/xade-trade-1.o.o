@@ -130,6 +130,7 @@ const OrderOverview = ({
           flexDirection: "row",
           width: "100%",
           margin: "6px 0px",
+          justifyContent: "space-between",
         }}
       >
         <div
@@ -319,35 +320,37 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             padding: "10px 0px", // Added horizontal padding
           }}
         >
-          {["Market", "Limit", "Stop"].map((type) => (
-            <div
-              key={type}
-              onClick={() => setOrderType(type as OrderType)}
-              style={{
-                border:
-                  orderType === type
-                    ? "1px solid #D4D4D4"
-                    : "1px solid #4B4B4B",
-                width: "33.33%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "46px",
-                cursor: "pointer",
-              }}
-            >
+          {[OrderType.MARKET, OrderType.LIMIT, OrderType.STOP_MARKET].map(
+            (type) => (
               <div
+                key={type}
+                onClick={() => setOrderType(type as OrderType)}
                 style={{
-                  fontSize: "12px",
-                  fontWeight: 400,
-                  font: "Sk-Modernist",
-                  color: orderType === type ? "#D4D4D4" : "#4B4B4B",
+                  border:
+                    orderType === type
+                      ? "1px solid #D4D4D4"
+                      : "1px solid #4B4B4B",
+                  width: "33.33%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "46px",
+                  cursor: "pointer",
                 }}
               >
-                {type}
+                <div
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: 400,
+                    font: "Sk-Modernist",
+                    color: orderType === type ? "#D4D4D4" : "#4B4B4B",
+                  }}
+                >
+                  {type === OrderType.STOP_MARKET ? "STOP" : type}
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          )}
         </div>
       </div>
       <div

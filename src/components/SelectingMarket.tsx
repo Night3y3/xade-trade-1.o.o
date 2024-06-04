@@ -9,7 +9,7 @@ interface SelectingMarketProps {
     // Define prop types here
 }
 
-const fetcher = (...arg) => {
+const fetcher = (...arg: [string, RequestInit?]) => {
     return fetch(...arg).then(res => res.json())
 }
 
@@ -41,12 +41,12 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
     return (
         <div style={{ display: 'flex', gap: '16px', alignItems: 'center', paddingLeft: '20px', fontFamily: 'Sk-Modernist-Regular, sans-serif' }}>
             <div className="select">
-                <div className="select-trigger" style={{ border: 'none', display: 'flex', gap: '8px', cursor: 'pointer' ,color:'white'}} onClick={() => setIsSelectorOpen(!isSelectorOpen)}>
+                <div className="select-trigger" style={{ border: 'none', display: 'flex', gap: '8px', cursor: 'pointer' ,color:'white',marginRight:'3rem'}} onClick={() => setIsSelectorOpen(!isSelectorOpen)}>
                     <img src={`https://oss.orderly.network/static/symbol_logo/${market}.png`} alt="" style={{ width: '32px' }} />
                     <span style={{ fontWeight: '500', fontSize: '1.25rem' }}>{market}</span>
                 </div>
                 {isSelectorOpen && (
-                    <div className="select-content" style={{ position: 'absolute', backgroundColor: 'BLACK',  borderRadius: '4px', zIndex: 1000, height: '30%', overflowX: 'auto',marginTop:'2%',color:'white' }}>
+                    <div className="select-content" style={{ position: 'absolute', backgroundColor: 'BLACK',  borderRadius: '4px', zIndex: 1000, height: '30%', overflowX: 'auto',paddingTop:'2%',color:'white' }}>
                         <table style={{ fontFamily: 'Sk-Modernist-Regular' }}>
                         <thead>
                                 <tr style={{ border: 'none',textAlign:'left', fontFamily: 'Sk-Modernist-Regular'}}>
@@ -62,9 +62,9 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                                    
                             <tbody>
                                 {data?.data.rows.map((item: Row) => (
-                                    <tr key={item.symbol} style={{ border: 'none', cursor: 'pointer' }} onClick={() => handleSelect(parseString(item.symbol))}>
-                                        <td style={{ display: 'flex', alignItems: 'center', gap: '16px', fontFamily: 'Sk-Modernist-Regular', fontSize: '1rem' }}>
-                                            <img src={`https://oss.orderly.network/static/symbol_logo/${parseString(item.symbol)}.png`} alt="" style={{ width: '32px' }} />
+                                    <tr key={item.symbol} style={{ border: 'none', cursor: 'pointer' }} onClick={() => handleSelect(parseString(item.symbol) || '')}>
+                                        <td style={{ display: 'flex', alignItems: 'center', gap: '16px', fontFamily: 'Sk-Modernist-Regular', fontSize: '1rem',marginRight:'1rem' }}>
+                                            <img src={`https://oss.orderly.network/static/symbol_logo/${parseString(item.symbol) || 'default'}.png`} alt="" style={{ width: '32px' }} />
                                             {parseString(item.symbol)}
                                         </td>
                                         <td>${item.mark_price}</td>

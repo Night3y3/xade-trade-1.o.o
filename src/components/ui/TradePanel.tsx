@@ -28,7 +28,7 @@ const AmountInput = ({
   return (
     <div
       style={{
-        width: "90%",
+        width: "95%",
         borderRadius: 12,
         background: "#000",
         border: "1px solid #4B4B4B",
@@ -37,6 +37,7 @@ const AmountInput = ({
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+        marginTop:'10px',
       }}
     >
       <div
@@ -74,7 +75,7 @@ const AmountInput = ({
       </div>
       <div
         style={{
-          border: "1px solid #FF9900",
+fontFamily:'Sk-Modernist-Bold',
           width: 50,
           display: "flex",
           justifyContent: "center",
@@ -86,11 +87,11 @@ const AmountInput = ({
       >
         <div
           style={{
-            fontSize: "12px",
-            fontWeight: 400,
+            fontSize: 16,
             font: "Sk-Modernist",
             color: "#FF9900",
-            padding: "5%",
+            marginTop:'10%'
+           
           }}
         >
           {orderSide === OrderSide.BUY
@@ -366,9 +367,11 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             left: isBuy ? 0 : "50%",
             width: "50%",
             height: "100%",
-            backgroundColor: isBuy ? "#40F388" : "#FF0A0A",
+            backgroundColor: isBuy ? "#06170D" : "#170606",
             transition: "left 0.3s, background-color 0.3s",
             borderRadius: 8,
+            border: isBuy ? "1px solid #40F388" : "1px solid #F35540",
+            alignItems:'center',
           }}
         />
         <div
@@ -381,8 +384,6 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             height: "20px",
             cursor: "pointer",
             zIndex: 1,
-            border: isBuy ? "1px solid #40F388" : "none",
-            transition: "border 0.3s",
           }}
         >
           <div
@@ -390,7 +391,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
               fontSize: "12px",
               fontWeight: 400,
               font: "Sk-Modernist",
-              color: isBuy ? "black" : "#4B4B4B",
+              color: isBuy ? "#40F388" : "#4B4B4B",
               transition: "color 0.3s",
             }}
           >
@@ -407,7 +408,6 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             height: "20px",
             cursor: "pointer",
             zIndex: 1,
-            border: !isBuy ? "1px solid #FF0A0A" : "none",
             transition: "border 0.3s",
           }}
         >
@@ -416,7 +416,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
               fontSize: "12px",
               fontWeight: 400,
               font: "Sk-Modernist",
-              color: !isBuy ? "black" : "#4B4B4B",
+              color: !isBuy ? "#F35540" : "#4B4B4B",
               transition: "color 0.3s",
             }}
           >
@@ -472,6 +472,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
       <div
         style={{
           background: orderSide === OrderSide.SELL ? "#F07852" : "#40F388",
+          border: !isBuy ? "1px solid #FF0A0A" : "none",
           width: "90%",
           display: "flex",
           justifyContent: "center",

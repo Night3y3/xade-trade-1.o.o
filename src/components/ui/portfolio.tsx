@@ -4,7 +4,7 @@ const Portfolio = () => {
   const [activeTab, setActiveTab] = useState('positions');
 
   return (
-    <div style={{ width: '100%', border: '1px solid black', padding: '20px',backgroundColor:'blue',alignSelf:'flex-start',height:'30%' }}>
+    <div style={{ width: '100%', border: '1px solid black', padding: '20px',backgroundColor:'grey',alignSelf:'flex-start',height:'30%' }}>
       <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '20px' }}>
         <button onClick={() => setActiveTab('positions')} style={{ marginRight: '10px' }}>
           Positions

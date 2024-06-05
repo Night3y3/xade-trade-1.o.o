@@ -14,5 +14,8 @@ export default defineConfig({
   },
   define: {
         "process.env": process.env,
-    }
+    },
+  optimizeDeps: {
+    exclude: ['chunk-UUUESP7M']
+  }
 });

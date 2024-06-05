@@ -1,5 +1,5 @@
 import { API, OrderSide, OrderType } from "@orderly.network/types";
-import React from "react";
+import React, { useState } from "react";
 import ".././../App.css";
 import Account from "./account"; // Import the Account component
 
@@ -143,7 +143,7 @@ const OrderOverview = ({
             color: "#4B4B4B",
           }}
         >
-          BUY/LONG
+          /LONG
         </div>
         <div
           style={{
@@ -282,24 +282,19 @@ const TradePanel: React.FC<MarketSectionProps> = ({
   symbolConfig,
   markPrice,
 }) => {
-  //   const [orderSide, setOrderSide] = useState<OrderSide>(OrderSide.BUY);
-  //   const [orderType, setOrderType] = useState<OrderType>(OrderType.MARKET);
-  //   const [amountPrice, setAmountPrice] = useState<string>("1000");
-  //   const { symbolConfig, markPrice } = useOrderEntry(
-  //     {
-  //       symbol: symbol,
-  //       side: orderSide,
-  //       order_type: orderType,
-  //     },
-  //     { watchOrderbook: true }
-  //   );
+  const [isBuy, setIsBuy] = useState(orderSide === OrderSide.BUY);
+
+  const handleOrderSideChange = (side: OrderSide) => {
+    setOrderSide(side);
+    setIsBuy(side === OrderSide.BUY);
+  };
 
   return (
     <div
       style={{
         display: "flex",
-        height: "100%",
-        width: "100%",
+        height: "100%", // Reduced height
+        width: "100%",  // Reduced width
         alignItems: "center",
         flexDirection: "column",
         padding: "24px 0px",
@@ -356,25 +351,38 @@ const TradePanel: React.FC<MarketSectionProps> = ({
       <div
         style={{
           display: "flex",
-          width: "100%",
-          justifyContent: "space-between",
+          width: "95%",
+          justifyContent: "center",
           padding: "10px 24px",
+          border: "1px solid #4B4B4B",
+          borderRadius: 8,
+          position: "relative",
         }}
       >
         <div
-          onClick={() => setOrderSide(OrderSide.BUY)}
           style={{
-            border:
-              orderSide === OrderSide.BUY
-                ? "1px solid #40F388"
-                : "1px solid #4B4B4B",
-            width: "48%",
+            position: "absolute",
+            top: 0,
+            left: isBuy ? 0 : "50%",
+            width: "50%",
+            height: "100%",
+            backgroundColor: isBuy ? "#40F388" : "#FF0A0A",
+            transition: "left 0.3s, background-color 0.3s",
+            borderRadius: 8,
+          }}
+        />
+        <div
+          onClick={() => handleOrderSideChange(OrderSide.BUY)}
+          style={{
+            width: "50%",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            borderRadius: 8,
-            height: "46px",
+            height: "20px",
             cursor: "pointer",
+            zIndex: 1,
+            border: isBuy ? "1px solid #40F388" : "none",
+            transition: "border 0.3s",
           }}
         >
           <div
@@ -382,26 +390,25 @@ const TradePanel: React.FC<MarketSectionProps> = ({
               fontSize: "12px",
               fontWeight: 400,
               font: "Sk-Modernist",
-              color: orderSide === OrderSide.BUY ? "#40F388" : "#4B4B4B",
+              color: isBuy ? "black" : "#4B4B4B",
+              transition: "color 0.3s",
             }}
           >
             BUY/LONG
           </div>
         </div>
         <div
-          onClick={() => setOrderSide(OrderSide.SELL)}
+          onClick={() => handleOrderSideChange(OrderSide.SELL)}
           style={{
-            border:
-              orderSide === OrderSide.SELL
-                ? "1px solid #FF0A0A"
-                : "1px solid #4B4B4B",
-            width: "48%",
+            width: "50%",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            borderRadius: 8,
-            height: "46px",
+            height: "20px",
             cursor: "pointer",
+            zIndex: 1,
+            border: !isBuy ? "1px solid #FF0A0A" : "none",
+            transition: "border 0.3s",
           }}
         >
           <div
@@ -409,7 +416,8 @@ const TradePanel: React.FC<MarketSectionProps> = ({
               fontSize: "12px",
               fontWeight: 400,
               font: "Sk-Modernist",
-              color: orderSide === OrderSide.SELL ? "#FF0A0A" : "#4B4B4B",
+              color: !isBuy ? "black" : "#4B4B4B",
+              transition: "color 0.3s",
             }}
           >
             SELL/SHORT

@@ -18,7 +18,7 @@ const DepositFlow = ({
     <div>
       <div
         style={{
-          width: "90%",
+          width: "100%",
           borderRadius: 12,
           background: "#000",
           border: "1px solid #4B4B4B",
@@ -73,7 +73,7 @@ const DepositFlow = ({
           fontSize: "14px",
           fontWeight: 500,
           color: "#FF9900",
-          width: "90%",
+          width: "100%",
           marginTop: 12,
         }}
       >
@@ -106,6 +106,8 @@ const Account = () => {
     srcChainId: Number(CHAIN_ID),
   });
   const [depositAmount, setDepositAmount] = useState<string>("100");
+  const [showLeverageSlider, setShowLeverageSlider] = useState<boolean>(false);
+  const [leverage, setLeverage] = useState<number>(10);
 
   const renderStages = () => {
     switch (showStage) {
@@ -138,11 +140,62 @@ const Account = () => {
               style={{
                 display: "flex",
                 justifyContent: "space-between",
+                cursor: "pointer",
               }}
+              onClick={() => setShowLeverageSlider(!showLeverageSlider)}
             >
               <div style={{ color: "#4B4B4B", fontSize: 14 }}>Leverage</div>
-              <div style={{ color: "#D4D4D4", fontSize: 14 }}>10x</div>
+              <div style={{ color: "#D4D4D4", fontSize: 14 }}>Cross {leverage}x</div>
             </div>
+            {showLeverageSlider && (
+              <div
+                style={{
+                  marginTop: "10px",
+                  color: "#D4D4D4",
+                  fontSize: 14,
+                }}
+              >
+                Adjust leverage slider
+                <input
+                  type="range"
+                  min="1"
+                  max="10"
+                  value={leverage}
+                  onChange={(e) => setLeverage(Number(e.target.value))}
+                  style={{ 
+                    width: "100%", 
+                    WebkitAppearance: "none",
+                    appearance: "none",
+                    height: "8px",
+                    borderRadius: "8px",
+                    background: `linear-gradient(to right, #FF9900 0%, #FF9900 ${(leverage - 1) * 11.11}%, #4B4B4B ${(leverage - 1) * 11.11}%, #4B4B4B 100%)`, // Track color
+                    outline: "none",
+                    opacity: "0.7",
+                    transition: "opacity .15s ease-in-out",
+                  }}
+                />
+                <style jsx>{`
+                  input[type="range"]::-webkit-slider-thumb {
+                    WebkitAppearance: none;
+                    appearance: none;
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    background: #FF9900; // Thumb color
+                    cursor: pointer;
+                  }
+
+                  input[type="range"]::-moz-range-thumb {
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    background: #FF9900; // Thumb color
+                    cursor: pointer;
+                  }
+                `}</style>
+                <div>{leverage}x</div>
+              </div>
+            )}
           </div>
         );
       case "deposit":
@@ -197,7 +250,7 @@ const Account = () => {
             cursor: "pointer",
             fontSize: "14px",
             fontWeight: 500,
-            color: "#959595",
+            color: "#FF9900",
           }}
           onClick={() =>
             setShowStage((prevStage) => (prevStage === "deposit" ? "account" : "deposit"))

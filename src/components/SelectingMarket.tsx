@@ -43,7 +43,8 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
             <div className="select">
                 <div className="select-trigger" style={{ border: 'none', display: 'flex', gap: '8px', cursor: 'pointer' ,color:'white',marginRight:'3rem'}} onClick={() => setIsSelectorOpen(!isSelectorOpen)}>
                     <img src={`https://oss.orderly.network/static/symbol_logo/${market}.png`} alt="" style={{ width: '32px' }} />
-                    <span style={{ fontWeight: '500', fontSize: '1.25rem' }}>{market}</span>
+                    <span style={{ fontWeight: '500', fontSize: '1.25rem',fontFamily:'Sk-Modernist-Bold' }}>{market}</span>
+         
                 </div>
                 {isSelectorOpen && (
                     <div className="select-content" style={{ position: 'absolute', backgroundColor: 'BLACK',  borderRadius: '4px', zIndex: 1000, height: '30%', overflowX: 'auto',paddingTop:'2%',color:'white' }}>

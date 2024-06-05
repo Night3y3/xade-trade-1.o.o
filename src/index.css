@@ -23,3 +23,7 @@ body {
   src: local("Sk-Modernist-Mono"),
     url("../public/fonts/Sk-Modernist-Mono.otf") format("opentype");
 }
+
+::-webkit-scrollbar {
+  display: none;
+}

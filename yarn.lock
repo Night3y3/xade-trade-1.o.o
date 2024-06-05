@@ -1317,7 +1317,7 @@
     react-intl "^6.4.4"
     tailwind-merge "^1.14.0"
 
-"@orderly.network/trading-view@1.5.7":
+"@orderly.network/trading-view@1.5.7", "@orderly.network/trading-view@^1.5.7":
   version "1.5.7"
   resolved "https://registry.yarnpkg.com/@orderly.network/trading-view/-/trading-view-1.5.7.tgz#3c44d05200eae2e7d6f84c6270499e5935677476"
   integrity sha512-jd3dZUomwd/uE36R1T3KsqC0xQhL3c6BEsflt43zKiaETK8p2O7HR5FrEMQxSaO3/YjfBd28xu5zvls2mm/6Jg==
@@ -3119,7 +3119,7 @@ available-typed-arrays@^1.0.7:
   dependencies:
     possible-typed-array-names "^1.0.0"
 
-axios@^1.2.1:
+axios@^1.2.1, axios@^1.7.2:
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.7.2.tgz#b625db8a7051fbea61c35a3cbb3a1daa7b9c7621"
   integrity sha512-2A8QhOMrbomlDuiLeK9XibIBzuHeRcqqNOHp0Cyp5EoJ1IFDh+XZH3A6BkXtv0K4gFGCI0Y4BM7B1wOEi0Rmgw==

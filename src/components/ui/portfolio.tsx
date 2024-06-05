@@ -48,6 +48,7 @@ export function Portfolio({ symbol }: { symbol: string }) {
             style={{
               borderRight: tab === "Orders" ? "1px solid #4B4B4B" : "none",
               borderLeft: tab === "Orders" ? "1px solid #4B4B4B" : "none",
+              borderBottom: "1px solid #4B4B4B", // Added bottom border
               backgroundColor: tabType === tab ? "#1E1E1E" : "#0D0D0D",
               width: "33.33%",
               display: "flex",

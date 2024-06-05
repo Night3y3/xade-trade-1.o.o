@@ -32,12 +32,12 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
             "mainSeriesProperties.candleStyle.upColor": "#1F8040",
             "mainSeriesProperties.candleStyle.wickDownColor": "#DC2140",
             "mainSeriesProperties.candleStyle.wickUpColor": "#1F8040",
-            "paneProperties.background": "#00000",
+            "paneProperties.background": "#000000",
             "paneProperties.backgroundType": "solid",
-            "paneProperties.separatorColor": "#164165",
-            "paneProperties.horzGridProperties.color": "#161B22",
-            "paneProperties.vertGridProperties.color": "#161B22",
-            "paneProperties.legendProperties.showSeriesTitle": "false",
+            "paneProperties.separatorColor": "#000000",
+            "paneProperties.horzGridProperties.color": "#000000",
+            "paneProperties.vertGridProperties.color": "#000000",
+            "paneProperties.legendProperties.showSeriesTitle": "true",
           }}
         />
       </div>

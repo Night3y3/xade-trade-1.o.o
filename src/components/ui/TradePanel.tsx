@@ -15,7 +15,6 @@ interface MarketSectionProps {
   symbol: string;
   setAmountPrice: (x: string) => void;
   setOrderSide: (x: OrderSide) => void;
-  setOrderType: (x: OrderType) => void;
 }
 
 const AmountInput = ({
@@ -333,7 +332,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             padding: "10px 0px", // Added horizontal padding
           }}
         >
-          {[OrderType.MARKET, OrderType.LIMIT, OrderType.STOP_MARKET].map(
+          {[OrderType.MARKET, OrderType.LIMIT].map(
             (type) => (
               <div
                 key={type}
@@ -343,7 +342,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
                     orderType === type
                       ? "1px solid #D4D4D4"
                       : "1px solid #4B4B4B",
-                  width: "33.33%",
+                  width: "50%",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
@@ -359,7 +358,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
                     color: orderType === type ? "#D4D4D4" : "#4B4B4B",
                   }}
                 >
-                  {type === OrderType.STOP_MARKET ? "STOP" : type}
+                  {type}
                 </div>
               </div>
             )
@@ -398,18 +397,22 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            height: "20px",
+            height: "100%", // Ensure it takes full height of the parent
             cursor: "pointer",
             zIndex: 1,
           }}
         >
           <div
             style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
               fontSize: "12px",
               fontWeight: 400,
               font: "Sk-Modernist",
               color: isBuy ? "#40F388" : "#4B4B4B",
               transition: "color 0.3s",
+              textAlign: "center", // Center the text horizontally
             }}
           >
             BUY/LONG
@@ -422,7 +425,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            height: "20px",
+            height: "100%", // Ensure it takes full height of the parent
             cursor: "pointer",
             zIndex: 1,
             transition: "border 0.3s",
@@ -430,11 +433,15 @@ const TradePanel: React.FC<MarketSectionProps> = ({
         >
           <div
             style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
               fontSize: "12px",
               fontWeight: 400,
               font: "Sk-Modernist",
               color: !isBuy ? "#F35540" : "#4B4B4B",
               transition: "color 0.3s",
+              textAlign: "center", // Center the text horizontally
             }}
           >
             SELL/SHORT
@@ -582,9 +589,6 @@ const TradePanel: React.FC<MarketSectionProps> = ({
                 ? parseFloat(amountPrice) / markPrice
                 : amountPrice
             );
-            // if (orderType === "LIMIT") {
-            //   newValue = calculate(newValue, "trigger_price", limitPrice);
-            // }
             const errors = await validator(newValue);
             console.log(JSON.stringify(newValue), errors);
             try {

@@ -96,6 +96,7 @@
     flex: 1;
     justify-content: space-between;
   }
+
 }
 .price-bar {
   display: flex;
@@ -181,6 +182,7 @@
   margin: 0;
   padding: 0;
 }
+
 @media (max-width: 768px) {
   .market-section {
     flex-direction: column;
@@ -194,24 +196,21 @@
   .orderbook-container {
     display: none;
   }
-}
 
-@media (max-width: 768px) {
   .trade-toggle-button {
     position: fixed;
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 90%; /* Add this line to set the width */
+    width: 90%;
     padding: 15px 20px;
     font-size: 1rem;
     background-color: #fff;
     color: black;
     border: none;
-    border-radius: 30px; /* Add 'px' to the border-radius value */
+    border-radius: 30px;
     cursor: pointer;
     z-index: 1000;
-    min-width: 200px; /* Add this line to set the minimum width */
   }
 
   .tradepanel-container {
@@ -219,7 +218,7 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-    height: 70%; /* Change height to 70% */
+    height: 70%;
     background: rgba(0, 0, 0, 0.8);
     justify-content: center;
     align-items: flex-end;
@@ -232,12 +231,12 @@
 
   .tradepanel-content {
     width: 100%;
-    height: 100%; /* Ensure it takes full height of the parent */
+    height: 100%;
     background: #000;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     padding: 20px;
-    overflow-y: auto; /* Add this line to make the modal scrollable */
+    overflow-y: auto;
   }
 }
 
@@ -246,49 +245,28 @@
     display: none;
   }
 }
-.market-section {
-  display: flex;
-  flex-direction: row;
-  height: 100vh;
+
+.tradepanel-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-}
-
-.tradingview-container {
-  display: flex;
   height: 100%;
-  width: 60%; /* Remaining space */
-  margin: 0;
-  padding: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
 }
 
-.orderbook-container {
-  display: flex;
-  height: 100%;
-  width: 20%;
-  margin: 0;
-  padding: 0;
+.tradepanel-overlay.visible {
+  display: block;
 }
 
-.tradepanel-container {
-  display: flex;
-  height: 100%;
-  width: 20%;
-  background: #000;
-  border-left: solid #4b4b4b 1px;
-  margin: 0;
-  padding: 0;
-}
-@media (max-width: 768px) {
-  .market-section {
-    flex-direction: column;
-  }
-
-  .tradingview-container,
-  .tradepanel-container {
-    width: 100%;
-  }
-
-  .orderbook-container {
-    display: none;
-  }
+.trade-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1001;
 }

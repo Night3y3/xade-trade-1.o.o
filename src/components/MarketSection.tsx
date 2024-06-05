@@ -56,25 +56,6 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
     initialUserAccountSetup();
   }, [window?.ethereum, accountInfo]);
 
-  useEffect(() => {
-    const accountCheck = async () => {
-      console.log(initialized, !state.accountId);
-      if (initialized && !state.accountId && !onProcess) {
-        setOnProcess(true);
-        await account.createAccount();
-        setOnProcess(false);
-        console.log("account created!!!!", state);
-      }
-      if (state.status <= AccountStatusEnum.DisabledTrading && !onProcess) {
-        setOnProcess(true);
-        const key = await account.createOrderlyKey(30);
-        setOnProcess(false);
-        console.log("key created!!!!", key, state);
-      }
-    };
-    accountCheck();
-  }, [account, state]);
-
   return (
     <div className="market-section">
       <div className="tradingview-container">
@@ -83,6 +64,9 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
       <div className="orderbook-container">
         <OrderBook symbol={marketSymbol} />
       </div>
+      {showTradePanel && (
+        <div className="trade-overlay" onClick={() => setShowTradePanel(false)}></div>
+      )}
       <div
         className={`tradepanel-container ${
           showTradePanel ? "visible" : "hidden"

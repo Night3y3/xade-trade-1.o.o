@@ -618,6 +618,9 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             fontWeight: 400,
             font: "Sk-Modernist",
             color: "black",
+            minHeight: '3rem',
+            display: 'flex', // Changed from alignItems to display: flex
+            alignItems: 'center' // Added alignItems to center the text vertically
           }}
         >
           {processing ? "Executing..." : `${orderSide} ${symbolConfig?.base}`}
@@ -628,3 +631,4 @@ const TradePanel: React.FC<MarketSectionProps> = ({
 };
 
 export default TradePanel;
+

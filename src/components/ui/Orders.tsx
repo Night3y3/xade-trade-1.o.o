@@ -31,17 +31,15 @@ const OrderCard = ({ index, order }: { index: number; order: Order }) => {
   return (
     <TableRow key={index} className="border-none">
       <TableCell
-        className={` border-l-2 bg-gradient-to-r ${
-          order.side === OrderSide.BUY
-            ? "border-[#C7F052] from-[#1E2311] from-10% via-[#2A3311]"
-            : "border-[#F35540] from-[#1E2311] from-10% via-[#861000]"
-        }  via-20% to-[#171717] to-50% text-start pl-7`}
+        className={` border-l-2 bg-gradient-to-r ${order.side === OrderSide.BUY
+          ? "border-[#C7F052] from-[#1E2311] from-10% via-[#2A3311]"
+          : "border-[#F35540] from-[#1E2311] from-10% via-[#861000]"
+          }  via-20% to-[#171717] to-50% text-start pl-7`}
       >
         <div>{order.type}</div>
         <div
-          className={` ${
-            order.side === OrderSide.BUY ? "text-[#C7F052] " : "text-red-500 "
-          }`}
+          className={` ${order.side === OrderSide.BUY ? "text-[#C7F052] " : "text-red-500 "
+            }`}
         >
           {order.side}
         </div>
@@ -62,7 +60,7 @@ const Orders: React.FC<OrdersProps> = ({ symbol }) => {
   const [o, { cancelOrder }] = useOrderStream({ symbol: symbol });
   const orders = o as Order[] | null;
   return (
-    <div style={{ width: "100%", overflow: "scroll", maxHeight: "50%" }}>
+    <div style={{ width: "100%", overflow: "scroll", maxHeight: "50%" }} className=" scrollbar-hide">
       <Table>
         <TableHeader className="text-[#4B4B4B]">
           <TableRow className="border-none">
@@ -74,7 +72,7 @@ const Orders: React.FC<OrdersProps> = ({ symbol }) => {
             <TableHead className=" text-center">Status</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody className="text-[#D4D4D4] border-none border-[#171717]">
+        <TableBody className="text-[#D4D4D4] border-none border-[#171717] scrollbar-hide">
           {orders?.map((order, index) => (
             <OrderCard index={index} order={order} />
           ))}

@@ -40,35 +40,37 @@ export function Portfolio({ symbol }: { symbol: string }) {
           </div>
         </div>
       </div>
-      <div className="flex w-1/3 border border-solid border-[#4B4B4B] flex-3 ">
-        {tabs.map((tab: string) => (
-          <div
-            key={tab}
-            onClick={() => setTabType(tab)}
-            style={{
-              borderRight: tab === "Orders" ? "1px solid #4B4B4B" : "none",
-              borderLeft: tab === "Orders" ? "1px solid #4B4B4B" : "none",
-              backgroundColor: tabType === tab ? "#1E1E1E" : "#0D0D0D",
-              width: "33.33%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "46px",
-              cursor: "pointer",
-            }}
-          >
+      <div className="border-b border-solid border-[#4B4B4B]">
+        <div className="flex w-1/3 border-r border-solid border-[#4B4B4B] flex-3 ">
+          {tabs.map((tab: string) => (
             <div
+              key={tab}
+              onClick={() => setTabType(tab)}
               style={{
-                fontSize: "12px",
-                fontWeight: 400,
-                fontFamily: "Sk-Modernist",
-                color: tabType === tab ? "#D4D4D4" : "#4B4B4B",
+                borderRight: tab === "Orders" ? "1px solid #4B4B4B" : "none",
+                borderLeft: tab === "Orders" ? "1px solid #4B4B4B" : "none",
+                backgroundColor: tabType === tab ? "#1E1E1E" : "#0D0D0D",
+                width: "33.33%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "46px",
+                cursor: "pointer",
               }}
             >
-              {tab}
+              <div
+                style={{
+                  fontSize: "12px",
+                  fontWeight: 400,
+                  fontFamily: "Sk-Modernist",
+                  color: tabType === tab ? "#D4D4D4" : "#4B4B4B",
+                }}
+              >
+                {tab}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
       {tabType === "Positions" && <Position symbol={symbol} />}
       {tabType === "Orders" && <Orders symbol={symbol} />}

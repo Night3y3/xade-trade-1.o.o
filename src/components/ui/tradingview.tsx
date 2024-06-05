@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Portfolio from "./portfolio";
+import { TVChartContainer } from "../TVChartContainer";
 
 const Container = styled.div`
   height: 100%;
@@ -20,7 +21,8 @@ const Container = styled.div`
 const TradingView = ({ symbol }: { symbol: string }) => {
   return (
     <Container>
-      <Portfolio symbol={symbol} />
+      <TVChartContainer />
+      {/* <Portfolio symbol={symbol} /> */}
     </Container>
   );
 };

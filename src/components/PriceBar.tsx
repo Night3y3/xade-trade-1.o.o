@@ -22,7 +22,7 @@ const PriceBar: React.FC<PriceBarProps> = () => {
                     <h1 className='text-[#4B4B4B] font-normal text-sm'>Index Price</h1>
                     <h1 className='text-[#fff] price'>${market.index_price}</h1>
                 </div>
-        
+
                 <Separator className="h-full w-[1px] bg-[#4B4B4B] dark:bg-gray-700" />
                 <div className='price-bar-item'>
                     <h1 className='text-[#4B4B4B] font-normal text-sm'>24h Change</h1>
@@ -36,7 +36,7 @@ const PriceBar: React.FC<PriceBarProps> = () => {
                 <Separator className="h-full w-[1px] bg-[#4B4B4B] dark:bg-gray-700" />
                 <div className='price-bar-item'>
                     <h1 className='text-[#4B4B4B] font-normal text-sm'>Open Interest</h1>
-                    <h1 className='price text-[#fff]'>{market.change_24h_percent}</h1>
+                    <h1 className='price text-[#fff]'>{market.open_interest}</h1>
                 </div>
                 <Separator className="h-full w-[1px] bg-[#4B4B4B] dark:bg-gray-700" />
                 <div className='price-bar-item'>

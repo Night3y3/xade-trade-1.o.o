@@ -7,6 +7,7 @@ import {
   setIndexPrice,
   setChange24hPercent,
   setMarketSymbol,
+  setOpenInterest,
 } from "@/redux/slices/marketSlice";
 import { Row } from "@/types";
 import "../App.css";
@@ -52,6 +53,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
         );
         dispatch(setVolume24h(selectedMarket["24h_volume"]));
         dispatch(setMarketSymbol(selectedMarket["symbol"]));
+        dispatch(setOpenInterest(selectedMarket["open_interest"]));
       }
     }, 1000);
 
@@ -269,7 +271,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                       ${(item["24h_volume"] * item.mark_price).toFixed(2)}
                     </td>
                     <td style={{ padding: "8px 24px" }}>
-                      {change24hourPercent(item["24h_open"], item["24h_close"])}
+                      {item["open_interest"]}
                     </td>
                     <td style={{ padding: "8px 24px" }}>
                       {item["24h_volume"]}%

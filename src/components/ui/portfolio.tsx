@@ -1,62 +1,28 @@
-import React from "react";
-import NoDataPortfolio from "./NoDataPortfolio";
-import Position from "./Position";
-import Orders from "./Orders";
-import Fills from "./Fills";
+import React, { useState } from 'react';
 
-const tabs = ["Positions", "Orders", "History"];
+const Portfolio = () => {
+  const [activeTab, setActiveTab] = useState('positions');
 
-export function Portfolio() {
-  const [tabType, setTabType] = React.useState<string>("Positions");
   return (
-    <div className=" flex flex-col bg-[#171717]">
-      <div className=" flex w-1/3  border border-solid border-[#4B4B4B] flex-3 ">
-        {tabs.map((tab: string) => (
-          <div
-            key={tab}
-            onClick={() => setTabType(tab)}
-            style={{
-              borderRight: tab === "Orders" ? "1px solid #4B4B4B" : "none",
-              borderLeft: tab === "Orders" ? "1px solid #4B4B4B" : "none",
-              // border: tabType === tab ? "1px solid #D4D4D4" : "1px solid #4B4B4B",
-              backgroundColor: tabType === tab ? "#1E1E1E" : "#0D0D0D",
-              width: "33.33%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "46px",
-              cursor: "pointer",
-            }}
-          >
-            <div
-              style={{
-                fontSize: "12px",
-                fontWeight: 400,
-                fontFamily: "Sk-Modernist", // Changed 'font' to 'fontFamily'
-                color: tabType === tab ? "#D4D4D4" : "#4B4B4B",
-              }}
-            >
-              {tab}
-            </div>
-          </div>
-        ))}
+    <div style={{ width: '100%', border: '1px solid black', padding: '20px',backgroundColor:'grey',alignSelf:'flex-start',height:'30%' }}>
+      <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '20px' }}>
+        <button onClick={() => setActiveTab('positions')} style={{ marginRight: '10px' }}>
+          Positions
+        </button>
+        <button onClick={() => setActiveTab('orders')} style={{ marginRight: '10px' }}>
+          Orders
+        </button>
+        <button onClick={() => setActiveTab('history')}>
+          History
+        </button>
       </div>
-      {tabType === "Positions" && <Position />}
-      {tabType === "Orders" && <Orders />}
-      {tabType === "History" && <NoDataPortfolio />}
+      <div>
+        {activeTab === 'positions' && <div>Positions Content</div>}
+        {activeTab === 'orders' && <div>Orders Content</div>}
+        {activeTab === 'history' && <div>History Content</div>}
+      </div>
     </div>
   );
-}
+};
 
-// style = {{
-//     borderRight: tab === "Orders" ? "1px solid #4B4B4B" : "none",
-//         borderLeft: tab === "Orders" ? "1px solid #4B4B4B" : "none",
-//             // border: tabType === tab ? "1px solid #D4D4D4" : "1px solid #4B4B4B",
-//             backgroundColor: tabType === tab ? "#1E1E1E" : "#0D0D0D",
-//                 width: "33.33%",
-//                     display: "flex",
-//                         justifyContent: "center",
-//                             alignItems: "center",
-//                                 height: "46px",
-//                                     cursor: "pointer",
-//                         }}
+export default Portfolio;

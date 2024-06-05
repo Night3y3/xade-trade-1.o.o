@@ -134,8 +134,8 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
 
               }}
             />
-            <table style={{ fontFamily: "Sk-Modernist-Regular", width: "100%" }}>
-              <thead>
+            <table style={{ fontFamily: "Sk-Modernist-Regular", width: "100%" }} className=" scrollbar-hide">
+              <thead className=" scrollbar-hide">
                 <tr
                   style={{
                     border: "none",
@@ -188,10 +188,28 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                   >
                     Volume
                   </th>
+                  <th
+                    style={{
+                      padding: "8px 24px", // Added horizontal padding
+                      textAlign: "left",
+                      fontFamily: "Sk-Modernist-Regular",
+                    }}
+                  >
+                    Open Positions
+                  </th>
+                  <th
+                    style={{
+                      padding: "8px 24px", // Added horizontal padding
+                      textAlign: "left",
+                      fontFamily: "Sk-Modernist-Regular",
+                    }}
+                  >
+                    8h Funding Rate
+                  </th>
                 </tr>
               </thead>
 
-              <tbody>
+              <tbody className=" scrollbar-hide">
                 {filteredData?.map((item: Row) => (
                   <tr
                     key={item.symbol}
@@ -210,9 +228,8 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                       }}
                     >
                       <img
-                        src={`https://oss.orderly.network/static/symbol_logo/${
-                          parseString(item.symbol) || "default"
-                        }.png`}
+                        src={`https://oss.orderly.network/static/symbol_logo/${parseString(item.symbol) || "default"
+                          }.png`}
                         alt=""
                         style={{ width: "32px" }}
                       />
@@ -250,6 +267,12 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                     </td>
                     <td style={{ padding: "8px 24px" }}>
                       ${(item["24h_volume"] * item.mark_price).toFixed(2)}
+                    </td>
+                    <td style={{ padding: "8px 24px" }}>
+                      {change24hourPercent(item["24h_open"], item["24h_close"])}
+                    </td>
+                    <td style={{ padding: "8px 24px" }}>
+                      {item["24h_volume"]}%
                     </td>
                   </tr>
                 ))}

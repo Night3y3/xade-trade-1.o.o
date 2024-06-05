@@ -6,7 +6,7 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
   const [data, { isLoading }] = useOrderbookStream(symbol, undefined, {
     level: 10,
   });
-  console.log(data);
+
   return (
     <div
       style={{

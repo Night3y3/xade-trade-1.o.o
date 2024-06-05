@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useAppSelector } from "@/redux/hooks";
 import { CHAIN_ID_1 } from "@/utils/constantValues";
 import {
   useChains,
@@ -6,8 +7,9 @@ import {
   useDeposit,
   useLeverage,
   useMarginRatio,
+  useMaxQty,
 } from "@orderly.network/hooks";
-import { API } from "@orderly.network/types";
+import { API, OrderSide } from "@orderly.network/types";
 import React, { useMemo, useState } from "react";
 import { useAccount } from "wagmi";
 
@@ -101,7 +103,7 @@ const DepositFlow = ({
   );
 };
 
-const Account = () => {
+const Account = ({ markPrice }: { markPrice: number }) => {
   const { isConnected } = useAccount();
 
   const [showStage, setShowStage] = useState<string>(
@@ -122,10 +124,14 @@ const Account = () => {
     srcChainId: parseInt(CHAIN_ID_1),
   });
   // const { unsettledPnL } = useWithdraw();
-  const collateral = useCollateral();
+  const { availableBalance } = useCollateral({ dp: 2 });
   const [maxLeverage, { update, config: leverageLevers, isMutating }] =
     useLeverage();
+
   const { currentLeverage } = useMarginRatio();
+  const marketSymbol = useAppSelector((x) => x.market.symbol);
+  const maxQty = useMaxQty(marketSymbol, OrderSide.BUY);
+
   const [depositAmount, setDepositAmount] = useState<string>("100");
   const [showLeverageSlider, setShowLeverageSlider] = useState<boolean>(false);
   const [leverage, setLeverage] = useState<number>(10);
@@ -144,7 +150,7 @@ const Account = () => {
             >
               <div style={{ color: "#4B4B4B", fontSize: 14 }}>Buying Power</div>
               <div style={{ color: "#D4D4D4", fontSize: 14 }}>
-                ${deposit.balance}
+                ${maxQty * markPrice}
               </div>
             </div>
             <div
@@ -157,7 +163,9 @@ const Account = () => {
               <div style={{ color: "#4B4B4B", fontSize: 14 }}>
                 Available Margin
               </div>
-              <div style={{ color: "#D4D4D4", fontSize: 14 }}>$5,000</div>
+              <div style={{ color: "#D4D4D4", fontSize: 14 }}>
+                $ {availableBalance}
+              </div>
             </div>
             <div
               style={{

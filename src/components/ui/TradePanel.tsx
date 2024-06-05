@@ -288,7 +288,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
   symbol,
 }) => {
   const [isBuy, setIsBuy] = useState(orderSide === OrderSide.BUY);
-  const [limitPrice, setLimitPrice] = useState("");
+  const [limitPrice, setLimitPrice] = useState(markPrice?.toString());
 
   const handleOrderSideChange = (side: OrderSide) => {
     setOrderSide(side);
@@ -318,7 +318,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
         padding: "24px 0px",
       }}
     >
-      <Account />
+      <Account markPrice={markPrice} />
       <div
         style={{
           width: "100%",
@@ -566,9 +566,13 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             const newValue = calculate(
               {
                 order_price:
-                  orderSide === OrderSide.BUY
-                    ? amountPrice
-                    : amountPrice * markPrice,
+                  orderType === OrderType.MARKET
+                    ? orderSide === OrderSide.BUY
+                      ? amountPrice
+                      : amountPrice * markPrice
+                    : orderSide === OrderSide.BUY
+                    ? limitPrice
+                    : limitPrice,
                 order_type: orderType,
                 side: orderSide,
                 symbol,
@@ -578,9 +582,12 @@ const TradePanel: React.FC<MarketSectionProps> = ({
                 ? parseFloat(amountPrice) / markPrice
                 : amountPrice
             );
+            // if (orderType === "LIMIT") {
+            //   newValue = calculate(newValue, "trigger_price", limitPrice);
+            // }
             const errors = await validator(newValue);
+            console.log(JSON.stringify(newValue), errors);
             try {
-              console.log("order placing", errors, newValue);
               await onSubmit(newValue);
               setIsProcessing(false);
             } catch (error) {

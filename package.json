@@ -14,6 +14,7 @@
     "@noble/ed25519": "^2.1.0",
     "@orderly.network/core": "^1.5.7",
     "@orderly.network/hooks": "^1.5.7",
+    "@orderly.network/perp": "^3.3.7",
     "@orderly.network/react": "^1.5.7",
     "@orderly.network/trading-view": "1.5.7",
     "@orderly.network/types": "^1.5.7",

@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import Position from './Position';
-import Orders from './Orders';
-import NoDataPortfolio from './NoDataPortfolio';
+import React, { useState } from "react";
+import Position from "./Position";
+import Orders from "./Orders";
+import NoDataPortfolio from "./NoDataPortfolio";
 
 const tabs = ["Positions", "Orders", "History"];
 
-
-export function Portfolio() {
+export function Portfolio({ symbol }: { symbol: string }) {
   const [tabType, setTabType] = React.useState<string>("Positions");
   return (
     <div className=" flex flex-col bg-black">
@@ -41,10 +40,9 @@ export function Portfolio() {
           </div>
         ))}
       </div>
-      {tabType === "Positions" && <Position />}
-      {tabType === "Orders" && <Orders />}
+      {tabType === "Positions" && <Position symbol={symbol} />}
+      {tabType === "Orders" && <Orders symbol={symbol} />}
       {tabType === "History" && <NoDataPortfolio />}
-
     </div>
   );
 }

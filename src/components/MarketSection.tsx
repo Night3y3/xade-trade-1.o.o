@@ -76,7 +76,7 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
   return (
     <div className="market-section">
       <div className="tradingview-container">
-        <TradingView />
+        <TradingView symbol="PERP_ETH_USDC" />
       </div>
       <div className="orderbook-container">
         <OrderBook symbolConfig={symbolConfig} symbol="PERP_ETH_USDC" />

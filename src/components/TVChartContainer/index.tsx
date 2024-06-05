@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef } from "react";
 import "./index.css";
 import {
@@ -8,6 +7,7 @@ import {
   ResolutionString,
 } from "../../charting_library";
 import * as React from "react";
+import { H } from "dist/assets/index-DmRMoDhn";
 
 export interface ChartContainerProps {
   symbol: ChartingLibraryWidgetOptions["symbol"];
@@ -20,10 +20,12 @@ export interface ChartContainerProps {
   chartsStorageApiVersion: ChartingLibraryWidgetOptions["charts_storage_api_version"];
   clientId: ChartingLibraryWidgetOptions["client_id"];
   userId: ChartingLibraryWidgetOptions["user_id"];
-  fullscreen: ChartingLibraryWidgetOptions["fullscreen"];
+  // fullscreen: ChartingLibraryWidgetOptions['fullscreen'];
   autosize: ChartingLibraryWidgetOptions["autosize"];
   studiesOverrides: ChartingLibraryWidgetOptions["studies_overrides"];
   container: ChartingLibraryWidgetOptions["container"];
+  theme: ChartingLibraryWidgetOptions["theme"];
+  height: ChartingLibraryWidgetOptions["height"];
 }
 
 const getLanguageFromURL = (): LanguageCode | null => {
@@ -47,12 +49,14 @@ export const TVChartContainer = () => {
     chartsStorageApiVersion: "1.1",
     clientId: "tradingview.com",
     userId: "public_user_id",
-    fullscreen: false,
     autosize: true,
     studiesOverrides: {},
+    theme: "dark",
+    height: 50,
   };
 
   useEffect(() => {
+    console.log(defaultProps.datafeedUrl);
     const widgetOptions: ChartingLibraryWidgetOptions = {
       symbol: defaultProps.symbol as string,
       // BEWARE: no trailing slash is expected in feed URL
@@ -72,9 +76,11 @@ export const TVChartContainer = () => {
       charts_storage_api_version: defaultProps.chartsStorageApiVersion,
       client_id: defaultProps.clientId,
       user_id: defaultProps.userId,
-      fullscreen: defaultProps.fullscreen,
+      // fullscreen: defaultProps.fullscreen,
       autosize: defaultProps.autosize,
       studies_overrides: defaultProps.studiesOverrides,
+      theme: defaultProps.theme,
+      height: defaultProps.height,
     };
 
     const tvWidget = new widget(widgetOptions);

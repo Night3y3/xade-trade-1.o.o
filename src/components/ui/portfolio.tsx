@@ -44,6 +44,7 @@ export function Portfolio() {
       {tabType === "Positions" && <Position />}
       {tabType === "Orders" && <Orders />}
       {tabType === "History" && <NoDataPortfolio />}
+
     </div>
   );
 }

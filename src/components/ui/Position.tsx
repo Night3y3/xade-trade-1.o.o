@@ -28,11 +28,11 @@ const Position: React.FC<PositionProps> = () => {
             <Table className='border-none'>
                 <TableHeader className='text-[#4B4B4B]'>
                     <TableRow className='border-none'>
-                        <TableHead className="">Market</TableHead>
-                        <TableHead className="text-right">Qty</TableHead>
-                        <TableHead className="text-right">Value</TableHead>
-                        <TableHead className="text-right">Entry Price</TableHead>
-                        <TableHead className="text-right">Unrealized P&L (%)</TableHead>
+                        <TableHead className="">Quantity</TableHead>
+                        <TableHead className="text-right">Notional Size</TableHead>
+                        <TableHead className="text-right">Average Price</TableHead>
+                        <TableHead className="text-right">Unrealized P&L </TableHead>
+                        <TableHead>Action(Close Position)</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody className='text-[#D4D4D4] border-none border-[#171717]'>
@@ -41,8 +41,9 @@ const Position: React.FC<PositionProps> = () => {
                             <TableCell className=' border-l-2 bg-gradient-to-r border-[#C7F052] from-[#1E2311] from-10% via-[#2A3311] via-20% to-[#171717] to-50% text-start pl-7'>{position.market}</TableCell>
                             <TableCell className="text-right">{position.qty}</TableCell>
                             <TableCell className="text-right">{position.value}</TableCell>
-                            <TableCell className="text-right">{position.entryPrice}</TableCell>
+
                             <TableCell className={`text-right ${position.plColor}`}>{position.unrealizedPL}</TableCell>
+                            <TableCell className="">Close</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

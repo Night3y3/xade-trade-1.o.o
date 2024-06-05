@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAccount } from "@orderly.network/hooks";
-import { UseAccountReturnType } from "wagmi";
+import { UseAccountReturnType, useConnect, useWalletClient } from "wagmi";
 import { CHAIN_ID_Hex1 } from "@/utils/constantValues";
 import { useOrderEntry } from "@orderly.network/hooks";
 import {
@@ -9,9 +9,10 @@ import {
   OrderType,
 } from "@orderly.network/types";
 import TradePanel from "./ui/TradePanel";
-import OrderBook from "./ui/orderbook";
+import OrderBook from "./Orderbook/index";
 import TradingView from "./ui/tradingview";
 import { useAppSelector } from "@/redux/hooks";
+import { config } from "@/config";
 // import { config } from "@/config";
 // import { ethers } from "ethers";
 
@@ -27,7 +28,7 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
   const [orderType, setOrderType] = useState<OrderType>(OrderType.MARKET);
   const [amountPrice, setAmountPrice] = useState<string>("1000");
   const marketSymbol = useAppSelector((x) => x.market.symbol);
-
+  const result = useWalletClient();
   const [showTradePanel, setShowTradePanel] = useState(false); // Add state
   const { symbolConfig, markPrice } = useOrderEntry(
     {
@@ -44,7 +45,7 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
         setOnProcess(true);
 
         await account.setAddress(accountInfo.address, {
-          provider: window.ethereum,
+          provider: window?.ethereum,
           chain: {
             id: CHAIN_ID_Hex1,
           },
@@ -55,7 +56,7 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
       }
     };
     initialUserAccountSetup();
-  }, [accountInfo]);
+  }, [window?.ethereum, accountInfo]);
 
   useEffect(() => {
     const accountCheck = async () => {
@@ -82,11 +83,12 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
         <TradingView symbol={marketSymbol} />
       </div>
       <div className="orderbook-container">
-        <OrderBook symbolConfig={symbolConfig} symbol={marketSymbol} />
+        <OrderBook symbol={marketSymbol} />
       </div>
       <div
-        className={`tradepanel-container ${showTradePanel ? "visible" : "hidden"
-          }`}
+        className={`tradepanel-container ${
+          showTradePanel ? "visible" : "hidden"
+        }`}
         onClick={() => setShowTradePanel(false)}
       >
         <div

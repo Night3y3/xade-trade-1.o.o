@@ -19,16 +19,12 @@ const Container = styled.div`
 
 const TradingViewChart = ({ symbol }: { symbol: string }) => {
   return (
-    // <div style={{ width: "100%" }}>
     <Container>
-      {/* <TVChartContainer /> */}
-      <div style={{ width: "100%", height: "80%" }}>
+      <div style={{ width: "100%", height: "70%" }}>
         <TradingView
           symbol={symbol}
           libraryPath="/charting_library/bundles"
           tradingViewScriptSrc="/charting_library/charting_library.js"
-          // libraryPath="/tradingview/charting_library/bundles"
-          // tradingViewScriptSrc="/tradingview/charting_library/charting_library.js"
           overrides={{
             "mainSeriesProperties.candleStyle.borderDownColor": "#DC2140",
             "mainSeriesProperties.candleStyle.borderUpColor": "#1F8040",
@@ -36,7 +32,7 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
             "mainSeriesProperties.candleStyle.upColor": "#1F8040",
             "mainSeriesProperties.candleStyle.wickDownColor": "#DC2140",
             "mainSeriesProperties.candleStyle.wickUpColor": "#1F8040",
-            "paneProperties.background": "#000",
+            "paneProperties.background": "#00000",
             "paneProperties.backgroundType": "solid",
             "paneProperties.separatorColor": "#164165",
             "paneProperties.horzGridProperties.color": "#161B22",
@@ -46,7 +42,6 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
         />
       </div>
       <Portfolio symbol={symbol} />
-      {/* </div> */}
     </Container>
   );
 };

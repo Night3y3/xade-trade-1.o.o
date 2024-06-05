@@ -8,8 +8,14 @@ const tabs = ["Positions", "Orders", "History"];
 export function Portfolio({ symbol }: { symbol: string }) {
   const [tabType, setTabType] = React.useState<string>("Positions");
   return (
-    <div className=" block flex-col bg-black h-[200px]">
-      <div className=" flex w-1/3  border border-solid border-[#4B4B4B] flex-3 ">
+    <div className="block flex-col bg-black h-[200px]">
+      <div
+        className="w-1/10 border-t border-b border-solid border-[#4B4B4B]"
+        style={{ height: "40%" }}
+      >
+        {/* Add any content you want in this section */}
+      </div>
+      <div className="flex w-1/3 border border-solid border-[#4B4B4B] flex-3 ">
         {tabs.map((tab: string) => (
           <div
             key={tab}
@@ -17,7 +23,6 @@ export function Portfolio({ symbol }: { symbol: string }) {
             style={{
               borderRight: tab === "Orders" ? "1px solid #4B4B4B" : "none",
               borderLeft: tab === "Orders" ? "1px solid #4B4B4B" : "none",
-              // border: tabType === tab ? "1px solid #D4D4D4" : "1px solid #4B4B4B",
               backgroundColor: tabType === tab ? "#1E1E1E" : "#0D0D0D",
               width: "33.33%",
               display: "flex",
@@ -31,7 +36,7 @@ export function Portfolio({ symbol }: { symbol: string }) {
               style={{
                 fontSize: "12px",
                 fontWeight: 400,
-                fontFamily: "Sk-Modernist", // Changed 'font' to 'fontFamily'
+                fontFamily: "Sk-Modernist",
                 color: tabType === tab ? "#D4D4D4" : "#4B4B4B",
               }}
             >

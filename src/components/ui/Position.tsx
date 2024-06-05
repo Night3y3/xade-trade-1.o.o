@@ -11,6 +11,7 @@ import { useOrderEntry, usePositionStream } from "@orderly.network/hooks";
 import { API, OrderSide, OrderType } from "@orderly.network/types";
 import { KeyedMutator } from "swr";
 import { useAppSelector } from "@/redux/hooks";
+import NoDataPortfolio from "./NoDataPortfolio";
 
 interface PositionProps {
   symbol: string;
@@ -81,6 +82,12 @@ const PositionExt = ({
 };
 const Position: React.FC<PositionProps> = ({ symbol }) => {
   const [positions, _, { refresh }] = usePositionStream(symbol);
+
+  // console.log("positions", positions);
+
+  if (positions === undefined || positions?.rows === null) {
+    return <NoDataPortfolio message="position" />;
+  }
 
   return (
     <div className="relative w-full overflow-auto">

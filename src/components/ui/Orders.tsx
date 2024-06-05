@@ -10,6 +10,7 @@ import {
 
 import { useOrderStream } from "@orderly.network/hooks";
 import { OrderSide, OrderStatus, OrderType } from "@orderly.network/types";
+import NoDataPortfolio from "./NoDataPortfolio";
 
 interface OrdersProps {
   // Define prop types here
@@ -218,6 +219,11 @@ const OrderCard = ({ index, order }: { index: number; order: Order }) => {
 const Orders: React.FC<OrdersProps> = ({ symbol }) => {
   const [o, { cancelOrder }] = useOrderStream({ symbol: symbol });
   const orders = o as Order[] | null;
+
+  if (!orders) {
+    return <NoDataPortfolio message="orders" />;
+  }
+
   return (
     <div
       style={{ width: "100%", overflow: "scroll", maxHeight: "50%" }}

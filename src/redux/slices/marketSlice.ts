@@ -11,7 +11,7 @@ export const marketSlice = createSlice({
   name: "market",
   initialState,
   reducers: {
-    setMarket: (state, action) => {
+    setMarketSymbol: (state, action) => {
       state.symbol = action.payload;
     },
     setIndexPrice: (state, action) => {
@@ -26,7 +26,11 @@ export const marketSlice = createSlice({
   },
 });
 
-export const { setMarket, setIndexPrice, setChange24hPercent, setVolume24h } =
-  marketSlice.actions;
+export const {
+  setMarketSymbol,
+  setIndexPrice,
+  setChange24hPercent,
+  setVolume24h,
+} = marketSlice.actions;
 
 export default marketSlice.reducer;

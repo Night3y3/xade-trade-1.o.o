@@ -11,6 +11,7 @@ import {
 import TradePanel from "./ui/TradePanel";
 import OrderBook from "./ui/orderbook";
 import TradingView from "./ui/tradingview";
+import { useAppSelector } from "@/redux/hooks";
 // import { config } from "@/config";
 // import { ethers } from "ethers";
 
@@ -25,10 +26,12 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
   const [orderSide, setOrderSide] = useState<OrderSide>(OrderSide.BUY);
   const [orderType, setOrderType] = useState<OrderType>(OrderType.MARKET);
   const [amountPrice, setAmountPrice] = useState<string>("1000");
+  const marketSymbol = useAppSelector((x) => x.market.symbol);
+
   const [showTradePanel, setShowTradePanel] = useState(false); // Add state
   const { symbolConfig, markPrice } = useOrderEntry(
     {
-      symbol: "PERP_ETH_USDC",
+      symbol: marketSymbol,
       side: orderSide,
       order_type: orderType,
     },
@@ -76,10 +79,10 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
   return (
     <div className="market-section">
       <div className="tradingview-container">
-        <TradingView symbol="PERP_ETH_USDC" />
+        <TradingView symbol={marketSymbol} />
       </div>
       <div className="orderbook-container">
-        <OrderBook symbolConfig={symbolConfig} symbol="PERP_ETH_USDC" />
+        <OrderBook symbolConfig={symbolConfig} symbol={marketSymbol} />
       </div>
       <div
         className={`tradepanel-container ${
@@ -100,7 +103,7 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
             orderType={orderType}
             orderSide={orderSide}
             amountPrice={amountPrice}
-            symbol="PERP_ETH_USDC"
+            symbol={marketSymbol}
           />
         </div>
       </div>

@@ -10,6 +10,7 @@ import {
 import { useOrderEntry, usePositionStream } from "@orderly.network/hooks";
 import { API, OrderSide, OrderType } from "@orderly.network/types";
 import { KeyedMutator } from "swr";
+import { useAppSelector } from "@/redux/hooks";
 
 interface PositionProps {
   symbol: string;
@@ -26,9 +27,10 @@ const PositionExt = ({
   refresh: KeyedMutator<API.PositionInfo>;
 }) => {
   const [processing, setIsProcessing] = useState(false);
+  const marketSymbol = useAppSelector((x) => x.market.symbol);
   const { onSubmit, maxQty } = useOrderEntry(
     {
-      symbol: "PERP_ETH_USDC",
+      symbol: marketSymbol,
       side: OrderSide.SELL,
       order_type: OrderType.MARKET,
       reduce_only: true,
@@ -41,7 +43,7 @@ const PositionExt = ({
       try {
         await onSubmit({
           order_type: OrderType.MARKET,
-          symbol: "PERP_ETH_USDC",
+          symbol: marketSymbol,
           reduce_only: true,
           side: OrderSide.SELL,
           order_quantity: maxQty,

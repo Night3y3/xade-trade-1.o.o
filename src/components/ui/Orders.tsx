@@ -26,11 +26,11 @@ const orders: OrderData[] = [
 
 const Orders: React.FC<OrdersProps> = () => {
     return (
-        <div className="relative w-full overflow-auto pl-10">
+        <div className="relative w-full overflow-auto">
             <Table>
                 <TableHeader className='text-[#4B4B4B]'>
                     <TableRow className='border-none'>
-                        <TableHead className=" text-center">Market</TableHead>
+                        <TableHead className="">Market</TableHead>
                         <TableHead className=" text-center">Price</TableHead>
                         <TableHead className=" text-center">Quantity</TableHead>
                         <TableHead className=" text-center">Type</TableHead>
@@ -42,7 +42,7 @@ const Orders: React.FC<OrdersProps> = () => {
                 <TableBody className='text-[#D4D4D4] border-none border-[#171717]'>
                     {orders.map((order, index) => (
                         <TableRow key={index} className='border-none'>
-                            <TableCell className={` border-l-2 bg-gradient-to-r ${order.side === "Buy" ? "border-[#C7F052] from-[#1E2311]" : "border-red-500 from-red-500"} from-10% via-[#2A3311] via-20% to-[#171717] to-50% text-start pl-7`}><div>
+                            <TableCell className={` border-l-2 bg-gradient-to-r ${order.side === "Buy" ? "border-[#C7F052] from-[#1E2311] from-10% via-[#2A3311]" : "border-[#F35540] from-[#1E2311] from-10% via-[#861000]"}  via-20% to-[#171717] to-50% text-start pl-7`}><div>
                                 {order.market}
                             </div><div className={` ${order.side === "Buy" ? "text-[#C7F052] " : "text-red-500 "}`}>{order.side}</div></TableCell>
                             <TableCell className="">{order.price}</TableCell>

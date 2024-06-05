@@ -4,18 +4,33 @@ import "./index.css";
 
 const Orderbook = ({ symbol }: { symbol: string }) => {
   const [data, { isLoading }] = useOrderbookStream(symbol, undefined, {
-    level: 10,
+    level: 15,
   });
 
   return (
     <div
       style={{
         maxHeight: "100%",
+        height: "100%",
         width: "100%",
+        padding: "0px 0", // Added vertical padding
         borderLeft: "1px solid #3B3B3B",
         borderBottom: "1px solid #3B3B3B",
       }}
     >
+      <div
+        style={{
+          width: "100%",
+          textAlign: "center",
+          padding: "8px",
+          backgroundColor: "#1d1d1d",
+          color: "white",
+          fontFamily: "Sk-Modernist-Bold",
+          fontSize: 16,
+        }}
+      >
+        Book
+      </div>
       <div
         style={{
           width: "100%",
@@ -24,7 +39,7 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
           border: "1px solid #3B3B3B",
           padding: "8px",
           borderTop: 0,
-          marginBottom: 8,
+  
         }}
       >
         <div
@@ -72,7 +87,7 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
                       display: "flex",
                       flexDirection: "row",
                       justifyContent: "space-between",
-                      marginBottom: 4,
+                     
                     }}
                   >
                     <div
@@ -82,41 +97,32 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
                         fontFamily: "Sk-Modernist-Regular",
                         width: "33%",
                         marginLeft: 12,
-                        fontSize: 12,
+                        fontSize: 16,
                       }}
                     >
                       {quantity}
                     </div>
                     <div
                       style={{
-                        color: "white",
                         textAlign: "right",
                         fontFamily: "Sk-Modernist-Regular",
                         width: "33%",
-                        fontSize: 12,
+                        fontSize: 16,
+                        color:"#F35540",
                       }}
                     >
                       {price}
                     </div>
                     <div
                       style={{
-                        color: "white",
-                        background: `linear-gradient(to left, #402222 ${gradient}%, transparent ${gradient}%)`,
+                        color: "rgba(255, 255, 255, 0.8)",
+                        background: `linear-gradient(to left, rgba(64, 34, 34, 0.8) ${gradient}%, transparent ${gradient}%)`,
                         textAlign: "right",
                         fontFamily: "Sk-Modernist-Regular",
                         width: "33%",
                       }}
                     />
                   </div>
-                  {/* <Box className="ask">{price}</Box>
-                  <Box>{quantity}</Box>
-                  <Box
-                    style={{
-                      background: `linear-gradient(to left, rgba(161, 6, 6, 0.8) ${gradient}%, transparent ${gradient}%)`,
-                    }}
-                  >
-                    {aggregated}
-                  </Box> */}
                 </>
               );
             })}
@@ -127,8 +133,7 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
               flexDirection: "row",
               borderBottom: "1px solid #3B3B3B",
               borderTop: "1px solid #3B3B3B",
-              padding: "8px",
-              marginBottom: 8,
+              padding: "10px 6px", // Increased vertical padding
             }}
           >
             <div
@@ -137,10 +142,10 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
                 textAlign: "left",
                 fontFamily: "Sk-Modernist-Bold",
                 width: "30%",
-                fontSize: "18px",
+                fontSize: 19,
               }}
             >
-              {data?.markPrice}
+              ${data?.markPrice}
             </div>
           </div>
           {data.bids
@@ -155,7 +160,7 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
                       display: "flex",
                       flexDirection: "row",
                       justifyContent: "space-between",
-                      marginBottom: 4,
+          
                     }}
                   >
                     <div
@@ -165,41 +170,32 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
                         fontFamily: "Sk-Modernist-Regular",
                         width: "33%",
                         marginLeft: 12,
-                        fontSize: 12,
+                        fontSize: 16,
                       }}
                     >
                       {quantity}
                     </div>
                     <div
                       style={{
-                        color: "white",
+                        color: "#40F388",
                         textAlign: "right",
                         fontFamily: "Sk-Modernist-Regular",
                         width: "33%",
-                        fontSize: 12,
+                        fontSize: 16,
                       }}
                     >
                       {price}
                     </div>
                     <div
                       style={{
-                        color: "white",
-                        background: `linear-gradient(to left, #285139 ${gradient}%, transparent ${gradient}%)`,
+                        color: "rgba(255, 255, 255, 0.8)",
+                        background: `linear-gradient(to left, rgba(40, 81, 57, 0.8) ${gradient}%, transparent ${gradient}%)`,
                         textAlign: "right",
                         fontFamily: "Sk-Modernist-Regular",
                         width: "33%",
                       }}
                     />
                   </div>
-                  {/* <Box className="ask">{price}</Box>
-                <Box>{quantity}</Box>
-                <Box
-                  style={{
-                    background: `linear-gradient(to left, rgba(161, 6, 6, 0.8) ${gradient}%, transparent ${gradient}%)`,
-                  }}
-                >
-                  {aggregated}
-                </Box> */}
                 </>
               );
             })}

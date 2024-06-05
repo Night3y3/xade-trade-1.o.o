@@ -38,7 +38,7 @@ function App() {
                 <NavBar />
                 <PriceBar />
                 <MarketSection accountInfo={account} />
-                <Footer />
+      
               </div>
             </ThemeProvider>
           </RainbowKitProvider>

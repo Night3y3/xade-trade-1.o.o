@@ -13,8 +13,6 @@ import OrderBook from "./Orderbook/index";
 import TradingView from "./ui/tradingview";
 import { useAppSelector } from "@/redux/hooks";
 import { config } from "@/config";
-// import { config } from "@/config";
-// import { ethers } from "ethers";
 
 interface MarketSectionProps {
   accountInfo: UseAccountReturnType;

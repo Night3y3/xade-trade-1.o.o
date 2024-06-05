@@ -5,3 +5,21 @@
 body {
   background-color: black;
 }
+
+@font-face {
+  font-family: "Regular";
+  src: local("Sk-Modernist-Regular"),
+    url("../../public/fonts/Sk-Modernist-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Bold";
+  src: local("Sk-Modernist-Bold"),
+    url("../public/fonts/Sk-Modernist-Bold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Mono";
+  src: local("Sk-Modernist-Mono"),
+    url("../public/fonts/Sk-Modernist-Mono.otf") format("opentype");
+}

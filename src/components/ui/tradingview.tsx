@@ -5,7 +5,7 @@ import Portfolio from "./portfolio";
 // import { TVChartContainer } from "../TVChartContainer";
 
 const Container = styled.div`
-  height: 100%;
+  height: 100vh;
   width: 100%;
   background-color: black;
   display: flex;
@@ -22,7 +22,7 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
     // <div style={{ width: "100%" }}>
     <Container>
       {/* <TVChartContainer /> */}
-      <div style={{ width: "100%", height: "70%" }}>
+      <div style={{ width: "100%", height: "80%" }}>
         <TradingView
           symbol={symbol}
           libraryPath="/charting_library/bundles"

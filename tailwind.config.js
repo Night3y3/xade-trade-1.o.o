@@ -17,6 +17,11 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        primaryRegular: ["Regular"],
+        primaryMono: ["Mono"],
+        primaryBold: ["Bold"],
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

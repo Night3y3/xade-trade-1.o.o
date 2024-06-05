@@ -85,9 +85,8 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
         <OrderBook symbolConfig={symbolConfig} symbol={marketSymbol} />
       </div>
       <div
-        className={`tradepanel-container ${
-          showTradePanel ? "visible" : "hidden"
-        }`}
+        className={`tradepanel-container ${showTradePanel ? "visible" : "hidden"
+          }`}
         onClick={() => setShowTradePanel(false)}
       >
         <div

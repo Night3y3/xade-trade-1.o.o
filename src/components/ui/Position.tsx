@@ -86,7 +86,7 @@ const Position: React.FC<PositionProps> = ({ symbol }) => {
     <div className="relative w-full overflow-auto">
       <Table className="border-none">
         <TableHeader className="text-[#4B4B4B]">
-          <TableRow className="border-none">
+          <TableRow className="border-none font-primaryRegular">
             <TableHead className="">Symbol</TableHead>
             <TableHead className="">Notional Size</TableHead>
             <TableHead className="">Average Price</TableHead>

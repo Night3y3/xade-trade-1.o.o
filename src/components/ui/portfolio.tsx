@@ -8,7 +8,7 @@ const tabs = ["Positions", "Orders", "History"];
 export function Portfolio({ symbol }: { symbol: string }) {
   const [tabType, setTabType] = React.useState<string>("Positions");
   return (
-    <div className=" flex flex-col bg-black">
+    <div className=" block flex-col bg-black h-[200px]">
       <div className=" flex w-1/3  border border-solid border-[#4B4B4B] flex-3 ">
         {tabs.map((tab: string) => (
           <div

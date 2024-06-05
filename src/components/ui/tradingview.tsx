@@ -10,8 +10,6 @@ const Container = styled.div`
   background-color: black;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  align-self: flex-start;
   margin-right: 0;
   @media (max-width: 768px) {
     width: 100%;
@@ -21,8 +19,8 @@ const Container = styled.div`
 
 const TradingViewChart = ({ symbol }: { symbol: string }) => {
   return (
-    <div style={{ width: "100%" }}>
-      {/* // <Container> */}
+    // <div style={{ width: "100%" }}>
+    <Container>
       {/* <TVChartContainer /> */}
       <div style={{ width: "100%", height: "70%" }}>
         <TradingView
@@ -38,8 +36,8 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
             "mainSeriesProperties.candleStyle.upColor": "#1F8040",
             "mainSeriesProperties.candleStyle.wickDownColor": "#DC2140",
             "mainSeriesProperties.candleStyle.wickUpColor": "#1F8040",
-            "paneProperties.backgroundGradientStartColor": "#020024",
-            "paneProperties.backgroundGradientEndColor": "#4f485e",
+            "paneProperties.background": "#DC2140",
+            "paneProperties.backgroundType": "solid",
             "paneProperties.separatorColor": "#164165",
             "paneProperties.horzGridProperties.color": "#161B22",
             "paneProperties.vertGridProperties.color": "#161B22",
@@ -48,7 +46,8 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
         />
       </div>
       <Portfolio symbol={symbol} />
-    </div>
+      {/* </div> */}
+    </Container>
   );
 };
 

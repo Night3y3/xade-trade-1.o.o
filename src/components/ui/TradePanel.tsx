@@ -144,7 +144,7 @@ const OrderOverview = ({
             color: "#4B4B4B",
           }}
         >
-          /LONG
+       Order Size
         </div>
         <div
           style={{
@@ -178,7 +178,7 @@ const OrderOverview = ({
             color: "#4B4B4B",
           }}
         >
-          Order price:
+          Estimated entry price:
         </div>
         <div
           style={{
@@ -213,7 +213,7 @@ const OrderOverview = ({
             color: "#4B4B4B",
           }}
         >
-          Order value:
+          Liquidation Price
         </div>
         <div
           style={{
@@ -252,7 +252,7 @@ const OrderOverview = ({
             color: "#4B4B4B",
           }}
         >
-          Order qty:
+        Fees:
         </div>
         <div
           style={{

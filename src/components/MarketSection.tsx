@@ -11,6 +11,8 @@ import {
 import TradePanel from "./ui/TradePanel";
 import OrderBook from "./ui/orderbook";
 import TradingView from "./ui/tradingview";
+import { TVChartContainer } from "./TVChartContainer";
+import { Portfolio } from "./ui/portfolio";
 
 interface MarketSectionProps {
   accountInfo: UseAccountReturnType;
@@ -71,9 +73,15 @@ const MarketSection: React.FC<MarketSectionProps> = ({ accountInfo }) => {
 
   return (
     <div className="market-section">
-      <div className="tradingview-container">
-        <TradingView />
+      <div className="tradingview-portfolio-div h-[50vh]">
+        {/* <div className=" flex-[7]">
+          <TradingView />
+        </div> */}
+        <div className=" flex-[3]">
+          <Portfolio />
+        </div>
       </div>
+
       <div className="orderbook-container">
         <OrderBook symbolConfig={symbolConfig} symbol="PERP_ETH_USDC" />
       </div>

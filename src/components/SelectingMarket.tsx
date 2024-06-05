@@ -1,48 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import ethlogo from '../assets/eth-logo.svg';
-import useSWR from 'swr'
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
+import useSWR from 'swr';
 import { change24hour, change24hourPercent, parseString } from '@/utils/helper';
 import { useAppDispatch } from '@/redux/hooks';
-import { setMarket, setVolume24h, setIndexPrice, setChange24hPercent } from '@/redux/slices/marketSlice';
+import { setVolume24h, setIndexPrice, setChange24hPercent } from '@/redux/slices/marketSlice';
 import { Row, Data } from '@/types';
-
-
+import '../App.css';
 interface SelectingMarketProps {
     // Define prop types here
 }
 
-const fetcher = (...arg) => {
+const fetcher = (...arg: [string, RequestInit?]) => {
     return fetch(...arg).then(res => res.json())
 }
 
 const SelectingMarket: React.FC<SelectingMarketProps> = () => {
 
     const { data, error } = useSWR('https://api-evm.orderly.network/v1/public/futures', fetcher, { refreshInterval: 1000 })
-    const [market, setMarket] = useState<string | null>("Select a Market")
+    const [market, setMarket] = useState("BTC");
+    const [isSelectorOpen, setIsSelectorOpen] = useState(false);
     const dispatch = useAppDispatch();
 
     function handleSelect(symbol: string) {
         setMarket(symbol);
+        setIsSelectorOpen(false);
     }
 
     useEffect(() => {
-        // Set up an interval that updates the count every second
         const interval = setInterval(() => {
             const selectedMarket = data.data.rows.find((row: Row) => parseString(row.symbol) === market);
             if (selectedMarket) {
@@ -52,56 +35,55 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
             }
         }, 1000);
 
-        // Clean up the interval when the component unmounts
         return () => clearInterval(interval);
-    }, [data]);
+    }, [data, market]);
 
     return (
-        <div className='flex gap-4 items-center pl-5'>
-            <Select onValueChange={handleSelect}>
-                <SelectTrigger className=' border-none focus:border-none selection:border-none default:border-none flex gap-2'>
+        <div style={{ display: 'flex', gap: '16px', alignItems: 'center', paddingLeft: '20px', fontFamily: 'Sk-Modernist-Regular, sans-serif' }}>
+            <div className="select">
+                <div className="select-trigger" style={{ border: 'none', display: 'flex', gap: '8px', cursor: 'pointer', color: 'white', marginRight: '3rem' }} onClick={() => setIsSelectorOpen(!isSelectorOpen)}>
+                    <img src={`https://oss.orderly.network/static/symbol_logo/${market}.png`} alt="" style={{ width: '32px' }} />
+                    <span style={{ fontWeight: '500', fontSize: '1.25rem' }}>{market}</span>
+                </div>
+                {isSelectorOpen && (
+                    <div className="select-content" style={{ position: 'absolute', backgroundColor: 'BLACK', borderRadius: '4px', zIndex: 1000, height: '30%', overflowX: 'auto', paddingTop: '2%', color: 'white' }}>
+                        <table style={{ fontFamily: 'Sk-Modernist-Regular' }}>
+                            <thead>
+                                <tr style={{ border: 'none', textAlign: 'left', fontFamily: 'Sk-Modernist-Regular' }} >
+                                    <th style={{ paddingRight: '20px ', paddingLeft: '20px', textAlign: 'left', fontFamily: 'Sk-Modernist-Regular' }}>Symbol</th>
+                                    <th style={{ paddingRight: '20px ', paddingLeft: '20px', textAlign: 'left', fontFamily: 'Sk-Modernist-Regular' }}>Price</th>
+                                    <th style={{ paddingRight: '20px ', paddingLeft: '20px', textAlign: 'left', fontFamily: 'Sk-Modernist-Regular' }}>24h Chg</th>
+                                    <th style={{ paddingRight: '20px ', paddingLeft: '20px', textAlign: 'left', fontFamily: 'Sk-Modernist-Regular' }}>24hr Chg(%)</th>
+                                    <th style={{ paddingRight: '20px ', paddingLeft: '20px', textAlign: 'left', fontFamily: 'Sk-Modernist-Regular' }}>8h Fund.(%)</th>
+                                    <th style={{ paddingRight: '20px', paddingLeft: '20px', textAlign: 'left', fontFamily: 'Sk-Modernist-Regular' }}>Volume</th>
+                                    <th style={{ paddingRight: '20px ', paddingLeft: '20px', textAlign: 'left', fontFamily: 'Sk-Modernist-Regular' }}>Open Interest</th>
+                                </tr>
+                            </thead>
 
-                    <SelectValue placeholder={market} className=' font-medium text-xl' onChange={() => console.log("changed")} />
-                </SelectTrigger>
-                <SelectContent>
-                    <Table>
-                        <TableHeader>
-                            <TableRow className=' border-none'>
-                                <TableHead>Symbol</TableHead>
-                                <TableHead>Last Price</TableHead>
-                                <TableHead>24hr Change</TableHead>
-                                <TableHead>24hr Change(%)</TableHead>
-                                <TableHead>8hr Funding(%)</TableHead>
-                                <TableHead>Volume</TableHead>
-                                <TableHead >Open Interest</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {data?.data.rows.map((item: Row) => (
-
-                                <TableRow key={item.symbol} className=' border-none'>
-                                    <SelectItem value={parseString(item.symbol)} >
-
-                                        <TableCell className='flex items-center gap-4 font-medium text-xl'>
-                                            <img src={`https://oss.orderly.network/static/symbol_logo/${parseString(item.symbol)}.png`} alt="" className=' w-[1vw]' />
+                            <tbody>
+                                {data?.data.rows.map((item: Row) => (
+                                    <tr key={item.symbol} style={{ border: 'none', cursor: 'pointer', paddingBottom: "100px" }} onClick={() => handleSelect(parseString(item.symbol) || '')}>
+                                        <td style={{ display: 'flex', alignItems: 'center', gap: '16px', fontFamily: 'Sk-Modernist-Regular', fontSize: '1rem', marginRight: '1rem', paddingLeft: '20px' }}>
+                                            <img src={`https://oss.orderly.network/static/symbol_logo/${parseString(item.symbol) || 'default'}.png`} alt="" style={{ width: '32px' }} />
                                             {parseString(item.symbol)}
-                                        </TableCell>
-                                    </SelectItem>
-                                    <TableCell>${item.mark_price}</TableCell>
-                                    <TableCell className={`${change24hour(item['24h_open'], item['24h_close']) > 0 ? 'text-[#40F388]' : 'text-[#F46140]'}`}>${change24hour(item['24h_open'], item['24h_close'])}</TableCell>
-                                    <TableCell className={`${change24hourPercent(item['24h_open'], item['24h_close']) > 0 ? 'text-[#40F388]' : 'text-[#F46140]'}`}>{change24hourPercent(item['24h_open'], item['24h_close'])}%</TableCell>
-                                    <TableCell>{item.est_funding_rate}</TableCell>
-                                    <TableCell>${item['24h_volume']}</TableCell>
-                                    <TableCell>${item.open_interest}</TableCell>
-                                </TableRow>
-
-                            ))}
-                        </TableBody>
-                    </Table>
-
-
-                </SelectContent>
-            </Select>
+                                        </td>
+                                        <td>${item.mark_price}</td>
+                                        <td style={{ color: change24hour(item['24h_open'], item['24h_close']) > 0 ? '#40F388' : '#F46140' }}>
+                                            ${change24hour(item['24h_open'], item['24h_close'])}
+                                        </td>
+                                        <td style={{ color: change24hourPercent(item['24h_open'], item['24h_close']) > 0 ? '#40F388' : '#F46140' }}>
+                                            {change24hourPercent(item['24h_open'], item['24h_close'])}%
+                                        </td>
+                                        <td>{item.est_funding_rate}</td>
+                                        <td>${item['24h_volume']}</td>
+                                        <td>${item.open_interest}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

@@ -33,6 +33,16 @@ const PriceBar: React.FC<PriceBarProps> = () => {
                     <h1 className='text-[#4B4B4B] font-normal text-sm'>24H Volume</h1>
                     <h1 className='price text-[#fff]'>{market.volume_24h}</h1>
                 </div>
+                <Separator className="h-full w-[1px] bg-[#4B4B4B] dark:bg-gray-700" />
+                <div className='price-bar-item'>
+                    <h1 className='text-[#4B4B4B] font-normal text-sm'>Open Interest</h1>
+                    <h1 className='price text-[#fff]'>{market.change_24h_percent}</h1>
+                </div>
+                <Separator className="h-full w-[1px] bg-[#4B4B4B] dark:bg-gray-700" />
+                <div className='price-bar-item'>
+                    <h1 className='text-[#4B4B4B] font-normal text-sm'>8h Funding Rate</h1>
+                    <h1 className='price text-[#fff]'>{market.volume_24h}%</h1>
+                </div>
             </div>
         </div>
     );

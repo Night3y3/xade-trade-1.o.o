@@ -10,6 +10,7 @@ import {
 } from "@/redux/slices/marketSlice";
 import { Row, Data } from "@/types";
 import "../App.css";
+
 interface SelectingMarketProps {
   // Define prop types here
 }
@@ -26,6 +27,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
   );
   const [market, setMarket] = useState("BTC");
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
   const dispatch = useAppDispatch();
 
   function handleSelect(symbol: string) {
@@ -56,13 +58,19 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
     return () => clearInterval(interval);
   }, [data, market]);
 
+  const filteredData = data?.data?.rows
+    ?.filter((item: Row) =>
+      (item.symbol).toLowerCase().includes(searchInput.toLowerCase())
+    )
+    .sort((a: Row, b: Row) => (b["24h_volume"] * b.mark_price) - (a["24h_volume"] * a.mark_price)) || [];
+
   return (
     <div
       style={{
         display: "flex",
         gap: "16px",
         alignItems: "center",
-        paddingLeft: "20px",
+        paddingLeft: "0px", // Ensure no left padding
         fontFamily: "Sk-Modernist-Regular, sans-serif",
       }}
     >
@@ -106,9 +114,27 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
               overflowX: "auto",
               paddingTop: "2%",
               color: "white",
+              marginLeft: "-20px", // Added negative left margin
             }}
           >
-            <table style={{ fontFamily: "Sk-Modernist-Regular" }}>
+            <input
+              type="text"
+              placeholder="Search by symbol"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              style={{
+                width: "96%",
+                padding: "8px 24px", // Same padding as symbol column
+                marginBottom: "8px",
+                fontFamily: "Sk-Modernist-Regular",
+                borderRadius: "8px", // Added border radius
+                backgroundColor: "#1E1E1E", // Added background color
+                color: "white", // Ensure text color is white
+                border: "none",
+
+              }}
+            />
+            <table style={{ fontFamily: "Sk-Modernist-Regular", width: "100%" }}>
               <thead>
                 <tr
                   style={{
@@ -119,7 +145,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                 >
                   <th
                     style={{
-                      padding: "4px ",
+                      padding: "8px 24px", // Added horizontal padding
                       textAlign: "left",
                       fontFamily: "Sk-Modernist-Regular",
                     }}
@@ -128,7 +154,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                   </th>
                   <th
                     style={{
-                      padding: "4px ",
+                      padding: "8px 24px", // Added horizontal padding
                       textAlign: "left",
                       fontFamily: "Sk-Modernist-Regular",
                     }}
@@ -137,7 +163,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                   </th>
                   <th
                     style={{
-                      padding: "4px ",
+                      padding: "8px 24px", // Added horizontal padding
                       textAlign: "left",
                       fontFamily: "Sk-Modernist-Regular",
                     }}
@@ -146,7 +172,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                   </th>
                   <th
                     style={{
-                      padding: "4px ",
+                      padding: "8px 24px", // Added horizontal padding
                       textAlign: "left",
                       fontFamily: "Sk-Modernist-Regular",
                     }}
@@ -155,36 +181,18 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                   </th>
                   <th
                     style={{
-                      padding: "4px ",
-                      textAlign: "left",
-                      fontFamily: "Sk-Modernist-Regular",
-                    }}
-                  >
-                    8h Fund.(%)
-                  </th>
-                  <th
-                    style={{
-                      padding: "4px  ",
+                      padding: "8px 24px", // Added horizontal padding
                       textAlign: "left",
                       fontFamily: "Sk-Modernist-Regular",
                     }}
                   >
                     Volume
                   </th>
-                  <th
-                    style={{
-                      padding: "4px ",
-                      textAlign: "left",
-                      fontFamily: "Sk-Modernist-Regular",
-                    }}
-                  >
-                    Open Interest
-                  </th>
                 </tr>
               </thead>
 
               <tbody>
-                {data?.data.rows.map((item: Row) => (
+                {filteredData?.map((item: Row) => (
                   <tr
                     key={item.symbol}
                     style={{ border: "none", cursor: "pointer" }}
@@ -198,6 +206,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                         fontFamily: "Sk-Modernist-Regular",
                         fontSize: "1rem",
                         marginRight: "1rem",
+                        padding: "8px 24px", // Added horizontal and vertical padding
                       }}
                     >
                       <img
@@ -209,13 +218,14 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                       />
                       {parseString(item.symbol)}
                     </td>
-                    <td>${item.mark_price}</td>
+                    <td style={{ padding: "8px 24px" }}>${item.mark_price}</td>
                     <td
                       style={{
                         color:
                           change24hour(item["24h_open"], item["24h_close"]) > 0
                             ? "#40F388"
                             : "#F46140",
+                        padding: "8px 24px", // Added horizontal and vertical padding
                       }}
                     >
                       ${change24hour(item["24h_open"], item["24h_close"])}
@@ -229,14 +239,18 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                           ) > 0
                             ? "#40F388"
                             : "#F46140",
+                        padding: "8px 24px", // Added horizontal and vertical padding
                       }}
                     >
-                      {change24hourPercent(item["24h_open"], item["24h_close"])}
+                      {change24hourPercent(
+                        item["24h_open"],
+                        item["24h_close"]
+                      )}
                       %
                     </td>
-                    <td>{item.est_funding_rate}</td>
-                    <td>${item["24h_volume"]}</td>
-                    <td>${item.open_interest}</td>
+                    <td style={{ padding: "8px 24px" }}>
+                      ${(item["24h_volume"] * item.mark_price).toFixed(2)}
+                    </td>
                   </tr>
                 ))}
               </tbody>

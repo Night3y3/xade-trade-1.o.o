@@ -10,7 +10,7 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
   return (
     <div
       style={{
-        maxHeight: "80%",
+        maxHeight: "100%",
         width: "100%",
         borderLeft: "1px solid #3B3B3B",
         borderBottom: "1px solid #3B3B3B",

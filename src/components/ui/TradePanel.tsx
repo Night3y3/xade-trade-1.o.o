@@ -15,7 +15,6 @@ interface MarketSectionProps {
   symbol: string;
   setAmountPrice: (x: string) => void;
   setOrderSide: (x: OrderSide) => void;
-  setOrderType: (x: OrderType) => void;
 }
 
 const AmountInput = ({
@@ -333,7 +332,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             padding: "10px 0px", // Added horizontal padding
           }}
         >
-          {[OrderType.MARKET, OrderType.LIMIT, OrderType.STOP_MARKET].map(
+          {[OrderType.MARKET, OrderType.LIMIT].map(
             (type) => (
               <div
                 key={type}
@@ -343,7 +342,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
                     orderType === type
                       ? "1px solid #D4D4D4"
                       : "1px solid #4B4B4B",
-                  width: "33.33%",
+                  width: "50%",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
@@ -359,7 +358,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
                     color: orderType === type ? "#D4D4D4" : "#4B4B4B",
                   }}
                 >
-                  {type === OrderType.STOP_MARKET ? "STOP" : type}
+                  {type}
                 </div>
               </div>
             )
@@ -590,9 +589,6 @@ const TradePanel: React.FC<MarketSectionProps> = ({
                 ? parseFloat(amountPrice) / markPrice
                 : amountPrice
             );
-            // if (orderType === "LIMIT") {
-            //   newValue = calculate(newValue, "trigger_price", limitPrice);
-            // }
             const errors = await validator(newValue);
             console.log(JSON.stringify(newValue), errors);
             try {

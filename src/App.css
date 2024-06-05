@@ -156,22 +156,10 @@
   width: 100%;
 }
 
-::-webkit-scrollbar {
-  display: none;
-}
-
-.tradingview-portfolio-div {
-  display: flex;
-  flex-direction: column;
-  /* height: 100%; */
-  width: 100%;
-}
-
 .tradingview-container {
   display: flex;
-  /* flex: 7; */
-  /* height: 80%; */
-  width: 100%; /* Remaining space */
+  height: 100%;
+  width: 60%; /* Remaining space */
   margin: 0;
   padding: 0;
 }

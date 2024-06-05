@@ -288,6 +288,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
   symbol,
 }) => {
   const [isBuy, setIsBuy] = useState(orderSide === OrderSide.BUY);
+  const [limitPrice, setLimitPrice] = useState("");
 
   const handleOrderSideChange = (side: OrderSide) => {
     setOrderSide(side);
@@ -440,6 +441,79 @@ const TradePanel: React.FC<MarketSectionProps> = ({
           </div>
         </div>
       </div>
+      {orderType === OrderType.LIMIT && (
+        <div
+          style={{
+            width: "95%",
+            borderRadius: 12,
+            background: "#000",
+            border: "1px solid #4B4B4B",
+            height: "64px",
+            padding: 8,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginTop: "10px",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <div
+              style={{
+                fontSize: "12px",
+                fontWeight: 400,
+                font: "Sk-Modernist",
+                color: "#4B4B4B",
+                textAlign: "left",
+              }}
+            >
+              Limit Price
+            </div>
+            <input
+              style={{
+                fontSize: "18px",
+                fontWeight: 700,
+                font: "Sk-Modernist",
+                background: "transparent",
+                outline: "none",
+                lineHeight: "21.6px",
+                color: "#D4D4D4",
+                width: "60%",
+                height: "21.6px",
+              }}
+              value={limitPrice}
+              onChange={(e) => setLimitPrice(e.target.value?.toString())}
+            />
+          </div>
+          <div
+            style={{
+              fontFamily: "Sk-Modernist-Bold",
+              width: 50,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 8,
+              height: "28px",
+              marginLeft: "8px",
+            }}
+          >
+            <div
+              style={{
+                fontSize: 16,
+                font: "Sk-Modernist",
+                color: "#FF9900",
+                marginTop: "10%",
+              }}
+            >
+              USD
+            </div>
+          </div>
+        </div>
+      )}
       <AmountInput
         symbolConfig={symbolConfig}
         setAmountPrice={setAmountPrice}

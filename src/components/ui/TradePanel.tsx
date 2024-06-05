@@ -398,18 +398,22 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            height: "20px",
+            height: "100%", // Ensure it takes full height of the parent
             cursor: "pointer",
             zIndex: 1,
           }}
         >
           <div
             style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
               fontSize: "12px",
               fontWeight: 400,
               font: "Sk-Modernist",
               color: isBuy ? "#40F388" : "#4B4B4B",
               transition: "color 0.3s",
+              textAlign: "center", // Center the text horizontally
             }}
           >
             BUY/LONG
@@ -422,7 +426,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            height: "20px",
+            height: "100%", // Ensure it takes full height of the parent
             cursor: "pointer",
             zIndex: 1,
             transition: "border 0.3s",
@@ -430,11 +434,15 @@ const TradePanel: React.FC<MarketSectionProps> = ({
         >
           <div
             style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
               fontSize: "12px",
               fontWeight: 400,
               font: "Sk-Modernist",
               color: !isBuy ? "#F35540" : "#4B4B4B",
               transition: "color 0.3s",
+              textAlign: "center", // Center the text horizontally
             }}
           >
             SELL/SHORT

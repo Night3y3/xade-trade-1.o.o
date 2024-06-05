@@ -8,7 +8,7 @@ import {
   setChange24hPercent,
   setMarketSymbol,
 } from "@/redux/slices/marketSlice";
-import { Row, Data } from "@/types";
+import { Row } from "@/types";
 import "../App.css";
 
 interface SelectingMarketProps {

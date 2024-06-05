@@ -14,6 +14,8 @@ import { BROKER_ID } from "./utils/constantValues";
 import { ThemeProvider } from "./components/theme-provider";
 import { OrderlyConfigProvider } from "@orderly.network/hooks";
 import MarketSection from "./components/MarketSection";
+import { TVChartContainer } from "./components/TVChartContainer";
+import React from "react";
 
 const queryClient = new QueryClient();
 
@@ -37,8 +39,9 @@ function App() {
               <div className="flex flex-col overflow-hidden">
                 <NavBar />
                 <PriceBar />
+                {/* <TVChartContainer /> */}
+
                 <MarketSection accountInfo={account} />
-                <Footer />
               </div>
             </ThemeProvider>
           </RainbowKitProvider>

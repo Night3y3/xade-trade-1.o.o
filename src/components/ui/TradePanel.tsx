@@ -293,6 +293,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
   symbol,
 }) => {
   const [isBuy, setIsBuy] = useState(orderSide === OrderSide.BUY);
+  console.log(markPrice);
   const [limitPrice, setLimitPrice] = useState(markPrice?.toString());
 
   const handleOrderSideChange = (side: OrderSide) => {

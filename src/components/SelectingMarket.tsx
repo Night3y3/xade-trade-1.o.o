@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import { change24hour, change24hourPercent, parseString } from "@/utils/helper";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import {
   setVolume24h,
   setIndexPrice,
   setChange24hPercent,
   setMarketSymbol,
   setOpenInterest,
-  setMarkPrice
+  setMarkPrice,
+  setFundingRate8h,
 } from "@/redux/slices/marketSlice";
 import { Row } from "@/types";
 import { formatLargeNumber } from "@/utils/format";
 import "../App.css";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"; // Import the icon
 import SearchIcon from "@mui/icons-material/Search"; // Import the search icon
+import {
+  useDaily,
+  useFundingRate,
+  usePositionStream,
+} from "@orderly.network/hooks";
 
 interface SelectingMarketProps {
   // Define prop types here
@@ -25,16 +31,27 @@ const fetcher = (...arg: [string, RequestInit?]) => {
 };
 
 const SelectingMarket: React.FC<SelectingMarketProps> = () => {
+  const marketInfo = useAppSelector((state) => state.market);
   const { data } = useSWR(
     "https://api-evm.orderly.network/v1/public/futures",
     fetcher,
     { refreshInterval: 1000 }
   );
+
   const [market, setMarket] = useState("BTC");
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const dispatch = useAppDispatch();
-
+  const [positionData] = usePositionStream(marketInfo?.symbol);
+  const fundingRate = useFundingRate(marketInfo?.symbol);
+  let positionSize = 0;
+  if (positionData?.rows) {
+    positionSize = positionData.rows.reduce(
+      (total, position) => total + position.position_qty,
+      0
+    );
+  }
+  const rate = fundingRate;
   function handleSelect(symbol: string) {
     setMarket(symbol);
     setIsSelectorOpen(false);
@@ -46,7 +63,20 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
         (row: Row) => parseString(row.symbol) === market
       );
       if (selectedMarket) {
+        console.log(
+          "check market......",
+          positionSize *
+            selectedMarket?.mark_price *
+            parseFloat(rate?.est_funding_rate)
+        );
         dispatch(setIndexPrice(selectedMarket.index_price));
+        dispatch(
+          setFundingRate8h(
+            positionSize *
+              selectedMarket?.mark_price *
+              parseFloat(rate?.est_funding_rate)
+          )
+        );
         dispatch(
           setChange24hPercent(
             change24hourPercent(
@@ -270,8 +300,9 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                         }}
                       >
                         <img
-                          src={`https://oss.orderly.network/static/symbol_logo/${parseString(item.symbol) || "default"
-                            }.png`}
+                          src={`https://oss.orderly.network/static/symbol_logo/${
+                            parseString(item.symbol) || "default"
+                          }.png`}
                           alt=""
                           style={{ width: "32px" }}
                         />

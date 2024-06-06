@@ -7,6 +7,7 @@ const initialState = {
   volume_24h: 0,
   open_interest: 0,
   mark_price: 0,
+  funding_rate_8h: 0,
 };
 
 export const marketSlice = createSlice({
@@ -31,6 +32,9 @@ export const marketSlice = createSlice({
     setMarkPrice: (state, action) => {
       state.mark_price = action.payload;
     },
+    setFundingRate8h: (state, action) => {
+      state.funding_rate_8h = action.payload;
+    },
   },
 });
 
@@ -41,6 +45,7 @@ export const {
   setVolume24h,
   setOpenInterest,
   setMarkPrice,
+  setFundingRate8h,
 } = marketSlice.actions;
 
 export default marketSlice.reducer;

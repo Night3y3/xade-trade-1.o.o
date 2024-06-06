@@ -25,11 +25,11 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
           libraryPath="charting_library/bundles"
           tradingViewScriptSrc="charting_library/charting_library.js"
           overrides={{
-            "mainSeriesProperties.candleStyle.borderDownColor": "#DC2140",
+            "mainSeriesProperties.candleStyle.borderDownColor": "#0CF3D4",
             "mainSeriesProperties.candleStyle.borderUpColor": "#1F8040",
-            "mainSeriesProperties.candleStyle.downColor": "#DC2140",
+            "mainSeriesProperties.candleStyle.downColor": "#0CF3D4",
             "mainSeriesProperties.candleStyle.upColor": "#1F8040",
-            "mainSeriesProperties.candleStyle.wickDownColor": "#DC2140",
+            "mainSeriesProperties.candleStyle.wickDownColor": "#0CF3D4",
             "mainSeriesProperties.candleStyle.wickUpColor": "#1F8040",
             "paneProperties.background": "#000000",
             "paneProperties.backgroundType": "solid",
@@ -38,7 +38,7 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
             "paneProperties.vertGridProperties.color": "#1d1d1d",
             "paneProperties.vertGridProperties.style": "1",
             "paneProperties.horzGridProperties.style": "1",
-            "toolbarProperties.background": "#000000",
+            "toolbarProperties.background": "#ffffff",
             "timeScale.backgroundColor": "#000",
             "timeScale.borderColor": "#333333",
             "paneProperties.legendProperties.showSeriesTitle": "true",

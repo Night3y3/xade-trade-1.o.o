@@ -111,11 +111,13 @@ const OrderOverview = ({
   symbolConfig,
   markPrice,
   amountPrice,
+  estLiqPrice,
 }: {
   orderSide: string;
   markPrice: number;
   symbolConfig: API.SymbolExt;
   amountPrice: string;
+  estLiqPrice: string;
 }) => {
   // const collateral = useCollateral({ dp: 2 });
   // const price = perp.positions.liqPrice(
@@ -201,7 +203,6 @@ const OrderOverview = ({
           }}
         >
           ${markPrice}
-          
         </div>
       </div>
       <div
@@ -235,7 +236,7 @@ const OrderOverview = ({
             color: "white",
           }}
         >
-          {amountPrice}
+          {estLiqPrice ?? ""}
           {` ${
             orderSide === OrderSide.BUY
               ? symbolConfig?.quote
@@ -293,7 +294,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
   symbol,
 }) => {
   const [isBuy, setIsBuy] = useState(orderSide === OrderSide.BUY);
-  console.log(markPrice);
+  console.log("mark price", markPrice);
   const [limitPrice, setLimitPrice] = useState(markPrice?.toString());
 
   const handleOrderSideChange = (side: OrderSide) => {
@@ -303,11 +304,24 @@ const TradePanel: React.FC<MarketSectionProps> = ({
   const {
     helper: { calculate, validator },
     onSubmit,
+    estLiqPrice,
   } = useOrderEntry(
     {
       symbol: symbol,
       side: orderSide,
       order_type: orderType,
+      order_price:
+        orderType === OrderType.MARKET && amountPrice && markPrice
+          ? orderSide === OrderSide.BUY
+            ? amountPrice
+            : amountPrice * markPrice
+          : orderSide === OrderSide.BUY
+          ? limitPrice
+          : limitPrice,
+      order_quantity:
+        orderSide === OrderSide.BUY
+          ? parseFloat(amountPrice ?? "0") ?? 0.0 / markPrice
+          : amountPrice,
     },
     { watchOrderbook: true }
   );
@@ -570,6 +584,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
         markPrice={markPrice}
         symbolConfig={symbolConfig}
         orderSide={orderSide}
+        estLiqPrice={estLiqPrice ? estLiqPrice?.toFixed(2)?.toString() : "0.00"}
       />
       <div
         onClick={async () => {

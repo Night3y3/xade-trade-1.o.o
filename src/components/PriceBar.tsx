@@ -54,13 +54,13 @@ const PriceBar: React.FC<PriceBarProps> = () => {
             ${formatLargeNumber(market.open_interest * market.index_price)}
           </h1>
         </div>
-        {/* <Separator className="h-full w-[1px] bg-[#4B4B4B] dark:bg-gray-700" />
+        <Separator className="h-full w-[1px] bg-[#4B4B4B] dark:bg-gray-700" />
         <div className="price-bar-item">
           <h1 className="text-[#4B4B4B] font-normal text-sm">
-            8h Funding Rate
+            Est Funding Rate
           </h1>
           <h1 className="price text-[#fff]">{market.funding_rate_8h}</h1>
-        </div> */}
+        </div>
       </div>
     </div>
   );

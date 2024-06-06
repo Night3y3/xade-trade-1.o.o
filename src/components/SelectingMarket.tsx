@@ -16,7 +16,7 @@ import { formatLargeNumber } from "@/utils/format";
 import "../App.css";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"; // Import the icon
 import SearchIcon from "@mui/icons-material/Search"; // Import the search icon
-import { useFundingRate, usePositionStream } from "@orderly.network/hooks";
+import { useFundingRate } from "@orderly.network/hooks";
 
 interface SelectingMarketProps {
   // Define prop types here
@@ -38,16 +38,9 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const dispatch = useAppDispatch();
-  const [positionData] = usePositionStream(marketInfo?.symbol);
+
   const fundingRate = useFundingRate(marketInfo?.symbol);
-  let positionSize = 0;
-  if (positionData?.rows) {
-    positionSize = positionData.rows.reduce(
-      (total, position) => total + position.position_qty,
-      0
-    );
-  }
-  const rate = fundingRate;
+
   function handleSelect(symbol: string) {
     setMarket(symbol);
     setIsSelectorOpen(false);
@@ -59,21 +52,8 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
         (row: Row) => parseString(row.symbol) === market
       );
       if (selectedMarket) {
-        console.log(
-          "check market......",
-          positionData?.rows,
-          positionSize,
-          selectedMarket?.mark_price,
-          parseFloat(rate?.est_funding_rate)
-        );
         dispatch(setIndexPrice(selectedMarket.index_price));
-        dispatch(
-          setFundingRate8h(
-            positionSize *
-              selectedMarket?.mark_price *
-              parseFloat(rate?.est_funding_rate)
-          )
-        );
+        dispatch(setFundingRate8h(fundingRate?.est_funding_rate));
         dispatch(
           setChange24hPercent(
             change24hourPercent(

@@ -37,7 +37,6 @@ const MarketSection: React.FC<MarketSectionProps> = () => {
 
   useEffect(() => {
     const initialUserAccountSetup = async () => {
-      console.log("started!!!!!!", !onProcess, wallet?.accounts[0]?.address);
       if (wallet?.accounts[0]?.address) {
         setOnProcess(true);
         await account.setAddress(wallet?.accounts[0]?.address, {
@@ -48,7 +47,6 @@ const MarketSection: React.FC<MarketSectionProps> = () => {
         });
         setOnProcess(false);
         setInitialized(true);
-        console.log("account info!!!!", wallet.provider, account);
       }
     };
     initialUserAccountSetup();

@@ -10,6 +10,7 @@ export function Portfolio({ symbol }: { symbol: string }) {
   // Dummy data for the new fields
   const portfolioValue = "$10,000";
   const pnl = "$500";
+  const pnlp="5";
   const leverage = "2x";
   const unrealisedPnl = "$200";
 
@@ -27,7 +28,11 @@ export function Portfolio({ symbol }: { symbol: string }) {
           </div>
           <div className="flex flex-col items-start">
             <span>PnL</span>
-            <span className="text-white text-[18px] font-[Sk-Modernist-Bold]">{pnl}</span>
+            <span 
+              className={`text-[18px] font-[Sk-Modernist-Bold] ${parseFloat(pnl) < 0 ? 'text-red-500' : 'text-green-500'}`}
+            >
+              {pnl}({pnlp}%)
+            </span>
           </div>
           <div className="flex flex-col items-start">
             <span>Leverage</span>
@@ -35,7 +40,11 @@ export function Portfolio({ symbol }: { symbol: string }) {
           </div>
           <div className="flex flex-col items-start">
             <span>Unrealised PnL</span>
-            <span className="text-white text-[18px] font-[Sk-Modernist-Bold]">{unrealisedPnl}</span>
+            <span 
+              className={`text-[18px] font-[Sk-Modernist-Bold] ${parseFloat(unrealisedPnl) < 0 ? 'text-red-500' : 'text-green-500'}`}
+            >
+              {unrealisedPnl}
+            </span>
           </div>
         </div>
       </div>

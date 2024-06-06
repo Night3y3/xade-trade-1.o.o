@@ -90,7 +90,7 @@ const AmountInput = ({
       >
         <div
           style={{
-            fontSize: 16,
+            fontSize: 12,
             font: "Sk-Modernist",
             color: "#FF9900",
             marginTop: "10%",
@@ -99,7 +99,9 @@ const AmountInput = ({
           {orderSide === OrderSide.BUY
             ? symbolConfig?.quote
             : symbolConfig?.base}
+            
         </div>
+        
       </div>
     </div>
   );
@@ -370,7 +372,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
           display: "flex",
           width: "95%",
           justifyContent: "center",
-          padding: "10px 24px",
+          padding: "10px 0px",
           border: "1px solid #4B4B4B",
           borderRadius: 8,
           position: "relative",
@@ -539,7 +541,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
           textAlign: "left",
         }}
       >
-        {orderSide === OrderSide.BUY ? "You will get" : "This will cost"}
+        {orderSide === OrderSide.BUY ? "Order Size" : "Order Value"}
         <div
           style={{
             fontSize: "12px",

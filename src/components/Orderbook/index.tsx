@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import { useOrderbookStream } from "@orderly.network/hooks";
 
 import "./index.css";
@@ -6,6 +7,21 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
   const [data, { isLoading }] = useOrderbookStream(symbol, undefined, {
     level: 15,
   });
+  const [prevMarkPrice, setPrevMarkPrice] = useState<number | null>(null);
+  const [priceColor, setPriceColor] = useState<string>("");
+
+  useEffect(() => {
+    if (data?.markPrice !== undefined) {
+      if (prevMarkPrice !== null) {
+        if (data.markPrice > prevMarkPrice) {
+          setPriceColor("#40F388"); // Green for increase
+        } else if (data.markPrice < prevMarkPrice) {
+          setPriceColor("#F35540"); // Red for decrease
+        }
+      }
+      setPrevMarkPrice(data.markPrice);
+    }
+  }, [data?.markPrice, prevMarkPrice]);
 
   return (
     <div
@@ -23,7 +39,8 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
           width: "100%",
           textAlign: "center",
           padding: "8px",
-          backgroundColor: "#1d1d1d",
+          backgroundColor: "#000",
+          borderBottom: "2px solid #1d1d1d",
           color: "white",
           fontFamily: "Sk-Modernist-Bold",
           fontSize: 16,
@@ -86,7 +103,6 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
                       display: "flex",
                       flexDirection: "row",
                       justifyContent: "space-between",
-                
                     }}
                   >
                     <div
@@ -120,7 +136,9 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
                         fontFamily: "Sk-Modernist-Regular",
                         width: "33%",
                       }}
-                    />
+                    >
+                      {aggregated}
+                    </div>
                   </div>
                 </>
               );
@@ -137,7 +155,7 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
           >
             <div
               style={{
-                color: "#fff",
+                color: priceColor,
                 textAlign: "left",
                 fontFamily: "Sk-Modernist-Bold",
                 width: "30%",
@@ -159,7 +177,6 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
                       display: "flex",
                       flexDirection: "row",
                       justifyContent: "space-between",
-          
                     }}
                   >
                     <div
@@ -193,7 +210,9 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
                         fontFamily: "Sk-Modernist-Regular",
                         width: "33%",
                       }}
-                    />
+                    >
+                      {aggregated}
+                    </div>
                   </div>
                 </>
               );

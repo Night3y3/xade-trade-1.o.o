@@ -280,3 +280,13 @@
   background: rgba(0, 0, 0, 0.5);
   z-index: 1001;
 }
+
+.price-up {
+  color: #40F388;
+  transition: color 0.5s;
+}
+
+.price-down {
+  color: #F35540;
+  transition: color 0.5s;
+}

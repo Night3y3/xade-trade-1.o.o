@@ -253,26 +253,30 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                       </td>
                       <td style={{ padding: "8px 24px" }}>${item.mark_price}</td>
                       <td
+                        className={
+                          change24hour(item["24h_open"], item["24h_close"]) > 0
+                            ? "price-up"
+                            : "price-down"
+                        }
                         style={{
-                          color:
-                            change24hour(item["24h_open"], item["24h_close"]) > 0
-                              ? "#40F388"
-                              : "#F46140",
                           padding: "8px 24px",
+                          transition: "color 0.5s",
                         }}
                       >
                         ${change24hour(item["24h_open"], item["24h_close"])}
                       </td>
                       <td
+                        className={
+                          change24hourPercent(
+                            item["24h_open"],
+                            item["24h_close"]
+                          ) > 0
+                            ? "price-up"
+                            : "price-down"
+                        }
                         style={{
-                          color:
-                            change24hourPercent(
-                              item["24h_open"],
-                              item["24h_close"]
-                            ) > 0
-                              ? "#40F388"
-                              : "#F46140",
                           padding: "8px 24px",
+                          transition: "color 0.5s",
                         }}
                       >
                         {change24hourPercent(

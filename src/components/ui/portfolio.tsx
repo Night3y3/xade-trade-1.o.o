@@ -11,20 +11,15 @@ export function Portfolio({ symbol }: { symbol: string }) {
   // Dummy data for the new fields
   console.log("orders", colateral);
 
-  const portfolioValue = `$ ${(
-    colateral.availableBalance + colateral.unsettledPnL
-  )?.toPrecision(4)}`;
+  const portfolioValue = colateral.availableBalance + colateral.unsettledPnL;
+  const formattedPortfolioValue = `$ ${portfolioValue?.toPrecision(4)}`;
   const pnl = colateral.unsettledPnL;
-  const pnlp = "5";
+  const pnlp = ((pnl / portfolioValue) * 100).toFixed(4);
   const leverage = "2x";
   const unrealisedPnl = "$200";
 
   return (
-<<<<<<< Updated upstream
-    <div style={{ height: "100%" }} className="block flex-col bg-black">
-=======
     <div className="block flex-col bg-black h-full">
->>>>>>> Stashed changes
       <div
         className="w-full border-t border-b border-solid border-[#4B4B4B] overflow-x-auto"
         style={{ height: "20%" }}
@@ -34,11 +29,11 @@ export function Portfolio({ symbol }: { symbol: string }) {
           <div className="flex flex-col items-start">
             <span>Portfolio Value</span>
             <span className="text-white text-[18px] font-[Sk-Modernist-Bold]">
-              {portfolioValue}
+              {formattedPortfolioValue}
             </span>
           </div>
           <div className="flex flex-col items-start">
-            <span>PnL</span>
+            <span>Unrealised PnL</span>
             <span
               className={`text-[18px] font-[Sk-Modernist-Bold] ${
                 pnl < 0 ? "text-red-500" : "text-green-500"
@@ -53,18 +48,7 @@ export function Portfolio({ symbol }: { symbol: string }) {
               {leverage}
             </span>
           </div>
-          <div className="flex flex-col items-start">
-            <span>Unrealised PnL</span>
-            <span
-              className={`text-[18px] font-[Sk-Modernist-Bold] ${
-                parseFloat(unrealisedPnl) < 0
-                  ? "text-red-500"
-                  : "text-green-500"
-              }`}
-            >
-              {unrealisedPnl}
-            </span>
-          </div>
+         
         </div>
       </div>
       <div className="border-b border-solid border-[#4B4B4B] overflow-x-auto">

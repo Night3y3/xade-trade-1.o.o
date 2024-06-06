@@ -154,7 +154,7 @@ const OrderOverview = ({
             color: "#4B4B4B",
           }}
         >
-          Order Size
+          Market
         </div>
         <div
           style={{
@@ -274,7 +274,7 @@ const OrderOverview = ({
             color: "white",
           }}
         >
-          {parseFloat(amountPrice) * 0.06} USDC
+          {parseFloat(amountPrice) * 0.0006} USDC
         </div>
       </div>
     </div>

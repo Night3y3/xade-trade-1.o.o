@@ -16,11 +16,7 @@ import { formatLargeNumber } from "@/utils/format";
 import "../App.css";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"; // Import the icon
 import SearchIcon from "@mui/icons-material/Search"; // Import the search icon
-import {
-  useDaily,
-  useFundingRate,
-  usePositionStream,
-} from "@orderly.network/hooks";
+import { useFundingRate, usePositionStream } from "@orderly.network/hooks";
 
 interface SelectingMarketProps {
   // Define prop types here

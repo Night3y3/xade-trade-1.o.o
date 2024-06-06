@@ -10,7 +10,7 @@ import {
   useMaxQty,
 } from "@orderly.network/hooks";
 import { API, OrderSide } from "@orderly.network/types";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const DepositFlow = ({
@@ -121,9 +121,8 @@ const Account = ({ markPrice }: { markPrice: number }) => {
   });
   // const { unsettledPnL } = useWithdraw();
   const { availableBalance } = useCollateral({ dp: 2 });
-  const [maxLeverage, { update, config: leverageLevers, isMutating }] =
-    useLeverage();
-  const nextLeverage = useRef(maxLeverage ?? 0);
+  const [maxLeverage, { update, config: leverageLevers }] = useLeverage();
+
   const { currentLeverage } = useMarginRatio();
   const marketSymbol = useAppSelector((x) => x.market.symbol);
   const maxQty = useMaxQty(marketSymbol, OrderSide.BUY);

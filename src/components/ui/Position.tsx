@@ -58,22 +58,39 @@ const PositionExt = ({
   };
   return (
     <TableRow key={index} className="border-none">
-      <TableCell className=" border-l-2 bg-gradient-to-r border-[#C7F052] from-[#1E2311] from-10% via-[#2A3311] via-20% to-[#171717] to-50% text-start pl-7">
-        {position.symbol}
+      <TableCell
+        className={`border-l-2 text-start pl-7 ${
+          position.position_qty < 0
+            ? 'border-[#F35540] from-[#F35540]'
+            : 'border-[#C7F052] from-[#1E2311]'
+        } bg-gradient-to-r via-[#2A3311] via-20% to-[#171717] to-50% text-left`}  style={{
+        display: 'flex',
+        flexDirection: 'column',
+        }}
+      >
+        {position.symbol.split('_')[1]}
+        <span
+          style={{
+            color: position.position_qty < 0 ? '#F35540' : 'green',
+          }}
+        >
+          {position.position_qty < 0 ? 'SELL' : 'BUY'}
+        </span>
       </TableCell>
-      <TableCell className="">{position?.position_qty}</TableCell>
-      <TableCell className="">$ {position?.mark_price}</TableCell>
+      <TableCell className="text-left">{Math.abs(position?.position_qty)}</TableCell>
+      <TableCell className="text-left">${position?.mark_price}</TableCell>
 
       <TableCell
-        className={
+        className={`text-left ${
           position?.unrealized_pnl >= 0 ? `text-green-500` : `text-red-500`
-        }
+        }`}
       >
-        {position?.unrealized_pnl?.toFixed(3)}
+        ${position?.unrealized_pnl?.toFixed(3)}
       </TableCell>
       <TableCell
         onClick={async () => await closePosition()}
         style={{ cursor: "pointer" }}
+        className="text-left"
       >
         Close
       </TableCell>
@@ -94,11 +111,11 @@ const Position: React.FC<PositionProps> = ({ symbol }) => {
       <Table className="border-none">
         <TableHeader className="text-[#4B4B4B]">
           <TableRow className="border-none font-primaryRegular">
-            <TableHead className="">Symbol</TableHead>
-            <TableHead className="">Notional Size</TableHead>
-            <TableHead className="">Average Price</TableHead>
-            <TableHead className="">Unrealized P&L </TableHead>
-            <TableHead>Action(Close Position)</TableHead>
+            <TableHead className="text-left">Symbol</TableHead>
+            <TableHead className="text-left">Notional Size</TableHead>
+            <TableHead className="text-left">Average Price</TableHead>
+            <TableHead className="text-left">Unrealized P&L</TableHead>
+            <TableHead className="text-left">Action</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody className="text-[#D4D4D4] border-none border-[#171717]">

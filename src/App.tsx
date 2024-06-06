@@ -38,7 +38,7 @@ function App() {
       rpcUrl,
     })),
     appMetadata: {
-      name: "Xade DEX",
+      name: "Xade Pro",
       description: "Fully fledged DEX using Orderly Network",
     },
     accountCenter: {
@@ -68,7 +68,7 @@ function App() {
                   <NavBar />
                   <PriceBar />
                   <MarketSection />
-                  <Footer />
+      
                 </div>
               </ThemeProvider>
             </RainbowKitProvider>

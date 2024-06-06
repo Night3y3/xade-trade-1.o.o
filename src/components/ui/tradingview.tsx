@@ -25,11 +25,11 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
           libraryPath="charting_library/bundles"
           tradingViewScriptSrc="charting_library/charting_library.js"
           overrides={{
-            "mainSeriesProperties.candleStyle.borderDownColor": "#0CF3D4",
+            "mainSeriesProperties.candleStyle.borderDownColor": "#DC2140",
             "mainSeriesProperties.candleStyle.borderUpColor": "#1F8040",
-            "mainSeriesProperties.candleStyle.downColor": "#0CF3D4",
+            "mainSeriesProperties.candleStyle.downColor": "#DC2140",
             "mainSeriesProperties.candleStyle.upColor": "#1F8040",
-            "mainSeriesProperties.candleStyle.wickDownColor": "#0CF3D4",
+            "mainSeriesProperties.candleStyle.wickDownColor": "#DC2140",
             "mainSeriesProperties.candleStyle.wickUpColor": "#1F8040",
             "paneProperties.background": "#000000",
             "paneProperties.backgroundType": "solid",

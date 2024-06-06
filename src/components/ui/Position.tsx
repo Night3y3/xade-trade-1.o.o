@@ -58,9 +58,25 @@ const PositionExt = ({
   };
   return (
     <TableRow key={index} className="border-none">
-      <TableCell className=" border-l-2 bg-gradient-to-r border-[#C7F052] from-[#1E2311] from-10% via-[#2A3311] via-20% to-[#171717] to-50% text-start pl-7">
-        {position.symbol}
-      </TableCell>
+      <TableCell
+      className={`border-l-2 text-start pl-7 ${
+        position.position_qty < 0
+          ? 'border-[#F35540] from-[#F35540]'
+          : 'border-[#C7F052] from-[#1E2311]'
+      } bg-gradient-to-r via-[#2A3311] via-20% to-[#171717] to-50%`}  style={{
+      display: 'flex',
+      flexDirection: 'column',
+      }}
+    >
+      {position.symbol.split('_')[1]}
+      <span
+        style={{
+          color: position.position_qty < 0 ? '#F35540' : 'green',
+        }}
+      >
+        {position.position_qty < 0 ? 'SELL' : 'BUY'}
+      </span>
+    </TableCell>
       <TableCell className="">{position?.position_qty}</TableCell>
       <TableCell className="">$ {position?.mark_price}</TableCell>
 
@@ -98,7 +114,8 @@ const Position: React.FC<PositionProps> = ({ symbol }) => {
             <TableHead className="">Notional Size</TableHead>
             <TableHead className="">Average Price</TableHead>
             <TableHead className="">Unrealized P&L </TableHead>
-            <TableHead>Action(Close Position)</TableHead>
+            <TableHead>Action</TableHead>
+
           </TableRow>
         </TableHeader>
         <TableBody className="text-[#D4D4D4] border-none border-[#171717]">

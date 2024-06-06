@@ -191,7 +191,7 @@ const OrderCard = ({ index, order }: { index: number; order: Order }) => {
             : "border-[#F35540] from-[#1E2311] from-10% via-[#861000]"
         }  via-20% to-black to-50% text-start pl-7`}
       >
-        <div>{order.type}</div>
+        <div>{order.symbol.split('_')[1]}</div>
         <div
           className={` ${
             order.side === OrderSide.BUY ? "text-[#C7F052] " : "text-red-500 "

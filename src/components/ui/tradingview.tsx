@@ -24,13 +24,13 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
           libraryPath="charting_library/bundles"
           tradingViewScriptSrc="charting_library/charting_library.js"
           overrides={{
-            // "mainSeriesProperties.candleStyle.borderDownColor": "#DC2140",
-            // "mainSeriesProperties.candleStyle.borderUpColor": "#1F8040",
-            // "mainSeriesProperties.candleStyle.downColor": "#DC2140",
-            // "mainSeriesProperties.candleStyle.upColor": "#1F8040",
-            // "mainSeriesProperties.candleStyle.wickDownColor": "#DC2140",
-            // "mainSeriesProperties.candleStyle.wickUpColor": "#1F8040",
             // "paneProperties.background": "#000000",
+            // "mainSeriesProperties.candleStyle.borderDownColor": "#00d6f3",
+            // "mainSeriesProperties.candleStyle.borderUpColor": "#1F8040",
+            // "mainSeriesProperties.candleStyle.downColor": "#00d6f3",
+            // "mainSeriesProperties.candleStyle.upColor": "#1F8040",
+            // "mainSeriesProperties.candleStyle.wickDownColor": "#00d6f3",
+            // "mainSeriesProperties.candleStyle.wickUpColor": "#1F8040",
             // "paneProperties.backgroundType": "solid",
             // "paneProperties.separatorColor": "#1d1d1d",
             // "paneProperties.horzGridProperties.color": "#1d1d1d",
@@ -61,9 +61,15 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
             // "timeScale.visible": "true",
             // "timeScale.timeVisible": "true",
             // "timeScale.secondsVisible": "false",
+            // "mainToolbar.background": "#2b2b2b",
+            // "mainToolbar.color": "#ffffff",
+            // "mainToolbar.activeBackground": "#3c3c3c",
+            // "mainToolbar.activeColor": "#ffffff",
+            // "mainToolbar.hoverBackground": "#3c3c3c",
+            // "mainToolbar.hoverColor": "#ffffff",
             volumePaneSize: "medium",
           }}
-          tradingViewCustomCssUrl="styles/chart.css"
+          tradingViewCustomCssUrl="./styles/chart.css"
         />
       </div>
       <Portfolio symbol={symbol} />

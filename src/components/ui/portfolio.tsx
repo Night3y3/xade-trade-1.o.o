@@ -16,7 +16,7 @@ export function Portfolio({ symbol }: { symbol: string }) {
   const pnl = colateral.unsettledPnL;
   const pnlp = ((pnl / portfolioValue) * 100).toFixed(4);
   const leverage = "2x";
-  const unrealisedPnl = "$200";
+  // const unrealisedPnl = "$200";
 
   return (
     <div className="block flex-col bg-black h-full">
@@ -48,7 +48,6 @@ export function Portfolio({ symbol }: { symbol: string }) {
               {leverage}
             </span>
           </div>
-         
         </div>
       </div>
       <div className="border-b border-solid border-[#4B4B4B] overflow-x-auto">

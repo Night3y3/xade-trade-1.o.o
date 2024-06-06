@@ -144,7 +144,7 @@ const WalletConnectButton: React.FC<WalletConnectButtonProps> = () => {
         >
           {wallet.accounts[0]?.address?.substring(0, 3) +
             "..." +
-            wallet.accounts[0]?.address?.slice(-5) ?? ""}
+            wallet.accounts[0]?.address?.slice(-5)}
         </button>
       )}
     </div>

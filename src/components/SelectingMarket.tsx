@@ -8,6 +8,7 @@ import {
   setChange24hPercent,
   setMarketSymbol,
   setOpenInterest,
+  setMarkPrice
 } from "@/redux/slices/marketSlice";
 import { Row } from "@/types";
 import { formatLargeNumber } from "@/utils/format";
@@ -57,6 +58,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
         dispatch(setVolume24h(selectedMarket["24h_volume"]));
         dispatch(setMarketSymbol(selectedMarket["symbol"]));
         dispatch(setOpenInterest(selectedMarket["open_interest"]));
+        dispatch(setMarkPrice(selectedMarket["mark_price"]));
       }
     }, 1000);
 
@@ -268,9 +270,8 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                         }}
                       >
                         <img
-                          src={`https://oss.orderly.network/static/symbol_logo/${
-                            parseString(item.symbol) || "default"
-                          }.png`}
+                          src={`https://oss.orderly.network/static/symbol_logo/${parseString(item.symbol) || "default"
+                            }.png`}
                           alt=""
                           style={{ width: "32px" }}
                         />

@@ -1,21 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import Position from "./Position";
 import Orders from "./Orders";
+import { useCollateral } from "@orderly.network/hooks";
 
 const tabs = ["Positions", "Orders"];
 
 export function Portfolio({ symbol }: { symbol: string }) {
   const [tabType, setTabType] = React.useState<string>("Positions");
-
+  const colateral = useCollateral({ dp: 2 });
   // Dummy data for the new fields
-  const portfolioValue = "$10,000";
-  const pnl = "$500";
-  const pnlp="5";
+  console.log("orders", colateral);
+
+  const portfolioValue = `$ ${(
+    colateral.availableBalance + colateral.unsettledPnL
+  )?.toPrecision(4)}`;
+  const pnl = colateral.unsettledPnL;
+  const pnlp = "5";
   const leverage = "2x";
   const unrealisedPnl = "$200";
 
   return (
-    <div className="block flex-col bg-black h-[200px]">
+    <div style={{ height: "100%" }} className="block flex-col bg-black">
       <div
         className="w-full border-t border-b border-solid border-[#4B4B4B] overflow-x-auto"
         style={{ height: "40%" }}
@@ -24,24 +29,34 @@ export function Portfolio({ symbol }: { symbol: string }) {
         <div className="flex justify-start text-[#767676] text-[16px] font-[Sk-Modernist-Regular] h-full items-center space-x-16 pl-4 min-w-[600px]">
           <div className="flex flex-col items-start">
             <span>Portfolio Value</span>
-            <span className="text-white text-[18px] font-[Sk-Modernist-Bold]">{portfolioValue}</span>
+            <span className="text-white text-[18px] font-[Sk-Modernist-Bold]">
+              {portfolioValue}
+            </span>
           </div>
           <div className="flex flex-col items-start">
             <span>PnL</span>
-            <span 
-              className={`text-[18px] font-[Sk-Modernist-Bold] ${parseFloat(pnl) < 0 ? 'text-red-500' : 'text-green-500'}`}
+            <span
+              className={`text-[18px] font-[Sk-Modernist-Bold] ${
+                pnl < 0 ? "text-red-500" : "text-green-500"
+              }`}
             >
               {pnl}({pnlp}%)
             </span>
           </div>
           <div className="flex flex-col items-start">
             <span>Leverage</span>
-            <span className="text-white text-[18px] font-[Sk-Modernist-Bold]">{leverage}</span>
+            <span className="text-white text-[18px] font-[Sk-Modernist-Bold]">
+              {leverage}
+            </span>
           </div>
           <div className="flex flex-col items-start">
             <span>Unrealised PnL</span>
-            <span 
-              className={`text-[18px] font-[Sk-Modernist-Bold] ${parseFloat(unrealisedPnl) < 0 ? 'text-red-500' : 'text-green-500'}`}
+            <span
+              className={`text-[18px] font-[Sk-Modernist-Bold] ${
+                parseFloat(unrealisedPnl) < 0
+                  ? "text-red-500"
+                  : "text-green-500"
+              }`}
             >
               {unrealisedPnl}
             </span>

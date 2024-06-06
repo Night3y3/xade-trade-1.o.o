@@ -117,6 +117,13 @@ const OrderOverview = ({
   symbolConfig: API.SymbolExt;
   amountPrice: string;
 }) => {
+  // const collateral = useCollateral({ dp: 2 });
+  // const price = perp.positions.liqPrice(
+  //   markPrice, //markPrice
+  //   collateral.totalCollateral, // total collateral
+  //   0.002, // positions size
+  //   0.05 //MMR
+  // );
   return (
     <div
       style={{
@@ -267,9 +274,7 @@ const OrderOverview = ({
             color: "white",
           }}
         >
-          {orderSide === OrderSide.BUY
-            ? parseFloat(amountPrice) / markPrice
-            : markPrice * parseFloat(amountPrice)}
+          {parseFloat(amountPrice) * 0.06} USDC
         </div>
       </div>
     </div>

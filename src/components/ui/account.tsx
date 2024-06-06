@@ -5,14 +5,12 @@ import {
   useChains,
   useCollateral,
   useDeposit,
-  useLeverage,
   useMarginRatio,
   useMaxQty,
 } from "@orderly.network/hooks";
 import { API, OrderSide } from "@orderly.network/types";
 import React, { useMemo, useState } from "react";
-import { useAccount } from "wagmi";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const DepositFlow = ({
   depositAmount,
@@ -105,8 +103,6 @@ const DepositFlow = ({
 };
 
 const Account = ({ markPrice }: { markPrice: number }) => {
-  const { isConnected } = useAccount();
-
   const [showStage, setShowStage] = useState<string>("account");
   const [chains] = useChains("mainnet", {
     filter: (item: API.Chain) =>
@@ -124,8 +120,8 @@ const Account = ({ markPrice }: { markPrice: number }) => {
   });
   // const { unsettledPnL } = useWithdraw();
   const { availableBalance } = useCollateral({ dp: 2 });
-  const [maxLeverage, { update, config: leverageLevers, isMutating }] =
-    useLeverage();
+  // const [maxLeverage, { update, config: leverageLevers, isMutating }] =
+  //   useLeverage();
 
   const { currentLeverage } = useMarginRatio();
   const marketSymbol = useAppSelector((x) => x.market.symbol);
@@ -176,9 +172,16 @@ const Account = ({ markPrice }: { markPrice: number }) => {
               onClick={() => setShowLeverageSlider(!showLeverageSlider)}
             >
               <div style={{ color: "#4B4B4B", fontSize: 14 }}>Leverage</div>
-              <div style={{ color: "#D4D4D4", fontSize: 14, display: "flex", alignItems: "center" }}>
+              <div
+                style={{
+                  color: "#D4D4D4",
+                  fontSize: 14,
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
                 {currentLeverage}x
-                <ExpandMoreIcon style={{ marginLeft: 4, fontSize: 'small' }} />
+                <ExpandMoreIcon style={{ marginLeft: 4, fontSize: "small" }} />
               </div>
             </div>
             {showLeverageSlider && (
@@ -210,7 +213,7 @@ const Account = ({ markPrice }: { markPrice: number }) => {
                     transition: "opacity .15s ease-in-out",
                   }}
                 />
-                <style jsx>{`
+                <style>{`
                   input[type="range"]::-webkit-slider-thumb {
                     webkitappearance: none;
                     appearance: none;

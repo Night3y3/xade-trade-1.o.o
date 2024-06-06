@@ -1616,9 +1616,17 @@
   resolved "https://registry.npmjs.org/@orderly.network/net/-/net-1.5.7.tgz"
   integrity sha512-Tedgqux+DajipBCkZAx1DyuevV7V6GzGMO+94p1cqqlUdXW+VGxsc7E89Rq+ZbjlaaC74TjxeiWeZSuhXp55dw==
 
-"@orderly.network/perp@3.3.7", "@orderly.network/perp@^3.3.7":
+"@orderly.network/perp@3.3.7":
   version "3.3.7"
   resolved "https://registry.npmjs.org/@orderly.network/perp/-/perp-3.3.7.tgz"
+  integrity sha512-yRyMOge7deFR96d8IkgIG6qx/6tJlKNaf7+v6WlKAMvp7Bv6OeSYkrovmyCi180vMeIXwMrVgSEYlRidGDI5Yw==
+  dependencies:
+    "@orderly.network/types" "1.5.7"
+    "@orderly.network/utils" "1.5.7"
+
+"@orderly.network/perp@^3.3.7":
+  version "3.3.7"
+  resolved "https://registry.yarnpkg.com/@orderly.network/perp/-/perp-3.3.7.tgz#30c18c96f4c455977bcfbb74b0e359b659f6862f"
   integrity sha512-yRyMOge7deFR96d8IkgIG6qx/6tJlKNaf7+v6WlKAMvp7Bv6OeSYkrovmyCi180vMeIXwMrVgSEYlRidGDI5Yw==
   dependencies:
     "@orderly.network/types" "1.5.7"

@@ -2,6 +2,7 @@ import React from 'react';
 import { Separator } from './ui/separator';
 import SelectingMarket from './SelectingMarket';
 import { useAppSelector } from '@/redux/hooks';
+import { formatLargeNumber } from '@/utils/format';
 import '../App.css';
 
 interface PriceBarProps {
@@ -32,12 +33,12 @@ const PriceBar: React.FC<PriceBarProps> = () => {
                 <Separator className="h-full w-[1px] bg-[#4B4B4B] dark:bg-gray-700" />
                 <div className='price-bar-item'>
                     <h1 className='text-[#4B4B4B] font-normal text-sm'>24H Volume</h1>
-                    <h1 className='price text-[#fff]'>{market.volume_24h}</h1>
+                    <h1 className='price text-[#fff]'>${formatLargeNumber(market.volume_24h * market.index_price)}</h1>
                 </div>
                 <Separator className="h-full w-[1px] bg-[#4B4B4B] dark:bg-gray-700" />
                 <div className='price-bar-item'>
                     <h1 className='text-[#4B4B4B] font-normal text-sm'>Open Interest</h1>
-                    <h1 className='price text-[#fff]'>{market.open_interest}</h1>
+                    <h1 className='price text-[#fff]'>${formatLargeNumber(market.open_interest * market.index_price)}</h1>
                 </div>
                 <Separator className="h-full w-[1px] bg-[#4B4B4B] dark:bg-gray-700" />
                 <div className='price-bar-item'>

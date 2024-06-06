@@ -39,7 +39,6 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
           border: "1px solid #3B3B3B",
           padding: "8px",
           borderTop: 0,
-  
         }}
       >
         <div
@@ -87,7 +86,7 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
                       display: "flex",
                       flexDirection: "row",
                       justifyContent: "space-between",
-                     
+                
                     }}
                   >
                     <div

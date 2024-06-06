@@ -10,6 +10,7 @@ import {
   setOpenInterest,
 } from "@/redux/slices/marketSlice";
 import { Row } from "@/types";
+import { formatLargeNumber } from '@/utils/format';
 import "../App.css";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'; // Import the icon
 import SearchIcon from '@mui/icons-material/Search'; // Import the search icon
@@ -281,10 +282,10 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                         %
                       </td>
                       <td style={{ padding: "8px 24px" }}>
-                        ${(item["24h_volume"] * item.mark_price).toFixed(2)}
+                        ${formatLargeNumber(item["24h_volume"] * item.mark_price)}
                       </td>
                       <td style={{ padding: "8px 24px" }}>
-                        {item["open_interest"]}
+                        ${formatLargeNumber(item["open_interest"] * item.mark_price)}
                       </td>
                       <td style={{ padding: "8px 24px" }}>
                         {item["24h_volume"]}%

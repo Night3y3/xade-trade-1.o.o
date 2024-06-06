@@ -15,7 +15,7 @@ export function Portfolio({ symbol }: { symbol: string }) {
   const formattedPortfolioValue = `$ ${portfolioValue?.toPrecision(4)}`;
   const pnl = colateral.unsettledPnL;
   const pnlp = ((pnl / (portfolioValue || 1)) * 100).toFixed(4) || "0";
-  const leverage = "2x";
+  const leverage = "0x";
   // const unrealisedPnl = "$200";
 
   return (

@@ -9,7 +9,7 @@ import {
   useMaxQty,
 } from "@orderly.network/hooks";
 import { API, OrderSide } from "@orderly.network/types";
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const DepositFlow = ({

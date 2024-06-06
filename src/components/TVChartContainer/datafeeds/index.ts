@@ -40,7 +40,6 @@ export const Datafeed = (baseAsset: any) => ({
     onResolve(params);
   },
   getBars: async (
-    symbolInfo: any,
     resolution: string,
     periodParams: {
       from: number;

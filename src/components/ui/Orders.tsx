@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import {
   Table,
@@ -28,7 +29,7 @@ type Order = {
   executed: number;
 };
 
-const OrderCard = ({ index, order }: { index: number; order: Order }) => {
+const OrderCard = ({ index, order }: { index: number; order: any }) => {
   return (
     <TableRow key={index} className="border-none font-primaryRegular">
       <TableCell
@@ -38,7 +39,7 @@ const OrderCard = ({ index, order }: { index: number; order: Order }) => {
             : "border-[#F35540] from-[#1E2311] from-10% via-[#861000]"
         }  via-20% to-black to-50% text-start pl-7`}
       >
-        <div>{order.symbol.split('_')[1]}</div>
+        <div>{order?.symbol.split("_")[1]}</div>
         <div
           className={` ${
             order.side === OrderSide.BUY ? "text-[#C7F052] " : "text-red-500 "

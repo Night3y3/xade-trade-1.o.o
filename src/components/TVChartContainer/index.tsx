@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef } from "react";
 import "./index.css";
 import {
@@ -7,7 +8,6 @@ import {
   ResolutionString,
 } from "../../charting_library";
 import * as React from "react";
-import { H } from "dist/assets/index-DmRMoDhn";
 
 export interface ChartContainerProps {
   symbol: ChartingLibraryWidgetOptions["symbol"];

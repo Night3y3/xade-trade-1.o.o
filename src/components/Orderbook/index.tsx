@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useOrderbookStream } from "@orderly.network/hooks";
 
 import "./index.css";
@@ -123,7 +123,7 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
                         fontFamily: "Sk-Modernist-Regular",
                         width: "33%",
                         fontSize: 16,
-                        color:"#F35540",
+                        color: "#F35540",
                       }}
                     >
                       {price}

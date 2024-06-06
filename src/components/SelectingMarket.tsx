@@ -10,10 +10,10 @@ import {
   setOpenInterest,
 } from "@/redux/slices/marketSlice";
 import { Row } from "@/types";
-import { formatLargeNumber } from '@/utils/format';
+import { formatLargeNumber } from "@/utils/format";
 import "../App.css";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'; // Import the icon
-import SearchIcon from '@mui/icons-material/Search'; // Import the search icon
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"; // Import the icon
+import SearchIcon from "@mui/icons-material/Search"; // Import the search icon
 
 interface SelectingMarketProps {
   // Define prop types here
@@ -24,7 +24,7 @@ const fetcher = (...arg: [string, RequestInit?]) => {
 };
 
 const SelectingMarket: React.FC<SelectingMarketProps> = () => {
-  const { data, error } = useSWR(
+  const { data } = useSWR(
     "https://api-evm.orderly.network/v1/public/futures",
     fetcher,
     { refreshInterval: 1000 }
@@ -63,11 +63,15 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
     return () => clearInterval(interval);
   }, [data, market]);
 
-  const filteredData = data?.data?.rows
-    ?.filter((item: Row) =>
-      (item.symbol).toLowerCase().includes(searchInput.toLowerCase())
-    )
-    .sort((a: Row, b: Row) => (b["24h_volume"] * b.mark_price) - (a["24h_volume"] * a.mark_price)) || [];
+  const filteredData =
+    data?.data?.rows
+      ?.filter((item: Row) =>
+        item.symbol.toLowerCase().includes(searchInput.toLowerCase())
+      )
+      .sort(
+        (a: Row, b: Row) =>
+          b["24h_volume"] * b.mark_price - a["24h_volume"] * a.mark_price
+      ) || [];
 
   return (
     <div
@@ -131,8 +135,23 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
               marginLeft: "-20px",
             }}
           >
-            <div style={{ position: "relative", width: "96%", marginBottom: "8px", marginLeft: "2%" }}>
-              <SearchIcon style={{ position: "absolute", top: "50%", left: "8px", transform: "translateY(-50%)", color: "#606060" }} />
+            <div
+              style={{
+                position: "relative",
+                width: "96%",
+                marginBottom: "8px",
+                marginLeft: "2%",
+              }}
+            >
+              <SearchIcon
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "8px",
+                  transform: "translateY(-50%)",
+                  color: "#606060",
+                }}
+              />
               <input
                 type="text"
                 placeholder="Search by symbol"
@@ -150,7 +169,10 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
               />
             </div>
             <div className="table-container" style={{ overflowX: "auto" }}>
-              <table style={{ fontFamily: "Sk-Modernist-Regular", width: "100%" }} className="scrollbar-hide">
+              <table
+                style={{ fontFamily: "Sk-Modernist-Regular", width: "100%" }}
+                className="scrollbar-hide"
+              >
                 <thead className="scrollbar-hide">
                   <tr
                     style={{
@@ -230,7 +252,9 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                     <tr
                       key={item.symbol}
                       style={{ border: "none", cursor: "pointer" }}
-                      onClick={() => handleSelect(parseString(item.symbol) || "")}
+                      onClick={() =>
+                        handleSelect(parseString(item.symbol) || "")
+                      }
                     >
                       <td
                         style={{
@@ -244,14 +268,17 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                         }}
                       >
                         <img
-                          src={`https://oss.orderly.network/static/symbol_logo/${parseString(item.symbol) || "default"
-                            }.png`}
+                          src={`https://oss.orderly.network/static/symbol_logo/${
+                            parseString(item.symbol) || "default"
+                          }.png`}
                           alt=""
                           style={{ width: "32px" }}
                         />
                         {parseString(item.symbol)}
                       </td>
-                      <td style={{ padding: "8px 24px" }}>${item.mark_price}</td>
+                      <td style={{ padding: "8px 24px" }}>
+                        ${item.mark_price}
+                      </td>
                       <td
                         className={
                           change24hour(item["24h_open"], item["24h_close"]) > 0
@@ -286,10 +313,16 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                         %
                       </td>
                       <td style={{ padding: "8px 24px" }}>
-                        ${formatLargeNumber(item["24h_volume"] * item.mark_price)}
+                        $
+                        {formatLargeNumber(
+                          item["24h_volume"] * item.mark_price
+                        )}
                       </td>
                       <td style={{ padding: "8px 24px" }}>
-                        ${formatLargeNumber(item["open_interest"] * item.mark_price)}
+                        $
+                        {formatLargeNumber(
+                          item["open_interest"] * item.mark_price
+                        )}
                       </td>
                       <td style={{ padding: "8px 24px" }}>
                         {item["24h_volume"]}%

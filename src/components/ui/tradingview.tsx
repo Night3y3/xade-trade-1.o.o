@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { TradingView } from "@orderly.network/trading-view";
 import Portfolio from "./portfolio";
@@ -37,7 +36,7 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
             "paneProperties.separatorColor": "#1d1d1d",
             "paneProperties.horzGridProperties.color": "#1d1d1d",
             "paneProperties.vertGridProperties.color": "#1d1d1d",
-            "paneProperties.vertGridProperties.style": "1",  
+            "paneProperties.vertGridProperties.style": "1",
             "paneProperties.horzGridProperties.style": "1",
             "toolbarProperties.background": "#000000",
             "timeScale.backgroundColor": "#000",
@@ -63,8 +62,7 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
             "timeScale.visible": "true",
             "timeScale.timeVisible": "true",
             "timeScale.secondsVisible": "false",
-            "toolbarProperties.background": "#000000",
-            "volumePaneSize": "medium"
+            volumePaneSize: "medium",
           }}
         />
       </div>

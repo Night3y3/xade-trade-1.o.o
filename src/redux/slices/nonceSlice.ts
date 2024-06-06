@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = null;
+const initialState = { nonce: null };
 
 export const nonceSlice = createSlice({
   name: "nonce",
   initialState,
   reducers: {
     setNonce: (state, action) => {
-      return action.payload;
+      state.nonce = action.payload;
     },
   },
 });

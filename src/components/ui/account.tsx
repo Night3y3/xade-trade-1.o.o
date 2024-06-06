@@ -5,11 +5,12 @@ import {
   useChains,
   useCollateral,
   useDeposit,
+  useLeverage,
   useMarginRatio,
   useMaxQty,
 } from "@orderly.network/hooks";
 import { API, OrderSide } from "@orderly.network/types";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const DepositFlow = ({
@@ -120,16 +121,16 @@ const Account = ({ markPrice }: { markPrice: number }) => {
   });
   // const { unsettledPnL } = useWithdraw();
   const { availableBalance } = useCollateral({ dp: 2 });
-  // const [maxLeverage, { update, config: leverageLevers, isMutating }] =
-  //   useLeverage();
-
+  const [maxLeverage, { update, config: leverageLevers, isMutating }] =
+    useLeverage();
+  const nextLeverage = useRef(maxLeverage ?? 0);
   const { currentLeverage } = useMarginRatio();
   const marketSymbol = useAppSelector((x) => x.market.symbol);
   const maxQty = useMaxQty(marketSymbol, OrderSide.BUY);
-
+  console.log("maxLeverage", maxLeverage);
   const [depositAmount, setDepositAmount] = useState<string>("100");
   const [showLeverageSlider, setShowLeverageSlider] = useState<boolean>(false);
-  const [leverage, setLeverage] = useState<number>(10);
+  const [leverage, setLeverage] = useState<number>(0);
 
   const renderStages = () => {
     switch (showStage) {
@@ -173,6 +174,10 @@ const Account = ({ markPrice }: { markPrice: number }) => {
             >
               <div style={{ color: "#4B4B4B", fontSize: 14 }}>Leverage</div>
               <div
+                onClick={async () => {
+                  await update({ leverage: leverage });
+                  console.log("Updated!!!!!!", leverage);
+                }}
                 style={{
                   color: "#D4D4D4",
                   fontSize: 14,
@@ -196,8 +201,9 @@ const Account = ({ markPrice }: { markPrice: number }) => {
                 <input
                   type="range"
                   min="1"
-                  max="10"
-                  value={leverage}
+                  max={maxLeverage}
+                  step={leverageLevers}
+                  value={leverage?.toFixed(2)?.toString()}
                   onChange={(e) => setLeverage(Number(e.target.value))}
                   style={{
                     width: "100%",
@@ -232,7 +238,7 @@ const Account = ({ markPrice }: { markPrice: number }) => {
                     cursor: pointer;
                   }
                 `}</style>
-                <div>{leverage}x</div>
+                <div>{leverage?.toFixed(2)?.toString()}x</div>
               </div>
             )}
           </div>

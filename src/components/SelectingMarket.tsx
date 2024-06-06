@@ -65,9 +65,10 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
       if (selectedMarket) {
         console.log(
           "check market......",
-          positionSize *
-            selectedMarket?.mark_price *
-            parseFloat(rate?.est_funding_rate)
+          positionData?.rows,
+          positionSize,
+          selectedMarket?.mark_price,
+          parseFloat(rate?.est_funding_rate)
         );
         dispatch(setIndexPrice(selectedMarket.index_price));
         dispatch(
@@ -267,7 +268,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                     >
                       Open Interest
                     </th>
-                    <th
+                    {/* <th
                       style={{
                         padding: "8px 24px",
                         textAlign: "left",
@@ -275,7 +276,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                       }}
                     >
                       8h Funding Rate
-                    </th>
+                    </th> */}
                   </tr>
                 </thead>
 
@@ -356,9 +357,9 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                           item["open_interest"] * item.mark_price
                         )}
                       </td>
-                      <td style={{ padding: "8px 24px" }}>
+                      {/* <td style={{ padding: "8px 24px" }}>
                         {item["24h_volume"]}%
-                      </td>
+                      </td> */}
                     </tr>
                   ))}
                 </tbody>

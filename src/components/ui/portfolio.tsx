@@ -1,7 +1,7 @@
 import React from "react";
 import Position from "./Position";
 import Orders from "./Orders";
-import { useCollateral } from "@orderly.network/hooks";
+import { useCollateral, useMarginRatio } from "@orderly.network/hooks";
 
 const tabs = ["Positions", "Orders"];
 
@@ -9,13 +9,13 @@ export function Portfolio({ symbol }: { symbol: string }) {
   const [tabType, setTabType] = React.useState<string>("Positions");
   const colateral = useCollateral({ dp: 2 });
   // Dummy data for the new fields
-  console.log("orders", colateral);
 
   const portfolioValue = colateral.availableBalance + colateral.unsettledPnL;
   const formattedPortfolioValue = `$ ${portfolioValue?.toPrecision(4)}`;
   const pnl = colateral.unsettledPnL;
   const pnlp = ((pnl / portfolioValue) * 100).toFixed(4);
-  const leverage = "2x";
+  const { currentLeverage } = useMarginRatio();
+  const leverage = currentLeverage;
   // const unrealisedPnl = "$200";
 
   return (

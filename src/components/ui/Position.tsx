@@ -58,25 +58,26 @@ const PositionExt = ({
   };
   return (
     <TableRow key={index} className="border-none">
-      <TableCell
-        className={`border-l-2 text-start pl-7 ${
-          position.position_qty < 0
-            ? 'border-[#F35540] from-[#F35540]'
-            : 'border-[#C7F052] from-[#1E2311]'
-        } bg-gradient-to-r via-[#2A3311] via-20% to-[#171717] to-50% text-left`}  style={{
-        display: 'flex',
-        flexDirection: 'column',
-        }}
-      >
-        {position.symbol.split('_')[1]}
-        <span
-          style={{
-            color: position.position_qty < 0 ? '#F35540' : 'green',
-          }}
-        >
-          {position.position_qty < 0 ? 'SELL' : 'BUY'}
-        </span>
-      </TableCell>
+     <TableCell
+  className={`border-l-2 text-start pl-7 ${
+    position.position_qty > 0
+      ? 'border-[#C7F052] from-[#1E2311] from-20% via-[#2A3311]'
+      : 'border-[#F35540] from-[#49150D] from-20%'
+  } bg-gradient-to-r  to-50% text-left`}  
+  style={{
+    display: 'flex',
+    flexDirection: 'column',
+  }}
+>
+  {position.symbol.split('_')[1]}
+  <span
+    style={{
+      color: position.position_qty < 0 ? '#F35540' : 'green',
+    }}
+  >
+    {position.position_qty < 0 ? 'SELL' : 'BUY'}
+  </span>
+</TableCell>
       <TableCell className="text-left">{Math.abs(position?.position_qty)}</TableCell>
       <TableCell className="text-left">${position?.mark_price}</TableCell>
 

@@ -36,7 +36,7 @@ const OrderCard = ({ index, order }: { index: number; order: any }) => {
         className={` border-l-2 bg-gradient-to-r ${
           order.side === OrderSide.BUY
             ? "border-[#C7F052] from-[#1E2311] from-10% via-[#2A3311]"
-            : "border-[#F35540] from-[#49150D] from-10% via-[#861000]"
+            : "border-[#F35540] from-[#49150D] from-10%"
         }  via-20% to-black to-50% text-start pl-7`}
       >
         <div>{order?.symbol.split("_")[1]}</div>

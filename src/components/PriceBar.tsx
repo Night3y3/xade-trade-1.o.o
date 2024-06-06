@@ -15,6 +15,7 @@ const PriceBar: React.FC<PriceBarProps> = () => {
             <div className='price-bar-content'>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <SelectingMarket />
+                    <Separator className="h-full w-[1px] bg-[#4B4B4B] dark:bg-gray-700" />
                     <h1 className='text-green-500 text-xl font-bold price'>${market.index_price}</h1>
                 </div>
                 <Separator className="h-full w-[1px] bg-[#4B4B4B] dark:bg-gray-700" />

@@ -13,7 +13,7 @@ const Container = styled.div`
   margin-right: 0;
   @media (max-width: 768px) {
     width: 100%;
-    height: 50vh;
+    height: 80vh;
   }
 `;
 
@@ -35,9 +35,33 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
             "paneProperties.background": "#000000",
             "paneProperties.backgroundType": "solid",
             "paneProperties.separatorColor": "#000000",
-            "paneProperties.horzGridProperties.color": "#000000",
-            "paneProperties.vertGridProperties.color": "#000000",
+            "paneProperties.horzGridProperties.color": "#1d1d1d",
+            "paneProperties.vertGridProperties.color": "#1d1d1d",
+            "paneProperties.vertGridProperties.style": "1",  
+            "paneProperties.horzGridProperties.style": "1",
             "paneProperties.legendProperties.showSeriesTitle": "true",
+            "paneProperties.legendProperties.showLegend": "true",
+            "scalesProperties.lineColor": "#333333",
+            "scalesProperties.textColor": "#B2B5BE",
+            "scalesProperties.backgroundColor": "#1B1B1B",
+            "paneProperties.legendProperties.showSeriesOHLC": "true",
+            "paneProperties.legendProperties.showVolume": "true",
+            "paneProperties.legendProperties.showBackground": "true",
+            "paneProperties.legendProperties.backgroundTransparency": "90",
+            "crossHairProperties.color": "#626c72",
+            "crossHairProperties.style": "1",
+            "crossHairProperties.width": "1",
+            "mainSeriesProperties.priceLineColor": "#FFFFFF",
+            "mainSeriesProperties.priceLineWidth": "1",
+            "mainSeriesProperties.showPriceLine": "true",
+            "timeScale.rightOffset": "10",
+            "timeScale.barSpacing": "8",
+            "timeScale.lockVisibleTimeRangeOnResize": "true",
+            "timeScale.visible": "true",
+            "timeScale.timeVisible": "true",
+            "timeScale.secondsVisible": "false",
+            "toolbarProperties.background": "#000000",
+            "volumePaneSize": "medium"
           }}
         />
       </div>

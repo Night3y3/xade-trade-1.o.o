@@ -11,6 +11,8 @@ import {
 } from "@/redux/slices/marketSlice";
 import { Row } from "@/types";
 import "../App.css";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'; // Import the icon
+import SearchIcon from '@mui/icons-material/Search'; // Import the search icon
 
 interface SelectingMarketProps {
   // Define prop types here
@@ -72,7 +74,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
         display: "flex",
         gap: "16px",
         alignItems: "center",
-        paddingLeft: "0px", // Ensure no left padding
+        paddingLeft: "0px",
         fontFamily: "Sk-Modernist-Regular, sans-serif",
       }}
     >
@@ -86,6 +88,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
             cursor: "pointer",
             color: "white",
             marginRight: "3rem",
+            alignItems: "center",
           }}
           onClick={() => setIsSelectorOpen(!isSelectorOpen)}
         >
@@ -101,8 +104,16 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
               fontFamily: "Sk-Modernist-Bold",
             }}
           >
-            {market}
+            {market}/USD
           </span>
+          {!isSelectorOpen && (
+            <ExpandMoreIcon
+              style={{
+                color: "white",
+                alignSelf: "center",
+              }}
+            />
+          )}
         </div>
         {isSelectorOpen && (
           <div
@@ -112,174 +123,177 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
               backgroundColor: "BLACK",
               borderRadius: "4px",
               zIndex: 1000,
-              height: "30%",
+              height: "32%",
               overflowX: "auto",
               paddingTop: "2%",
               color: "white",
-              marginLeft: "-20px", // Added negative left margin
+              marginLeft: "-20px",
             }}
           >
-            <input
-              type="text"
-              placeholder="Search by symbol"
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              style={{
-                width: "96%",
-                padding: "8px 24px", // Same padding as symbol column
-                marginBottom: "8px",
-                fontFamily: "Sk-Modernist-Regular",
-                borderRadius: "8px", // Added border radius
-                backgroundColor: "#1E1E1E", // Added background color
-                color: "white", // Ensure text color is white
-                border: "none",
-
-              }}
-            />
-            <table style={{ fontFamily: "Sk-Modernist-Regular", width: "100%" }} className=" scrollbar-hide">
-              <thead className=" scrollbar-hide">
-                <tr
-                  style={{
-                    border: "none",
-                    textAlign: "left",
-                    fontFamily: "Sk-Modernist-Regular",
-                  }}
-                >
-                  <th
-                    style={{
-                      padding: "8px 24px", // Added horizontal padding
-                      textAlign: "left",
-                      fontFamily: "Sk-Modernist-Regular",
-                    }}
-                  >
-                    Symbol
-                  </th>
-                  <th
-                    style={{
-                      padding: "8px 24px", // Added horizontal padding
-                      textAlign: "left",
-                      fontFamily: "Sk-Modernist-Regular",
-                    }}
-                  >
-                    Price
-                  </th>
-                  <th
-                    style={{
-                      padding: "8px 24px", // Added horizontal padding
-                      textAlign: "left",
-                      fontFamily: "Sk-Modernist-Regular",
-                    }}
-                  >
-                    24h Chg
-                  </th>
-                  <th
-                    style={{
-                      padding: "8px 24px", // Added horizontal padding
-                      textAlign: "left",
-                      fontFamily: "Sk-Modernist-Regular",
-                    }}
-                  >
-                    24hr Chg(%)
-                  </th>
-                  <th
-                    style={{
-                      padding: "8px 24px", // Added horizontal padding
-                      textAlign: "left",
-                      fontFamily: "Sk-Modernist-Regular",
-                    }}
-                  >
-                    Volume
-                  </th>
-                  <th
-                    style={{
-                      padding: "8px 24px", // Added horizontal padding
-                      textAlign: "left",
-                      fontFamily: "Sk-Modernist-Regular",
-                    }}
-                  >
-                    Open Positions
-                  </th>
-                  <th
-                    style={{
-                      padding: "8px 24px", // Added horizontal padding
-                      textAlign: "left",
-                      fontFamily: "Sk-Modernist-Regular",
-                    }}
-                  >
-                    8h Funding Rate
-                  </th>
-                </tr>
-              </thead>
-
-              <tbody className=" scrollbar-hide">
-                {filteredData?.map((item: Row) => (
+            <div style={{ position: "relative", width: "96%", marginBottom: "8px", marginLeft: "2%" }}>
+              <SearchIcon style={{ position: "absolute", top: "50%", left: "8px", transform: "translateY(-50%)", color: "#606060" }} />
+              <input
+                type="text"
+                placeholder="Search by symbol"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "8px 24px 8px 40px",
+                  fontFamily: "Sk-Modernist-Regular",
+                  borderRadius: "8px",
+                  backgroundColor: "#1E1E1E",
+                  color: "white",
+                  border: "none",
+                }}
+              />
+            </div>
+            <div className="table-container" style={{ overflowX: "auto" }}>
+              <table style={{ fontFamily: "Sk-Modernist-Regular", width: "100%" }} className="scrollbar-hide">
+                <thead className="scrollbar-hide">
                   <tr
-                    key={item.symbol}
-                    style={{ border: "none", cursor: "pointer" }}
-                    onClick={() => handleSelect(parseString(item.symbol) || "")}
+                    style={{
+                      border: "none",
+                      textAlign: "left",
+                      fontFamily: "Sk-Modernist-Regular",
+                    }}
                   >
-                    <td
+                    <th
                       style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "16px",
+                        padding: "8px 24px",
+                        textAlign: "left",
                         fontFamily: "Sk-Modernist-Regular",
-                        fontSize: "1rem",
-                        marginRight: "1rem",
-                        padding: "8px 24px", // Added horizontal and vertical padding
                       }}
                     >
-                      <img
-                        src={`https://oss.orderly.network/static/symbol_logo/${parseString(item.symbol) || "default"
-                          }.png`}
-                        alt=""
-                        style={{ width: "32px" }}
-                      />
-                      {parseString(item.symbol)}
-                    </td>
-                    <td style={{ padding: "8px 24px" }}>${item.mark_price}</td>
-                    <td
+                      Symbol
+                    </th>
+                    <th
                       style={{
-                        color:
-                          change24hour(item["24h_open"], item["24h_close"]) > 0
-                            ? "#40F388"
-                            : "#F46140",
-                        padding: "8px 24px", // Added horizontal and vertical padding
+                        padding: "8px 24px",
+                        textAlign: "left",
+                        fontFamily: "Sk-Modernist-Regular",
                       }}
                     >
-                      ${change24hour(item["24h_open"], item["24h_close"])}
-                    </td>
-                    <td
+                      Price
+                    </th>
+                    <th
                       style={{
-                        color:
-                          change24hourPercent(
-                            item["24h_open"],
-                            item["24h_close"]
-                          ) > 0
-                            ? "#40F388"
-                            : "#F46140",
-                        padding: "8px 24px", // Added horizontal and vertical padding
+                        padding: "8px 24px",
+                        textAlign: "left",
+                        fontFamily: "Sk-Modernist-Regular",
                       }}
                     >
-                      {change24hourPercent(
-                        item["24h_open"],
-                        item["24h_close"]
-                      )}
-                      %
-                    </td>
-                    <td style={{ padding: "8px 24px" }}>
-                      ${(item["24h_volume"] * item.mark_price).toFixed(2)}
-                    </td>
-                    <td style={{ padding: "8px 24px" }}>
-                      {item["open_interest"]}
-                    </td>
-                    <td style={{ padding: "8px 24px" }}>
-                      {item["24h_volume"]}%
-                    </td>
+                      24h Chg
+                    </th>
+                    <th
+                      style={{
+                        padding: "8px 24px",
+                        textAlign: "left",
+                        fontFamily: "Sk-Modernist-Regular",
+                      }}
+                    >
+                      24hr Chg(%)
+                    </th>
+                    <th
+                      style={{
+                        padding: "8px 24px",
+                        textAlign: "left",
+                        fontFamily: "Sk-Modernist-Regular",
+                      }}
+                    >
+                      Volume
+                    </th>
+                    <th
+                      style={{
+                        padding: "8px 24px",
+                        textAlign: "left",
+                        fontFamily: "Sk-Modernist-Regular",
+                      }}
+                    >
+                      Open Interest
+                    </th>
+                    <th
+                      style={{
+                        padding: "8px 24px",
+                        textAlign: "left",
+                        fontFamily: "Sk-Modernist-Regular",
+                      }}
+                    >
+                      8h Funding Rate
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+
+                <tbody className="scrollbar-hide">
+                  {filteredData?.map((item: Row) => (
+                    <tr
+                      key={item.symbol}
+                      style={{ border: "none", cursor: "pointer" }}
+                      onClick={() => handleSelect(parseString(item.symbol) || "")}
+                    >
+                      <td
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "16px",
+                          fontFamily: "Sk-Modernist-Regular",
+                          fontSize: "1rem",
+                          marginRight: "1rem",
+                          padding: "8px 24px",
+                        }}
+                      >
+                        <img
+                          src={`https://oss.orderly.network/static/symbol_logo/${parseString(item.symbol) || "default"
+                            }.png`}
+                          alt=""
+                          style={{ width: "32px" }}
+                        />
+                        {parseString(item.symbol)}
+                      </td>
+                      <td style={{ padding: "8px 24px" }}>${item.mark_price}</td>
+                      <td
+                        style={{
+                          color:
+                            change24hour(item["24h_open"], item["24h_close"]) > 0
+                              ? "#40F388"
+                              : "#F46140",
+                          padding: "8px 24px",
+                        }}
+                      >
+                        ${change24hour(item["24h_open"], item["24h_close"])}
+                      </td>
+                      <td
+                        style={{
+                          color:
+                            change24hourPercent(
+                              item["24h_open"],
+                              item["24h_close"]
+                            ) > 0
+                              ? "#40F388"
+                              : "#F46140",
+                          padding: "8px 24px",
+                        }}
+                      >
+                        {change24hourPercent(
+                          item["24h_open"],
+                          item["24h_close"]
+                        )}
+                        %
+                      </td>
+                      <td style={{ padding: "8px 24px" }}>
+                        ${(item["24h_volume"] * item.mark_price).toFixed(2)}
+                      </td>
+                      <td style={{ padding: "8px 24px" }}>
+                        {item["open_interest"]}
+                      </td>
+                      <td style={{ padding: "8px 24px" }}>
+                        {item["24h_volume"]}%
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
       </div>

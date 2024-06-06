@@ -6,6 +6,22 @@ import '../App.css';
 
 const tabs = ['Trade', 'Docs', 'Leaderboard', 'Mobile App']
 
+const handleTabClick = (text: string, setSelected: (text: string) => void) => {
+    switch (text) {
+        case 'Docs':
+            window.open('https://docs.xade.finance');
+            break;
+        case 'Leaderboard':
+            alert('Coming soon');
+            break;
+        case 'Mobile App':
+            window.open('https://bit.ly/xadefinance');
+            break;
+        default:
+            setSelected(text);
+    }
+}
+
 interface TabProps {
     text: string
     selected: boolean
@@ -16,7 +32,7 @@ interface TabProps {
 const Tab = ({ text, selected, setSelected}: TabProps) => {
     return (
         <button
-            onClick={() => setSelected(text)}
+            onClick={() => handleTabClick(text, setSelected)}
             className={` ${selected ? 'text-white' : ' '}
                 relative rounded-md px-2 py-8 text-sm font-medium text-gray-500 transition-colors duration-300 focus-within:outline-red-500/50`}
         >
@@ -44,9 +60,9 @@ const NavBar = ({ center, customID }: NavBarProps) => {
     return (
         <div className={`navbar ${center ? 'justify-center' : ''}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div className="navbar-content" style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-                <img src={logo} alt="Logo" className="navbar-logo" style={{ marginRight: '40px' }} />
+                <img src={logo} alt="Logo" className="navbar-logo" style={{ marginLeft: '20px', marginRight: '40px' }} />
                 {!isMobile && (
-                    <div className="tabs" style={{ display: 'flex', gap: '16px', flex: 1, justifyContent: 'center' }}>
+                    <div className="tabs" style={{ display: 'flex', gap: '16px', flex: 1, justifyContent: 'flex-start' }}>
                         {tabs.map((tab) => (
                             <Tab
                                 text={tab}
@@ -58,7 +74,7 @@ const NavBar = ({ center, customID }: NavBarProps) => {
                         ))}
                     </div>
                 )}
-                <div style={{ marginLeft: 'auto' }}>
+                <div style={{ marginRight: '20px' }}>
                     <div style={{ padding: isMobile ? '5px 10px' : '10px 20px', fontSize: isMobile ? '0.8rem' : '1rem' }}>
                         <WalletConnectButton />
                     </div>

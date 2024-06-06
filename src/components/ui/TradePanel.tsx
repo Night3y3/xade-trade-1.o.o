@@ -632,3 +632,4 @@ const TradePanel: React.FC<MarketSectionProps> = ({
 
 export default TradePanel;
 
+

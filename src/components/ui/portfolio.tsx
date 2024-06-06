@@ -13,7 +13,7 @@ export function Portfolio({ symbol }: { symbol: string }) {
   const portfolioValue = colateral.availableBalance + colateral.unsettledPnL;
   const formattedPortfolioValue = `$ ${portfolioValue?.toPrecision(4)}`;
   const pnl = colateral.unsettledPnL;
-  const pnlp = ((pnl / portfolioValue) * 100).toFixed(4);
+  const pnlp = ((pnl / (portfolioValue || 1)) * 100).toFixed(4) || "0";
   const { currentLeverage } = useMarginRatio();
   const leverage = currentLeverage;
   // const unrealisedPnl = "$200";

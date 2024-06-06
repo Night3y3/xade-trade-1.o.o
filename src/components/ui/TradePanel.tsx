@@ -200,8 +200,8 @@ const OrderOverview = ({
             color: "white",
           }}
         >
-          {markPrice}
-          {` ${symbolConfig?.base}`}
+          ${markPrice}
+          
         </div>
       </div>
       <div

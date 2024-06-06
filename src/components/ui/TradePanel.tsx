@@ -15,6 +15,7 @@ interface MarketSectionProps {
   symbol: string;
   setAmountPrice: (x: string) => void;
   setOrderSide: (x: OrderSide) => void;
+  setOrderType: (x: OrderType) => void;
 }
 
 const AmountInput = ({
@@ -99,9 +100,7 @@ const AmountInput = ({
           {orderSide === OrderSide.BUY
             ? symbolConfig?.quote
             : symbolConfig?.base}
-            
         </div>
-        
       </div>
     </div>
   );
@@ -334,37 +333,35 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             padding: "10px 0px", // Added horizontal padding
           }}
         >
-          {[OrderType.MARKET, OrderType.LIMIT].map(
-            (type) => (
+          {[OrderType.MARKET, OrderType.LIMIT].map((type) => (
+            <div
+              key={type}
+              onClick={() => setOrderType(type as OrderType)}
+              style={{
+                border:
+                  orderType === type
+                    ? "1px solid #D4D4D4"
+                    : "1px solid #4B4B4B",
+                width: "50%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "46px",
+                cursor: "pointer",
+              }}
+            >
               <div
-                key={type}
-                onClick={() => setOrderType(type as OrderType)}
                 style={{
-                  border:
-                    orderType === type
-                      ? "1px solid #D4D4D4"
-                      : "1px solid #4B4B4B",
-                  width: "50%",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "46px",
-                  cursor: "pointer",
+                  fontSize: "12px",
+                  fontWeight: 400,
+                  font: "Sk-Modernist",
+                  color: orderType === type ? "#D4D4D4" : "#4B4B4B",
                 }}
               >
-                <div
-                  style={{
-                    fontSize: "12px",
-                    fontWeight: 400,
-                    font: "Sk-Modernist",
-                    color: orderType === type ? "#D4D4D4" : "#4B4B4B",
-                  }}
-                >
-                  {type}
-                </div>
+                {type}
               </div>
-            )
-          )}
+            </div>
+          ))}
         </div>
       </div>
       <div
@@ -620,9 +617,9 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             fontWeight: 400,
             font: "Sk-Modernist",
             color: "black",
-            minHeight: '3rem',
-            display: 'flex', // Changed from alignItems to display: flex
-            alignItems: 'center' // Added alignItems to center the text vertically
+            minHeight: "3rem",
+            display: "flex", // Changed from alignItems to display: flex
+            alignItems: "center", // Added alignItems to center the text vertically
           }}
         >
           {processing ? "Executing..." : `${orderSide} ${symbolConfig?.base}`}
@@ -633,5 +630,3 @@ const TradePanel: React.FC<MarketSectionProps> = ({
 };
 
 export default TradePanel;
-
-

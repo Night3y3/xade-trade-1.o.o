@@ -1,4 +1,13 @@
 import React from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
 import { useConnectWallet } from "@web3-onboard/react";
 
@@ -135,19 +144,34 @@ const WalletConnectButton: React.FC<WalletConnectButtonProps> = () => {
           Connect
         </button>
       ) : (
-        <button
-          onClick={async () => {
-            console.log(" wow tf ", wallet.chains[0].id);
-            await disconnectWallet({ label: wallet.label });
-          }}
-          type="button"
-          className="bg-[#1E1E1E]  border-2 border-black text-[#D5CCE5] rounded-lg px-4 py-1.5 font-bold shadow-xl  shadow-black/30 hover:bg-gray-700 flex gap-3 items-center justify-center"
-        >
-          <img src={wallet.chains[0].id === "0x66eee" ? "https://docs.arbitrum.io/img/logo.svg" : wallet.icon} alt="" className=" size-6" />
-          {wallet.accounts[0]?.address?.substring(0, 3) +
-            "..." +
-            wallet.accounts[0]?.address?.slice(-5)}
-        </button>
+        <Dialog>
+          <DialogTrigger>
+            <button
+              type="button"
+              className="bg-[#1E1E1E]  border-2 border-black text-[#D5CCE5] rounded-lg px-4 py-1.5 font-bold shadow-xl  shadow-black/30 hover:bg-gray-700 flex gap-3 items-center justify-center"
+            >
+              <img src={wallet.chains[0].id === "0x66eee" ? "https://docs.arbitrum.io/img/logo.svg" : wallet.icon} alt="" className=" size-6" />
+              {wallet.accounts[0]?.address?.substring(0, 3) +
+                "..." +
+                wallet.accounts[0]?.address?.slice(-5)}
+            </button>
+          </DialogTrigger>
+          <DialogContent >
+            <DialogHeader className=" flex items-center">
+              <DialogTitle >
+                <button
+                  onClick={async () => {
+                    await disconnectWallet({ label: wallet.label });
+                  }}
+                  type="button"
+                  className="bg-white border-2 border-black text-black rounded-lg px-8 py-1.5 font-bold shadow-xl  shadow-black/30 hover:bg-gray-700 w"
+                >
+                  Disconnect
+                </button>
+              </DialogTitle>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
       )}
     </div>
   );

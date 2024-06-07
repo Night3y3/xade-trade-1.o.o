@@ -137,11 +137,13 @@ const WalletConnectButton: React.FC<WalletConnectButtonProps> = () => {
       ) : (
         <button
           onClick={async () => {
+            console.log(wallet.icon);
             await disconnectWallet({ label: wallet.label });
           }}
           type="button"
-          className="bg-white border-2 border-black text-black rounded-lg px-8 py-1.5 font-bold shadow-xl  shadow-black/30 hover:bg-gray-700 w"
+          className="bg-[#1E1E1E]  border-2 border-black text-[#D5CCE5] rounded-lg px-4 py-1.5 font-bold shadow-xl  shadow-black/30 hover:bg-gray-700 flex gap-3 items-center justify-center"
         >
+          <img src={wallet.icon} alt="" className=" size-6" />
           {wallet.accounts[0]?.address?.substring(0, 3) +
             "..." +
             wallet.accounts[0]?.address?.slice(-5)}

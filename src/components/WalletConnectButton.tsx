@@ -137,13 +137,13 @@ const WalletConnectButton: React.FC<WalletConnectButtonProps> = () => {
       ) : (
         <button
           onClick={async () => {
-            console.log(wallet.icon);
+            console.log(" wow tf ", wallet.chains[0].id);
             await disconnectWallet({ label: wallet.label });
           }}
           type="button"
           className="bg-[#1E1E1E]  border-2 border-black text-[#D5CCE5] rounded-lg px-4 py-1.5 font-bold shadow-xl  shadow-black/30 hover:bg-gray-700 flex gap-3 items-center justify-center"
         >
-          <img src={wallet.icon} alt="" className=" size-6" />
+          <img src={wallet.chains[0].id === "0x66eee" ? "https://docs.arbitrum.io/img/logo.svg" : wallet.icon} alt="" className=" size-6" />
           {wallet.accounts[0]?.address?.substring(0, 3) +
             "..." +
             wallet.accounts[0]?.address?.slice(-5)}

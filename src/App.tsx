@@ -63,7 +63,7 @@ function App() {
               })}
             >
               <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-                <div className="flex flex-col overflow-hidden">
+                <div className="flex flex-col overflow-hidden -mt-7">
                   <NavBar />
                   <PriceBar />
                   <MarketSection />

@@ -139,7 +139,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
               zIndex: 1000,
               height: "32%",
               overflowX: "auto",
-              paddingTop: "2%",
+              paddingTop: "0.5%",
               color: "white",
               marginLeft: "-20px",
             }}
@@ -277,9 +277,8 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                         }}
                       >
                         <img
-                          src={`https://oss.orderly.network/static/symbol_logo/${
-                            parseString(item.symbol) || "default"
-                          }.png`}
+                          src={`https://oss.orderly.network/static/symbol_logo/${parseString(item.symbol) || "default"
+                            }.png`}
                           alt=""
                           style={{ width: "32px" }}
                         />

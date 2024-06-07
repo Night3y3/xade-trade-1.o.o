@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import ".././../App.css";
 import Account from "./account"; // Import the Account component
 import { useOrderEntry } from "@orderly.network/hooks";
+import { message } from "antd";
 
 interface MarketSectionProps {
   orderSide: OrderSide;
@@ -611,10 +612,15 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             );
             const errors = await validator(newValue);
             console.log(JSON.stringify(newValue), errors);
-            try {
-              await onSubmit(newValue);
-              setIsProcessing(false);
-            } catch (error) {
+            if (Object.keys(errors).length === 0) {
+              try {
+                await onSubmit(newValue);
+                setIsProcessing(false);
+              } catch (error) {
+                setIsProcessing(false);
+              }
+            } else {
+              message.info("Minimum trade should be of 12 USDC");
               setIsProcessing(false);
             }
           }

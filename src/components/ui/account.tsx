@@ -12,6 +12,7 @@ import {
 import { API, OrderSide } from "@orderly.network/types";
 import { useMemo, useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { message } from "antd";
 
 const DepositFlow = ({
   depositAmount,
@@ -22,6 +23,7 @@ const DepositFlow = ({
   depositAmount: string;
   setDepositPrice: (amount: string) => void;
 }) => {
+  const [processing, setProcessing] = useState(false);
   return (
     <div>
       <div
@@ -73,13 +75,29 @@ const DepositFlow = ({
       </div>
       <div
         onClick={async () => {
+          if (processing) {
+            message.info("Please wait. Tx in processing!!");
+          }
           if (parseFloat(depositAmount) == null) return;
           if (Number(deposit.allowance) < Number(depositAmount)) {
-            await deposit.approve(depositAmount);
+            try {
+              setProcessing(true);
+              await deposit.approve(depositAmount);
+              message.info("Spend Approved");
+              setProcessing(false);
+            } catch (error) {
+              message.info(
+                "Error on approving!! Please refresh and try again."
+              );
+              console.log("error on approve", error);
+            }
           } else {
+            setProcessing(true);
             deposit.setQuantity(depositAmount);
             console.log("here....", parseInt(depositAmount));
             await deposit.deposit();
+            message.info("Deposit Successfully done");
+            setProcessing(false);
           }
         }}
         style={{

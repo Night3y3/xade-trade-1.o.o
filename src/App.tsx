@@ -16,6 +16,7 @@ import { OrderlyConfigProvider } from "@orderly.network/hooks";
 import MarketSection from "./components/MarketSection";
 import { Web3OnboardProvider, init } from "@web3-onboard/react";
 import walletConnectModule from "@web3-onboard/walletconnect";
+import Chart from "./components/Charts";
 
 const queryClient = new QueryClient();
 
@@ -66,6 +67,7 @@ function App() {
                 <div className="flex flex-col overflow-hidden -mt-7">
                   <NavBar />
                   <PriceBar />
+                  {/* <Chart /> */}
                   <MarketSection />
                 </div>
               </ThemeProvider>

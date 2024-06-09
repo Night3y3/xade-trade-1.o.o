@@ -12,8 +12,9 @@ import OrderBook from "./Orderbook/index";
 import TradingView from "./ui/tradingview";
 import { useAppSelector } from "@/redux/hooks";
 import { useConnectWallet } from "@web3-onboard/react";
+import Chart from "./Charts";
 
-interface MarketSectionProps {}
+interface MarketSectionProps { }
 
 const MarketSection: React.FC<MarketSectionProps> = () => {
   const [initialized, setInitialized] = useState(false);
@@ -72,7 +73,8 @@ const MarketSection: React.FC<MarketSectionProps> = () => {
 
   return (
     <div className="market-section">
-      <div className="tradingview-container">
+      <div className="tradingview-container flex-col">
+        <Chart />
         <TradingView symbol={marketSymbol} />
       </div>
       <div className="orderbook-container">
@@ -85,9 +87,8 @@ const MarketSection: React.FC<MarketSectionProps> = () => {
         ></div>
       )}
       <div
-        className={`tradepanel-container ${
-          showTradePanel ? "visible" : "hidden"
-        }`}
+        className={`tradepanel-container ${showTradePanel ? "visible" : "hidden"
+          }`}
         onClick={() => setShowTradePanel(false)}
       >
         <div

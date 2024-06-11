@@ -102,6 +102,8 @@ const AmountInput = ({
             ? symbolConfig?.quote
             : symbolConfig?.base}
         </div>
+        
+        
       </div>
     </div>
   );

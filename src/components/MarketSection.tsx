@@ -14,7 +14,7 @@ import { useAppSelector } from "@/redux/hooks";
 import { useConnectWallet } from "@web3-onboard/react";
 import Chart from "./Charts";
 
-interface MarketSectionProps { }
+interface MarketSectionProps {}
 
 const MarketSection: React.FC<MarketSectionProps> = () => {
   const [initialized, setInitialized] = useState(false);
@@ -87,8 +87,9 @@ const MarketSection: React.FC<MarketSectionProps> = () => {
         ></div>
       )}
       <div
-        className={`tradepanel-container ${showTradePanel ? "visible" : "hidden"
-          }`}
+        className={`tradepanel-container ${
+          showTradePanel ? "visible" : "hidden"
+        }`}
         onClick={() => setShowTradePanel(false)}
       >
         <div
@@ -96,7 +97,13 @@ const MarketSection: React.FC<MarketSectionProps> = () => {
           onClick={(e) => e.stopPropagation()}
         >
           <TradePanel
-            setAmountPrice={setAmountPrice}
+            setAmountPrice={(x) => {
+              if (x) {
+                setAmountPrice(x);
+              } else {
+                setAmountPrice("0");
+              }
+            }}
             setOrderSide={setOrderSide}
             setOrderType={setOrderType}
             symbolConfig={symbolConfig}

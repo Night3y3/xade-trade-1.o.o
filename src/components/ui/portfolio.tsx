@@ -15,7 +15,7 @@ export function Portfolio({ symbol }: { symbol: string }) {
   const pnl = colateral.unsettledPnL;
   const pnlp = ((pnl / (portfolioValue || 1)) * 100).toFixed(4) || "0";
   const { currentLeverage } = useMarginRatio();
-  const leverage = currentLeverage;
+  const leverage = currentLeverage.toFixed(2);
   // const unrealisedPnl = "$200";
 
   return (
@@ -45,7 +45,7 @@ export function Portfolio({ symbol }: { symbol: string }) {
           <div className="flex flex-col items-start">
             <span>Leverage</span>
             <span className="text-white text-[18px] font-[Sk-Modernist-Bold]">
-              {leverage}
+              {leverage}x
             </span>
           </div>
         </div>

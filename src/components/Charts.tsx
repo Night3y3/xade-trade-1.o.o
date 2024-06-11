@@ -3,8 +3,6 @@ import logo from "../assets/logo.svg";
 import "../App.css";
 import { cn } from "@/lib/utils";
 
-const tabs = ["Chart", "Overview"];
-
 const handleTabClick = (text: string, setSelected: (text: string) => void) => {
     switch (text) {
         case "Docs":
@@ -51,7 +49,7 @@ interface ChartProps {
 }
 
 const Chart = ({ center, customID }: ChartProps) => {
-    const [selected, setSelected] = useState<string>(tabs[0])
+    const [selected, setSelected] = useState<string>("Chart")
     return (
         <div
             className={cn(
@@ -59,15 +57,6 @@ const Chart = ({ center, customID }: ChartProps) => {
                 center && 'justify-center',
             )}
         >
-            {tabs.map((tab) => (
-                <Tab
-                    text={tab}
-                    selected={selected === tab}
-                    setSelected={setSelected}
-                    key={tab}
-                    customID={customID}
-                />
-            ))}
         </div>
     )
 }

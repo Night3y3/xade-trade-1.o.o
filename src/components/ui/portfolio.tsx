@@ -10,7 +10,7 @@ export function Portfolio({ symbol }: { symbol: string }) {
   const colateral = useCollateral({ dp: 2 });
   // Dummy data for the new fields
 
-  const portfolioValue = colateral.availableBalance + colateral.unsettledPnL;
+  const portfolioValue = colateral.availableBalance;
   const formattedPortfolioValue = `$ ${portfolioValue?.toPrecision(4)}`;
   const pnl = colateral.unsettledPnL;
   const pnlp = ((pnl / (portfolioValue || 1)) * 100).toFixed(4) || "0";
@@ -33,7 +33,7 @@ export function Portfolio({ symbol }: { symbol: string }) {
             </span>
           </div>
           <div className="flex flex-col items-start">
-            <span>Unrealised PnL</span>
+            <span>PnL</span>
             <span
               className={`text-[18px] font-[Sk-Modernist-Bold] ${
                 pnl < 0 ? "text-red-500" : "text-green-500"

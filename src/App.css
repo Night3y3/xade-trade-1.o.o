@@ -285,8 +285,15 @@
   color: #40F388;
   transition: color 0.5s;
 }
-
+.portfolio {
+  border-bottom: 2px solid #4B4B4B; /* Adjust the color and width as needed */
+}
 .price-down {
   color: #F35540;
   transition: color 0.5s;
+}
+@media (max-width: 768px) {
+  .trade-panel {
+    border-left: none !important;
+  }
 }

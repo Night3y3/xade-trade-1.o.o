@@ -56,6 +56,7 @@ const PositionExt = ({
       }
     }
   };
+  const orderValue = position.mark_price * position.position_qty;
   return (
     <TableRow key={index} className="border-none">
      <TableCell
@@ -79,7 +80,7 @@ const PositionExt = ({
   </span>
 </TableCell>
       <TableCell className="text-left">{Math.abs(position?.position_qty)}</TableCell>
-      <TableCell className="text-left">${position?.mark_price}</TableCell>
+      <TableCell className="text-left">{orderValue}</TableCell>
 
       <TableCell
         className={`text-left ${
@@ -114,7 +115,7 @@ const Position: React.FC<PositionProps> = ({ symbol }) => {
           <TableRow className="border-none font-primaryRegular">
             <TableHead className="text-left">Symbol</TableHead>
             <TableHead className="text-left">Notional Size</TableHead>
-            <TableHead className="text-left">Average Price</TableHead>
+            <TableHead className="text-left">Order Value</TableHead>
             <TableHead className="text-left">Unrealized P&L</TableHead>
             <TableHead className="text-left">Action</TableHead>
           </TableRow>

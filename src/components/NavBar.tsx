@@ -11,7 +11,7 @@ const handleTabClick = (text: string, setSelected: (text: string) => void) => {
       window.open("https://docs.xade.finance");
       break;
     case "Leaderboard":
-      alert("Coming soon");
+      window.open("https://app.orderly.network/");
       break;
     case "Mobile App":
       window.open("https://bit.ly/xadefinance");

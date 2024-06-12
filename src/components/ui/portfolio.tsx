@@ -2,6 +2,7 @@ import React from "react";
 import Position from "./Position";
 import Orders from "./Orders";
 import { useCollateral, useMarginRatio } from "@orderly.network/hooks";
+import { useAppSelector } from "@/redux/hooks";
 
 const tabs = ["Positions", "Orders"];
 
@@ -11,6 +12,7 @@ export function Portfolio({ symbol }: { symbol: string }) {
   // Dummy data for the new fields
 
   const portfolioValue = colateral.availableBalance;
+  const orderlyMerits = useAppSelector((x) => x.market.orderlyMerit);
   const formattedPortfolioValue = `$ ${portfolioValue?.toPrecision(4)}`;
   const pnl = colateral.unsettledPnL;
   const pnlp = ((pnl / (portfolioValue || 1)) * 100).toFixed(4) || "0";
@@ -46,6 +48,18 @@ export function Portfolio({ symbol }: { symbol: string }) {
             <span>Leverage</span>
             <span className="text-white text-[18px] font-[Sk-Modernist-Bold]">
               {leverage}x
+            </span>
+          </div>
+          <div className="flex flex-col items-start">
+            <span>Orderly Merits</span>
+            <span className="text-white text-[18px] font-[Sk-Modernist-Bold]">
+              {orderlyMerits}
+            </span>
+          </div>
+          <div className="flex flex-col items-start">
+            <span>Xade Shards</span>
+            <span className="text-white text-[18px] font-[Sk-Modernist-Bold]">
+              {orderlyMerits * 43}
             </span>
           </div>
         </div>

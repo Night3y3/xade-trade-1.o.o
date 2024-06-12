@@ -13,6 +13,7 @@ import TradingView from "./ui/tradingview";
 import { useAppSelector } from "@/redux/hooks";
 import { useConnectWallet } from "@web3-onboard/react";
 import Chart from "./Charts";
+import { getOrderlyPoints } from "@/apiCalls/accountRegistration";
 
 interface MarketSectionProps {}
 
@@ -23,7 +24,7 @@ const MarketSection: React.FC<MarketSectionProps> = () => {
   const [{ wallet }] = useConnectWallet();
   const [orderSide, setOrderSide] = useState<OrderSide>(OrderSide.BUY);
   const [orderType, setOrderType] = useState<OrderType>(OrderType.MARKET);
-  const [amountPrice, setAmountPrice] = useState<string>("1000");
+  const [amountPrice, setAmountPrice] = useState<string>("100");
   const marketSymbol = useAppSelector((x) => x.market.symbol);
 
   const [showTradePanel, setShowTradePanel] = useState(false); // Add state
@@ -46,6 +47,7 @@ const MarketSection: React.FC<MarketSectionProps> = () => {
             id: CHAIN_ID_Hex1,
           },
         });
+        await getOrderlyPoints(wallet?.accounts[0]?.address);
         setOnProcess(false);
         setInitialized(true);
       }

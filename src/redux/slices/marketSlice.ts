@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  symbol: "Select a Market",
+  symbol: "PERP_BTC_USDC",
   index_price: 0,
   change_24h_percent: 0,
   volume_24h: 0,
   open_interest: 0,
   mark_price: 0,
+  orderlyMerit: 0,
   funding_rate_8h: 0,
 };
 
@@ -34,6 +35,9 @@ export const marketSlice = createSlice({
     },
     setFundingRate8h: (state, action) => {
       state.funding_rate_8h = action.payload;
+    },
+    setMarketOrderly: (state, action) => {
+      state.orderlyMerit = action.payload;
     },
   },
 });

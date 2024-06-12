@@ -238,11 +238,10 @@ const OrderOverview = ({
           }}
         >
           {estLiqPrice ?? ""}
-          {` ${
-            orderSide === OrderSide.BUY
+          {` ${orderSide === OrderSide.BUY
               ? symbolConfig?.quote
               : symbolConfig?.base
-          }`}
+            }`}
         </div>
       </div>
       <div
@@ -317,8 +316,8 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             ? amountPrice
             : amountPrice * markPrice
           : orderSide === OrderSide.BUY
-          ? limitPrice
-          : limitPrice,
+            ? limitPrice
+            : limitPrice,
       order_quantity:
         orderSide === OrderSide.BUY
           ? parseFloat(amountPrice ?? "0") ?? 0.0 / markPrice
@@ -569,15 +568,13 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             textAlign: "start",
           }}
         >
-          {`  ≈ ${
-            orderSide === OrderSide.BUY
+          {`  ≈ ${orderSide === OrderSide.BUY
               ? parseFloat(amountPrice) / markPrice
               : markPrice * parseFloat(amountPrice)
-          } ${
-            orderSide === OrderSide.SELL
+            } ${orderSide === OrderSide.SELL
               ? symbolConfig?.quote
               : symbolConfig?.base
-          }`}
+            }`}
         </div>
       </div>
       <OrderOverview
@@ -599,8 +596,8 @@ const TradePanel: React.FC<MarketSectionProps> = ({
                       ? amountPrice
                       : amountPrice * markPrice
                     : orderSide === OrderSide.BUY
-                    ? limitPrice
-                    : limitPrice,
+                      ? limitPrice
+                      : limitPrice,
                 order_type: orderType,
                 side: orderSide,
                 symbol,

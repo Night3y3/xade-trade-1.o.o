@@ -11,7 +11,7 @@ const handleTabClick = (text: string, setSelected: (text: string) => void) => {
       window.open("https://docs.xade.finance");
       break;
     case "Leaderboard":
-      setSelected(text);
+      alert("Coming soon");
       break;
     case "Mobile App":
       window.open("https://bit.ly/xadefinance");
@@ -61,17 +61,24 @@ const NavBar = ({ center, customID }: NavBarProps) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+        flexDirection: isMobile ? "column" : "row",
       }}
     >
       <div
         className="navbar-content"
-        style={{ display: "flex", alignItems: "center", width: "100%" }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          width: "100%",
+          justifyContent: isMobile ? "space-between" : "flex-start",
+          flexDirection: isMobile ? "row" : "row",
+        }}
       >
         <img
           src={logo}
           alt="Logo"
           className="navbar-logo"
-          style={{ marginLeft: "20px", marginRight: "40px" }}
+          style={{ marginLeft: "20px", marginRight: isMobile ? "auto" : "40px" }}
         />
         {!isMobile && (
           <div

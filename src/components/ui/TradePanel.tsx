@@ -102,6 +102,8 @@ const AmountInput = ({
             ? symbolConfig?.quote
             : symbolConfig?.base}
         </div>
+        
+        
       </div>
     </div>
   );
@@ -115,18 +117,15 @@ const OrderOverview = ({
   estLiqPrice,
 }: {
   orderSide: string;
-  markPrice: number;
+  markPrice: number | null;
   symbolConfig: API.SymbolExt;
   amountPrice: string;
   estLiqPrice: string;
 }) => {
-  // const collateral = useCollateral({ dp: 2 });
-  // const price = perp.positions.liqPrice(
-  //   markPrice, //markPrice
-  //   collateral.totalCollateral, // total collateral
-  //   0.002, // positions size
-  //   0.05 //MMR
-  // );
+  const formattedMarkPrice = markPrice !== null && markPrice !== undefined ? `$${markPrice}` : "N/A";
+  const parsedAmountPrice = parseFloat(amountPrice);
+  const fees = !isNaN(parsedAmountPrice) ? parsedAmountPrice * 0.0006 : "N/A";
+
   return (
     <div
       style={{
@@ -203,7 +202,7 @@ const OrderOverview = ({
             color: "white",
           }}
         >
-          ${markPrice}
+          {formattedMarkPrice}
         </div>
       </div>
       <div
@@ -275,7 +274,7 @@ const OrderOverview = ({
             color: "white",
           }}
         >
-          {parseFloat(amountPrice) * 0.0006} USDC
+          {fees} USDC
         </div>
       </div>
     </div>

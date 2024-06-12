@@ -10,19 +10,19 @@ export function Portfolio({ symbol }: { symbol: string }) {
   const colateral = useCollateral({ dp: 2 });
   // Dummy data for the new fields
 
-  const portfolioValue = colateral.availableBalance + colateral.unsettledPnL;
+  const portfolioValue = colateral.availableBalance;
   const formattedPortfolioValue = `$ ${portfolioValue?.toPrecision(4)}`;
   const pnl = colateral.unsettledPnL;
   const pnlp = ((pnl / (portfolioValue || 1)) * 100).toFixed(4) || "0";
   const { currentLeverage } = useMarginRatio();
-  const leverage = currentLeverage;
+  const leverage = currentLeverage.toFixed(2);
   // const unrealisedPnl = "$200";
 
   return (
-    <div className="block flex-col bg-black h-full">
+    <div className="block flex-col bg-black h-full border-b border-solid border-[#4B4B4B]">
       <div
         className="w-full border-t border-b border-solid border-[#4B4B4B] overflow-x-auto"
-        style={{ height: "20%" }}
+        style={{ height: "10%" }}
       >
         {/* New section for portfolio details */}
         <div className="flex justify-start text-[#767676] text-[16px] font-[Sk-Modernist-Regular] h-full items-center space-x-16 pl-4 min-w-[600px]">
@@ -33,7 +33,7 @@ export function Portfolio({ symbol }: { symbol: string }) {
             </span>
           </div>
           <div className="flex flex-col items-start">
-            <span>Unrealised PnL</span>
+            <span>PnL</span>
             <span
               className={`text-[18px] font-[Sk-Modernist-Bold] ${
                 pnl < 0 ? "text-red-500" : "text-green-500"
@@ -45,7 +45,7 @@ export function Portfolio({ symbol }: { symbol: string }) {
           <div className="flex flex-col items-start">
             <span>Leverage</span>
             <span className="text-white text-[18px] font-[Sk-Modernist-Bold]">
-              {leverage}
+              {leverage}x
             </span>
           </div>
         </div>

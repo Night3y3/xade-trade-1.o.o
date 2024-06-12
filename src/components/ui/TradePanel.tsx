@@ -6,6 +6,7 @@ import ".././../App.css";
 import Account from "./account"; // Import the Account component
 import { useOrderEntry } from "@orderly.network/hooks";
 import { message } from "antd";
+import { types } from "util";
 
 interface MarketSectionProps {
   orderSide: OrderSide;
@@ -24,11 +25,15 @@ const AmountInput = ({
   symbolConfig,
   amountPrice,
   setAmountPrice,
+  orderSymbol,
+  setOrderSymbol,
 }: {
   orderSide: OrderSide;
   amountPrice: string;
   symbolConfig: API.SymbolExt;
   setAmountPrice: (x: string) => void;
+  orderSymbol: string;
+  setOrderSymbol: (x: string) => void;
 }) => {
   return (
     <div
@@ -79,31 +84,60 @@ const AmountInput = ({
         />
       </div>
       <div
+        onClick={() => setOrderSymbol(symbolConfig?.quote)}
         style={{
           fontFamily: "Sk-Modernist-Bold",
-          width: 50,
+          border:
+            orderSymbol === symbolConfig?.quote
+              ? "1px solid #FF9900"
+              : "1px solid #FFF",
+          padding: "8px 16px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           borderRadius: 8,
           height: "28px",
           marginLeft: "8px",
+          cursor: "pointer",
         }}
       >
         <div
           style={{
             fontSize: 12,
             font: "Sk-Modernist",
-            color: "#FF9900",
-            marginTop: "10%",
+            color: orderSymbol === symbolConfig?.quote ? "#FF9900" : "#FFF",
           }}
         >
-          {orderSide === OrderSide.BUY
-            ? symbolConfig?.quote
-            : symbolConfig?.base}
+          {symbolConfig?.quote}
         </div>
-        
-        
+      </div>
+      <div
+        onClick={() => setOrderSymbol(symbolConfig?.base)}
+        style={{
+          fontFamily: "Sk-Modernist-Bold",
+          border:
+            orderSymbol === symbolConfig?.base
+              ? "1px solid #FF9900"
+              : "1px solid #FFF",
+          padding: "8px 16px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius: 8,
+          height: "28px",
+          marginLeft: "8px",
+          cursor: "pointer",
+        }}
+      >
+        <div
+          style={{
+            fontSize: 12,
+            font: "Sk-Modernist",
+            color: orderSymbol === symbolConfig?.base ? "#FF9900" : "#FFF",
+          }}
+        >
+          {symbolConfig?.base}
+        </div>
       </div>
     </div>
   );
@@ -122,7 +156,8 @@ const OrderOverview = ({
   amountPrice: string;
   estLiqPrice: string;
 }) => {
-  const formattedMarkPrice = markPrice !== null && markPrice !== undefined ? `$${markPrice}` : "N/A";
+  const formattedMarkPrice =
+    markPrice !== null && markPrice !== undefined ? `$${markPrice}` : "N/A";
   const parsedAmountPrice = parseFloat(amountPrice);
   const fees = !isNaN(parsedAmountPrice) ? parsedAmountPrice * 0.0006 : "N/A";
 
@@ -237,10 +272,11 @@ const OrderOverview = ({
           }}
         >
           {estLiqPrice ?? ""}
-          {` ${orderSide === OrderSide.BUY
+          {` ${
+            orderSide === OrderSide.BUY
               ? symbolConfig?.quote
               : symbolConfig?.base
-            }`}
+          }`}
         </div>
       </div>
       <div
@@ -294,8 +330,8 @@ const TradePanel: React.FC<MarketSectionProps> = ({
 }) => {
   const [isBuy, setIsBuy] = useState(orderSide === OrderSide.BUY);
   console.log("mark price", markPrice);
-  const [limitPrice, setLimitPrice] = useState(markPrice?.toString());
-
+  const [limitPrice, setLimitPrice] = useState(markPrice);
+  const [orderSymbol, setOrderSymbol] = useState("USDC");
   const handleOrderSideChange = (side: OrderSide) => {
     setOrderSide(side);
     setIsBuy(side === OrderSide.BUY);
@@ -315,8 +351,8 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             ? amountPrice
             : amountPrice * markPrice
           : orderSide === OrderSide.BUY
-            ? limitPrice
-            : limitPrice,
+          ? limitPrice
+          : limitPrice,
       order_quantity:
         orderSide === OrderSide.BUY
           ? parseFloat(amountPrice ?? "0") ?? 0.0 / markPrice
@@ -355,7 +391,14 @@ const TradePanel: React.FC<MarketSectionProps> = ({
           {[OrderType.MARKET, OrderType.LIMIT].map((type) => (
             <div
               key={type}
-              onClick={() => setOrderType(type as OrderType)}
+              onClick={() => {
+                if (type === "LIMIT") {
+                  setLimitPrice(markPrice);
+                  setOrderType(type as OrderType);
+                } else {
+                  setOrderType(type as OrderType);
+                }
+              }}
               style={{
                 border:
                   orderType === type
@@ -544,6 +587,8 @@ const TradePanel: React.FC<MarketSectionProps> = ({
         setAmountPrice={setAmountPrice}
         amountPrice={amountPrice}
         orderSide={orderSide}
+        orderSymbol={orderSymbol}
+        setOrderSymbol={setOrderSymbol}
       />
       <div
         style={{
@@ -567,13 +612,15 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             textAlign: "start",
           }}
         >
-          {`  ≈ ${orderSide === OrderSide.BUY
+          {`  ≈ ${
+            orderSymbol === symbolConfig?.quote
               ? parseFloat(amountPrice) / markPrice
               : markPrice * parseFloat(amountPrice)
-            } ${orderSide === OrderSide.SELL
-              ? symbolConfig?.quote
-              : symbolConfig?.base
-            }`}
+          } ${
+            orderSymbol === symbolConfig?.quote
+              ? symbolConfig?.base
+              : symbolConfig?.quote
+          }`}
         </div>
       </div>
       <OrderOverview
@@ -591,18 +638,18 @@ const TradePanel: React.FC<MarketSectionProps> = ({
               {
                 order_price:
                   orderType === OrderType.MARKET
-                    ? orderSide === OrderSide.BUY
+                    ? orderSymbol === symbolConfig?.quote
                       ? amountPrice
                       : amountPrice * markPrice
                     : orderSide === OrderSide.BUY
-                      ? limitPrice
-                      : limitPrice,
+                    ? limitPrice
+                    : limitPrice,
                 order_type: orderType,
                 side: orderSide,
                 symbol,
               },
               "order_quantity",
-              orderSide === OrderSide.BUY
+              orderSymbol === symbolConfig?.quote
                 ? parseFloat(amountPrice) / markPrice
                 : amountPrice
             );

@@ -9,7 +9,7 @@ import injectedModule from "@web3-onboard/injected-wallets";
 // import Portfolio from "./components/ui/portfolio";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { config } from "./config";
-import PriceBar from "./components/PriceBar";
+import { BrowserRouter as Router, Route, Switch, Routes } from 'react-router-dom';
 import { BROKER_ID, supportedChains } from "./utils/constantValues";
 import { ThemeProvider } from "./components/theme-provider";
 import { OrderlyConfigProvider } from "@orderly.network/hooks";
@@ -17,6 +17,8 @@ import MarketSection from "./components/MarketSection";
 import { Web3OnboardProvider, init } from "@web3-onboard/react";
 import walletConnectModule from "@web3-onboard/walletconnect";
 import Chart from "./components/Charts";
+import Trade from "./components/Trade";
+import Leaderboard from "./components/Leaderboard";
 
 const queryClient = new QueryClient();
 
@@ -65,10 +67,16 @@ function App() {
             >
               <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
                 <div className="flex flex-col overflow-hidden -mt-7">
-                  <NavBar />
-                  <PriceBar />
+                  <Router>
+                    <NavBar />
+                    <Routes>
+                      <Route path="/trade" element={<Trade />} />
+                      <Route path="/leaderboard" element={<Leaderboard />} />
+                      <Route path="/" element={<Trade />} />
+                    </Routes>
+                  </Router>
                   {/* <Chart /> */}
-                  <MarketSection />
+
                 </div>
               </ThemeProvider>
             </RainbowKitProvider>

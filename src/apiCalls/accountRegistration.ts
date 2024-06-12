@@ -93,15 +93,19 @@ export async function authenticateWallet(
   // .catch((err) => console.error(err));
 }
 export async function getOrderlyPoints(userAddress: string): Promise<any> {
-  fetch(
+  const data = await fetch(
     `https://api-evm.orderly.network/v1/client/points?address=${userAddress}`
-  )
-    .then((response) => response.json())
-    .then((response) =>
-      console.log(
-        "points response.......",
-        response?.data?.current_epoch_points
-      )
-    )
-    .catch((err) => console.error(err));
+  );
+  const response = await data?.json();
+  console.log("=====>", response);
+  return response.data?.current_epoch_points;
+
+  // .then((response) => response.json())
+  // .then(
+  //   (response) => response?.data?.current_epoch_points
+  //   // console.log(
+  //   //   "points response.......",
+  //   //   response?.data?.current_epoch_points
+  //   // )
+  // )
 }

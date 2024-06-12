@@ -14,6 +14,8 @@ import { useAppSelector } from "@/redux/hooks";
 import { useConnectWallet } from "@web3-onboard/react";
 import Chart from "./Charts";
 import { getOrderlyPoints } from "@/apiCalls/accountRegistration";
+import { useDispatch } from "react-redux";
+import { setMarketOrderly } from "@/redux/slices/marketSlice";
 
 interface MarketSectionProps {}
 
@@ -26,7 +28,7 @@ const MarketSection: React.FC<MarketSectionProps> = () => {
   const [orderType, setOrderType] = useState<OrderType>(OrderType.MARKET);
   const [amountPrice, setAmountPrice] = useState<string>("100");
   const marketSymbol = useAppSelector((x) => x.market.symbol);
-
+  const dispatch = useDispatch();
   const [showTradePanel, setShowTradePanel] = useState(false); // Add state
   const { symbolConfig, markPrice } = useOrderEntry(
     {
@@ -47,7 +49,9 @@ const MarketSection: React.FC<MarketSectionProps> = () => {
             id: CHAIN_ID_Hex1,
           },
         });
-        await getOrderlyPoints(wallet?.accounts[0]?.address);
+        const points = await getOrderlyPoints(wallet?.accounts[0]?.address);
+        console.log("points......", points);
+        dispatch(setMarketOrderly(points));
         setOnProcess(false);
         setInitialized(true);
       }

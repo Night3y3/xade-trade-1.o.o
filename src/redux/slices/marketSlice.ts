@@ -37,6 +37,7 @@ export const marketSlice = createSlice({
       state.funding_rate_8h = action.payload;
     },
     setMarketOrderly: (state, action) => {
+      console.log("point set", action.payload);
       state.orderlyMerit = action.payload;
     },
   },
@@ -50,6 +51,7 @@ export const {
   setOpenInterest,
   setMarkPrice,
   setFundingRate8h,
+  setMarketOrderly,
 } = marketSlice.actions;
 
 export default marketSlice.reducer;

@@ -7,7 +7,7 @@ import "../App.css";
 const tabs = [
   { name: "Trade", path: "/", external: false },
   { name: "Docs", path: "https://docs.xade.finance", external: true },
-  { name: "Leaderboard", path: "/leaderboard", external: false },
+  { name: "Leaderboard", path: "https://app.orderly.network", external: true  },
   { name: "Mobile App", path: "https://bit.ly/xadefinance", external: true }
 ];
 

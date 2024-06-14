@@ -37,9 +37,8 @@ export function Portfolio({ symbol }: { symbol: string }) {
           <div className="flex flex-col items-start">
             <span>PnL</span>
             <span
-              className={`text-[18px] font-[Sk-Modernist-Bold] ${
-                pnl < 0 ? "text-red-500" : "text-green-500"
-              }`}
+              className={`text-[18px] font-[Sk-Modernist-Bold] ${pnl < 0 ? "text-red-500" : "text-green-500"
+                }`}
             >
               {pnl}({pnlp}%)
             </span>
@@ -51,15 +50,36 @@ export function Portfolio({ symbol }: { symbol: string }) {
             </span>
           </div>
           <div className="flex flex-col items-start">
-            <span>Orderly Merits</span>
-            <span className="text-white text-[18px] font-[Sk-Modernist-Bold]">
-              {orderlyMerits}
+            <span style={{
+              background: 'var(--shards, linear-gradient(90deg, #F2CB91 0%, #F90 100%))',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}>Xade Shards
+            </span>
+            <span className=" text-[18px] font-[Sk-Modernist-Bold]" style={{
+              background: 'var(--shards, linear-gradient(90deg, #F2CB91 0%, #F90 100%))',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}>
+              {orderlyMerits * 43}
             </span>
           </div>
           <div className="flex flex-col items-start">
-            <span>Xade Shards</span>
-            <span className="text-white text-[18px] font-[Sk-Modernist-Bold]">
-              {orderlyMerits * 43}
+            <span style={{
+              background: 'linear-gradient(270deg, #BB82F3 6.16%, #51AFFF 126.88%)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}>Orderly Merits</span>
+            <span className=" text-[18px] font-[Sk-Modernist-Bold]" style={{
+              background: 'linear-gradient(270deg, #BB82F3 6.16%, #51AFFF 126.88%)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}>
+              {orderlyMerits}
             </span>
           </div>
         </div>

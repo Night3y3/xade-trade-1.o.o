@@ -90,7 +90,7 @@ const AmountInput = ({
           border:
             orderSymbol === symbolConfig?.quote
               ? "1px solid #FF9900"
-              : "1px solid #FFF",
+              : "1px solid #4B4B4B",
           padding: "8px 16px",
           display: "flex",
           justifyContent: "center",
@@ -105,7 +105,7 @@ const AmountInput = ({
           style={{
             fontSize: 12,
             font: "Sk-Modernist",
-            color: orderSymbol === symbolConfig?.quote ? "#FF9900" : "#FFF",
+            color: orderSymbol === symbolConfig?.quote ? "#FF9900" : "#4B4B4B",
           }}
         >
           {symbolConfig?.quote}
@@ -118,7 +118,7 @@ const AmountInput = ({
           border:
             orderSymbol === symbolConfig?.base
               ? "1px solid #FF9900"
-              : "1px solid #FFF",
+              : "1px solid #4B4B4B",
           padding: "8px 16px",
           display: "flex",
           justifyContent: "center",
@@ -133,7 +133,7 @@ const AmountInput = ({
           style={{
             fontSize: 12,
             font: "Sk-Modernist",
-            color: orderSymbol === symbolConfig?.base ? "#FF9900" : "#FFF",
+            color: orderSymbol === symbolConfig?.base ? "#FF9900" : "#4B4B4B",
           }}
         >
           {symbolConfig?.base}
@@ -608,7 +608,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             fontSize: "12px",
             fontWeight: 400,
             font: "Sk-Modernist",
-            color: "#fff",
+            color: "#4B4B4B",
             textAlign: "start",
           }}
         >

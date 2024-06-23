@@ -197,8 +197,10 @@ const WithdrawFlow = ({
           if (processing) {
             message.info("Please wait. Tx in processing!!");
           }
-          console.log("withdraws", parseFloat(withdrawAmount), maxAmount);
-          if (parseFloat(withdrawAmount) < maxAmount) {
+          if (
+            parseFloat(withdrawAmount) < maxAmount &&
+            parseFloat(withdrawAmount) > 1
+          ) {
             try {
               setProcessing(true);
               await withdraw({

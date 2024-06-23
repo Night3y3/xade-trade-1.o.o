@@ -189,14 +189,18 @@ const WithdrawFlow = ({
           }
           console.log("withdraws", parseFloat(withdrawAmount), maxAmount);
           if (parseFloat(withdrawAmount) < maxAmount) {
-            setProcessing(true);
-            await withdraw({
-              chainId: parseInt(CHAIN_ID_1),
-              amount: withdrawAmount,
-              token: "USDC",
-              allowCrossChainWithdraw: false,
-            });
-            setProcessing(false);
+            try {
+              setProcessing(true);
+              await withdraw({
+                chainId: parseInt(CHAIN_ID_1),
+                amount: withdrawAmount,
+                token: "USDC",
+                allowCrossChainWithdraw: false,
+              });
+              setProcessing(false);
+            } catch (error) {
+              setProcessing(false);
+            }
           }
         }}
         style={{
@@ -212,7 +216,7 @@ const WithdrawFlow = ({
           marginTop: 12,
         }}
       >
-        Withdraw
+        {processing ? "Withdrawing..." : "Withdraw"}
       </div>
     </div>
   );

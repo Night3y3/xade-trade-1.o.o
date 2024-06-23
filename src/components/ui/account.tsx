@@ -137,6 +137,16 @@ const WithdrawFlow = ({
     <div>
       <div
         style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: "5px",
+        }}
+      >
+        <div style={{ color: "#4B4B4B", fontSize: 14 }}>Maximum withdraw</div>
+        <div style={{ color: "#D4D4D4", fontSize: 14 }}>$ {maxAmount}</div>
+      </div>
+      <div
+        style={{
           width: "100%",
           borderRadius: 12,
           background: "#000",
@@ -201,6 +211,8 @@ const WithdrawFlow = ({
             } catch (error) {
               setProcessing(false);
             }
+          } else {
+            message.error("More than available amount");
           }
         }}
         style={{

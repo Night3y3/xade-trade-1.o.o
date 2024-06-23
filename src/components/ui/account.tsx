@@ -253,14 +253,13 @@ const Account = ({ markPrice }: { markPrice: number }) => {
   });
   const { withdraw, maxAmount } = useWithdraw();
   console.log(maxAmount);
-  // const { unsettledPnL } = useWithdraw();
+
   const { availableBalance } = useCollateral({ dp: 2 });
   const [maxLeverage, { update, config: leverageLevers }] = useLeverage();
 
   const { currentLeverage } = useMarginRatio();
   const marketSymbol = useAppSelector((x) => x.market.symbol);
   const maxQty = useMaxQty(marketSymbol, OrderSide.BUY);
-  console.log("maxLeverage", maxLeverage);
   const [depositAmount, setDepositAmount] = useState<string>("100");
   const [showLeverageSlider, setShowLeverageSlider] = useState<boolean>(false);
   const [leverage, setLeverage] = useState<number>(0);

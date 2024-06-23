@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useAppSelector } from "@/redux/hooks";
-import { CHAIN_ID_1 } from "@/utils/constantValues";
+import { CHAIN_ID, CHAIN_ID_1 } from "@/utils/constantValues";
 import {
   useChains,
   useCollateral,
@@ -8,6 +8,7 @@ import {
   useLeverage,
   useMarginRatio,
   useMaxQty,
+  useWithdraw,
 } from "@orderly.network/hooks";
 import { API, OrderSide } from "@orderly.network/types";
 import { useMemo, useState } from "react";
@@ -120,7 +121,102 @@ const DepositFlow = ({
     </div>
   );
 };
-
+const WithdrawFlow = ({
+  withdrawAmount,
+  withdraw,
+  maxAmount,
+  setWithdrawAmount,
+}: {
+  withdraw: any;
+  maxAmount: number;
+  withdrawAmount: string;
+  setWithdrawAmount: (amount: string) => void;
+}) => {
+  const [processing, setProcessing] = useState(false);
+  return (
+    <div>
+      <div
+        style={{
+          width: "100%",
+          borderRadius: 12,
+          background: "#000",
+          border: "1px solid #4B4B4B",
+          height: "64px",
+          padding: 8,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <div
+            style={{
+              fontSize: "12px",
+              fontWeight: 400,
+              font: "Sk-Modernist",
+              color: "#4B4B4B",
+              textAlign: "left",
+            }}
+          >
+            Withdraw amount
+          </div>
+          <input
+            style={{
+              fontSize: "18px",
+              fontWeight: 700,
+              font: "Sk-Modernist",
+              background: "transparent",
+              outline: "none",
+              lineHeight: "21.6px",
+              color: "#D4D4D4",
+              width: "60%",
+              height: "21.6px",
+            }}
+            value={withdrawAmount}
+            onChange={(e) => setWithdrawAmount(e.target.value?.toString())}
+          />
+        </div>
+      </div>
+      <div
+        onClick={async () => {
+          if (processing) {
+            message.info("Please wait. Tx in processing!!");
+          }
+          console.log("withdraws", parseFloat(withdrawAmount), maxAmount);
+          if (parseFloat(withdrawAmount) < maxAmount) {
+            setProcessing(true);
+            await withdraw({
+              chainId: parseInt(CHAIN_ID_1),
+              amount: withdrawAmount,
+              token: "USDC",
+              allowCrossChainWithdraw: false,
+            });
+            setProcessing(false);
+          }
+        }}
+        style={{
+          background: "#1B1B1B",
+          border: "solid 1px #FF9900",
+          borderRadius: "8px",
+          padding: "5px 20px",
+          cursor: "pointer",
+          fontSize: "14px",
+          fontWeight: 500,
+          color: "#FF9900",
+          width: "100%",
+          marginTop: 12,
+        }}
+      >
+        Withdraw
+      </div>
+    </div>
+  );
+};
 const Account = ({ markPrice }: { markPrice: number }) => {
   const [showStage, setShowStage] = useState<string>("account");
   const [chains] = useChains("mainnet", {
@@ -137,6 +233,8 @@ const Account = ({ markPrice }: { markPrice: number }) => {
     srcToken: token?.symbol,
     srcChainId: parseInt(CHAIN_ID_1),
   });
+  const { withdraw, maxAmount } = useWithdraw();
+  console.log(maxAmount);
   // const { unsettledPnL } = useWithdraw();
   const { availableBalance } = useCollateral({ dp: 2 });
   const [maxLeverage, { update, config: leverageLevers }] = useLeverage();
@@ -268,6 +366,15 @@ const Account = ({ markPrice }: { markPrice: number }) => {
             deposit={deposit}
           />
         );
+      case "withdraw":
+        return (
+          <WithdrawFlow
+            withdrawAmount={depositAmount}
+            setWithdrawAmount={setDepositAmount}
+            withdraw={withdraw}
+            maxAmount={maxAmount}
+          />
+        );
     }
   };
 
@@ -303,6 +410,25 @@ const Account = ({ markPrice }: { markPrice: number }) => {
         >
           Account
         </div>
+        <button
+          style={{
+            background: "#1B1B1B",
+            border: "none",
+            borderRadius: "8px",
+            padding: "5px 20px",
+            cursor: "pointer",
+            fontSize: "14px",
+            fontWeight: 500,
+            color: "#FF9900",
+          }}
+          onClick={() =>
+            setShowStage((prevStage) =>
+              prevStage === "withdraw" ? "account" : "withdraw"
+            )
+          }
+        >
+          {showStage === "withdraw" ? "Close" : "Withdraw"}
+        </button>
         <button
           style={{
             background: "#1B1B1B",

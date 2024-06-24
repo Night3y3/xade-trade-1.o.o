@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useAppSelector } from "@/redux/hooks";
-import { CHAIN_ID, CHAIN_ID_1 } from "@/utils/constantValues";
+import { CHAIN_ID_1 } from "@/utils/constantValues";
 import {
   useChains,
   useCollateral,
@@ -440,12 +440,12 @@ const Account = ({ markPrice }: { markPrice: number }) => {
           }}
           onClick={() =>
             setShowStage((prevStage) =>
-              prevStage === "withdraw" ? "account" : "withdraw"
+              prevStage === "deposit" ? "account" : "deposit"
             )
           }
         >
-          {showStage === "withdraw" ? "Close" : "Withdraw"}
-        </button>
+          {showStage === "deposit" ? "Close" : "Deposit"}
+        </button>{" "}
         <button
           style={{
             background: "#1B1B1B",
@@ -459,11 +459,11 @@ const Account = ({ markPrice }: { markPrice: number }) => {
           }}
           onClick={() =>
             setShowStage((prevStage) =>
-              prevStage === "deposit" ? "account" : "deposit"
+              prevStage === "withdraw" ? "account" : "withdraw"
             )
           }
         >
-          {showStage === "deposit" ? "Close" : "Deposit"}
+          {showStage === "withdraw" ? "Close" : "Withdraw"}
         </button>
       </div>
       {renderStages()}

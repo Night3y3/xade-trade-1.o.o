@@ -654,7 +654,6 @@ const TradePanel: React.FC<MarketSectionProps> = ({
                 : amountPrice
             );
             const errors = await validator(newValue);
-            console.log(JSON.stringify(newValue), errors);
             if (Object.keys(errors).length === 0) {
               try {
                 await onSubmit(newValue);

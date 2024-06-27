@@ -39,47 +39,50 @@ const PositionExt = ({
     { watchOrderbook: true }
   );
   const closePosition = async () => {
-    if (!processing) {
-      setIsProcessing(true);
-      try {
-        await onSubmit({
-          order_type: OrderType.MARKET,
-          symbol: marketSymbol,
-          reduce_only: true,
-          side: OrderSide.SELL,
-          order_quantity: maxQty,
-        });
-        refresh();
-        setIsProcessing(false);
-      } catch (error) {
-        setIsProcessing(false);
-      }
+    // if (!processing) {
+    // setIsProcessing(true);
+    console.log("here.........");
+    try {
+      await onSubmit({
+        order_type: OrderType.MARKET,
+        symbol: marketSymbol,
+        reduce_only: true,
+        side: OrderSide.SELL,
+        order_quantity: maxQty,
+      });
+      refresh();
+      setIsProcessing(false);
+    } catch (error) {
+      setIsProcessing(false);
     }
+    // }
   };
   const orderValue = position.mark_price * position.position_qty;
   return (
     <TableRow key={index} className="border-none">
-     <TableCell
-  className={`border-l-2 text-start pl-7 ${
-    position.position_qty > 0
-      ? 'border-[#C7F052] from-[#1E2311] from-20% via-[#2A3311]'
-      : 'border-[#F35540] from-[#49150D] from-20%'
-  } bg-gradient-to-r  to-50% text-left`}  
-  style={{
-    display: 'flex',
-    flexDirection: 'column',
-  }}
->
-  {position.symbol.split('_')[1]}
-  <span
-    style={{
-      color: position.position_qty < 0 ? '#F35540' : 'green',
-    }}
-  >
-    {position.position_qty < 0 ? 'SELL' : 'BUY'}
-  </span>
-</TableCell>
-      <TableCell className="text-left">{Math.abs(position?.position_qty)}</TableCell>
+      <TableCell
+        className={`border-l-2 text-start pl-7 ${
+          position.position_qty > 0
+            ? "border-[#C7F052] from-[#1E2311] from-20% via-[#2A3311]"
+            : "border-[#F35540] from-[#49150D] from-20%"
+        } bg-gradient-to-r  to-50% text-left`}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        {position.symbol.split("_")[1]}
+        <span
+          style={{
+            color: position.position_qty < 0 ? "#F35540" : "green",
+          }}
+        >
+          {position.position_qty < 0 ? "SELL" : "BUY"}
+        </span>
+      </TableCell>
+      <TableCell className="text-left">
+        {Math.abs(position?.position_qty)}
+      </TableCell>
       <TableCell className="text-left">{orderValue}</TableCell>
 
       <TableCell

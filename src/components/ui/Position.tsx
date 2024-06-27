@@ -29,10 +29,11 @@ const PositionExt = ({
 }) => {
   const [processing, setIsProcessing] = useState(false);
   const marketSymbol = useAppSelector((x) => x.market.symbol);
+  console.log(position);
   const { onSubmit, maxQty } = useOrderEntry(
     {
       symbol: marketSymbol,
-      side: OrderSide.SELL,
+      side: position.position_qty > 0 ? OrderSide.SELL : OrderSide.BUY,
       order_type: OrderType.MARKET,
       reduce_only: true,
     },
@@ -41,18 +42,20 @@ const PositionExt = ({
   const closePosition = async () => {
     // if (!processing) {
     // setIsProcessing(true);
-    console.log("here.........");
+
     try {
+      console.log("here.........", marketSymbol, maxQty);
       await onSubmit({
         order_type: OrderType.MARKET,
         symbol: marketSymbol,
         reduce_only: true,
-        side: OrderSide.SELL,
+        side: position.position_qty > 0 ? OrderSide.SELL : OrderSide.BUY,
         order_quantity: maxQty,
       });
       refresh();
       setIsProcessing(false);
     } catch (error) {
+      console.log(error);
       setIsProcessing(false);
     }
     // }

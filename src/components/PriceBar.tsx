@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Separator } from "./ui/separator";
 import SelectingMarket from "./SelectingMarket";
 import { useAppSelector } from "@/redux/hooks";
@@ -11,14 +11,28 @@ interface PriceBarProps {
 
 const PriceBar: React.FC<PriceBarProps> = () => {
   const market = useAppSelector((state) => state.market);
+  const [previousMarkPrice, setPreviousMarkPrice] = useState(market.mark_price);
+  const previousMarkPriceRef = useRef(market.mark_price);
+
+  useEffect(() => {
+    previousMarkPriceRef.current = previousMarkPrice;
+    setPreviousMarkPrice(market.mark_price);
+  }, [market.mark_price]);
+
   return (
     <div className="price-bar">
       <div className="price-bar-content">
         <div style={{ display: "flex", alignItems: "center" }}>
           <SelectingMarket />
           <Separator className="h-full w-[1px] bg-[#4B4B4B] dark:bg-gray-700" />
-          <h1 className="text-green-500 text-xl font-bold price">
-            ${market.mark_price}
+          <h1
+            className={`text-xl font-bold price ${
+              market.mark_price >= previousMarkPriceRef.current
+                ? "text-green-500"
+                : "text-red-500"
+            }`}
+          >
+            ${market.mark_price.toLocaleString()}
           </h1>
         </div>
         <Separator className="h-full w-[1px] bg-[#4B4B4B] dark:bg-gray-700" />

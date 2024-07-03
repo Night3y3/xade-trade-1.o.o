@@ -131,7 +131,8 @@ const WalletConnectButton: React.FC<WalletConnectButtonProps> = () => {
             await connectWallet();
           }}
           type="button"
-          className="bg-white border-2 border-black text-black rounded-lg px-8 py-1.5 font-bold shadow-xl  shadow-black/30 hover:bg-gray-700 w"
+          className="bg-white border-2 border-black text-black rounded-lg px-8 py-1.5 font-bold shadow-xl shadow-black/30 hover:bg-gray-700 w"
+          style={{ fontFamily: 'SK-Modernist-Bold' }}
         >
           Connect
         </button>

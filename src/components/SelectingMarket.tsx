@@ -14,9 +14,11 @@ import {
 import { Row } from "@/types";
 import { formatLargeNumber } from "@/utils/format";
 import "../App.css";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore"; // Import the icon
-import SearchIcon from "@mui/icons-material/Search"; // Import the search icon
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import SearchIcon from "@mui/icons-material/Search";
 import { useFundingRate } from "@orderly.network/hooks";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 interface SelectingMarketProps {
   // Define prop types here
@@ -37,6 +39,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
   const [market, setMarket] = useState("BTC");
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
   const [searchInput, setSearchInput] = useState("");
+  const [sortConfig, setSortConfig] = useState<{ key: string; direction: string }>({ key: "24h_volume", direction: "desc" });
   const dispatch = useAppDispatch();
 
   const fundingRate = useFundingRate(marketInfo?.symbol);
@@ -72,15 +75,63 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
     return () => clearInterval(interval);
   }, [data, market]);
 
-  const filteredData =
-    data?.data?.rows
-      ?.filter((item: Row) =>
-        item.symbol.toLowerCase().includes(searchInput.toLowerCase())
-      )
-      .sort(
-        (a: Row, b: Row) =>
-          b["24h_volume"] * b.mark_price - a["24h_volume"] * a.mark_price
-      ) || [];
+  const handleSort = (key: string) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = React.useMemo(() => {
+    if (!data?.data?.rows) return [];
+    const sorted = [...data.data.rows];
+    sorted.sort((a: Row, b: Row) => {
+      if (sortConfig.key === "symbol") {
+        if (sortConfig.direction === "asc") {
+          return a.symbol.localeCompare(b.symbol);
+        } else {
+          return b.symbol.localeCompare(a.symbol);
+        }
+      } else if (sortConfig.key === "mark_price") {
+        if (sortConfig.direction === "asc") {
+          return a.mark_price - b.mark_price;
+        } else {
+          return b.mark_price - a.mark_price;
+        }
+      } else if (sortConfig.key === "24h_volume") {
+        if (sortConfig.direction === "asc") {
+          return a["24h_volume"] * a.mark_price - b["24h_volume"] * b.mark_price;
+        } else {
+          return b["24h_volume"] * b.mark_price - a["24h_volume"] * a.mark_price;
+        }
+      } else if (sortConfig.key === "24h_change") {
+        if (sortConfig.direction === "asc") {
+          return change24hour(a["24h_open"], a["24h_close"]) - change24hour(b["24h_open"], b["24h_close"]);
+        } else {
+          return change24hour(b["24h_open"], b["24h_close"]) - change24hour(a["24h_open"], a["24h_close"]);
+        }
+      } else if (sortConfig.key === "24h_change_percent") {
+        if (sortConfig.direction === "asc") {
+          return change24hourPercent(a["24h_open"], a["24h_close"]) - change24hourPercent(b["24h_open"], b["24h_close"]);
+        } else {
+          return change24hourPercent(b["24h_open"], b["24h_close"]) - change24hourPercent(a["24h_open"], a["24h_close"]);
+        }
+      } else if (sortConfig.key === "open_interest") {
+        if (sortConfig.direction === "asc") {
+          return a["open_interest"] * a.mark_price - b["open_interest"] * b.mark_price;
+        } else {
+          return b["open_interest"] * b.mark_price - a["open_interest"] * a.mark_price;
+        }
+      }
+      return 0;
+    });
+    return sorted;
+  }, [data, sortConfig]);
+
+  const filteredData = sortedData.filter((item: Row) =>
+    item.symbol.toLowerCase().includes(searchInput.toLowerCase())
+  );
 
   return (
     <div
@@ -195,64 +246,109 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                         padding: "8px 24px",
                         textAlign: "left",
                         fontFamily: "Sk-Modernist-Regular",
+                        cursor: "pointer",
                       }}
+                      onClick={() => handleSort("symbol")}
                     >
                       Symbol
+                      {sortConfig.key === "symbol" && sortConfig.direction === "asc" ? (
+                        <ArrowDropUpIcon />
+                      ) : sortConfig.key === "symbol" && sortConfig.direction === "desc" ? (
+                        <ArrowDropDownIcon />
+                      ) : (
+                        ""
+                      )}
                     </th>
                     <th
                       style={{
                         padding: "8px 24px",
                         textAlign: "left",
                         fontFamily: "Sk-Modernist-Regular",
+                        cursor: "pointer",
                       }}
+                      onClick={() => handleSort("mark_price")}
                     >
                       Price
+                      {sortConfig.key === "mark_price" && sortConfig.direction === "asc" ? (
+                        <ArrowDropUpIcon />
+                      ) : sortConfig.key === "mark_price" && sortConfig.direction === "desc" ? (
+                        <ArrowDropDownIcon />
+                      ) : (
+                        ""
+                      )}
                     </th>
                     <th
                       style={{
                         padding: "8px 24px",
                         textAlign: "left",
                         fontFamily: "Sk-Modernist-Regular",
+                        cursor: "pointer",
                       }}
+                      onClick={() => handleSort("24h_change")}
                     >
                       24h Chg
+                      {sortConfig.key === "24h_change" && sortConfig.direction === "asc" ? (
+                        <ArrowDropUpIcon />
+                      ) : sortConfig.key === "24h_change" && sortConfig.direction === "desc" ? (
+                        <ArrowDropDownIcon />
+                      ) : (
+                        ""
+                      )}
                     </th>
                     <th
                       style={{
                         padding: "8px 24px",
                         textAlign: "left",
                         fontFamily: "Sk-Modernist-Regular",
+                        cursor: "pointer",
                       }}
+                      onClick={() => handleSort("24h_change_percent")}
                     >
                       24hr Chg(%)
+                      {sortConfig.key === "24h_change_percent" && sortConfig.direction === "asc" ? (
+                        <ArrowDropUpIcon />
+                      ) : sortConfig.key === "24h_change_percent" && sortConfig.direction === "desc" ? (
+                        <ArrowDropDownIcon />
+                      ) : (
+                        ""
+                      )}
                     </th>
                     <th
                       style={{
                         padding: "8px 24px",
                         textAlign: "left",
                         fontFamily: "Sk-Modernist-Regular",
+                        cursor: "pointer",
                       }}
+                      onClick={() => handleSort("24h_volume")}
                     >
                       Volume
+                      {sortConfig.key === "24h_volume" && sortConfig.direction === "asc" ? (
+                        <ArrowDropUpIcon />
+                      ) : sortConfig.key === "24h_volume" && sortConfig.direction === "desc" ? (
+                        <ArrowDropDownIcon />
+                      ) : (
+                        ""
+                      )}
                     </th>
                     <th
                       style={{
                         padding: "8px 24px",
                         textAlign: "left",
                         fontFamily: "Sk-Modernist-Regular",
+                        cursor: "pointer",
                       }}
+                      onClick={() => handleSort("open_interest")}
                     >
                       Open Interest
+                      {sortConfig.key === "open_interest" && sortConfig.direction === "asc" ? (
+                        <ArrowDropUpIcon />
+                      ) : sortConfig.key === "open_interest" && sortConfig.direction === "desc" ? (
+                        <ArrowDropDownIcon />
+                      ) : (
+                        ""
+                      )}
                     </th>
-                    {/* <th
-                      style={{
-                        padding: "8px 24px",
-                        textAlign: "left",
-                        fontFamily: "Sk-Modernist-Regular",
-                      }}
-                    >
-                      8h Funding Rate
-                    </th> */}
                   </tr>
                 </thead>
 
@@ -285,7 +381,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                         {parseString(item.symbol)}
                       </td>
                       <td style={{ padding: "8px 24px" }}>
-                        ${item.mark_price}
+                        ${item.mark_price.toLocaleString()}
                       </td>
                       <td
                         className={
@@ -298,7 +394,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                           transition: "color 0.5s",
                         }}
                       >
-                        ${change24hour(item["24h_open"], item["24h_close"])}
+                        ${change24hour(item["24h_open"], item["24h_close"]).toLocaleString()}
                       </td>
                       <td
                         className={
@@ -317,24 +413,21 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                         {change24hourPercent(
                           item["24h_open"],
                           item["24h_close"]
-                        )}
+                        ).toLocaleString()}
                         %
                       </td>
                       <td style={{ padding: "8px 24px" }}>
                         $
                         {formatLargeNumber(
                           item["24h_volume"] * item.mark_price
-                        )}
+                        ).toLocaleString()}
                       </td>
                       <td style={{ padding: "8px 24px" }}>
                         $
                         {formatLargeNumber(
                           item["open_interest"] * item.mark_price
-                        )}
+                        ).toLocaleString()}
                       </td>
-                      {/* <td style={{ padding: "8px 24px" }}>
-                        {item["24h_volume"]}%
-                      </td> */}
                     </tr>
                   ))}
                 </tbody>

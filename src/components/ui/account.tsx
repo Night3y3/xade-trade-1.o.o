@@ -103,13 +103,13 @@ const DepositFlow = ({
         }}
         style={{
           background: "#1B1B1B",
-          border: "solid 1px #FF9900",
+          border: "solid 1px #fff",
           borderRadius: "8px",
           padding: "5px 20px",
           cursor: "pointer",
           fontSize: "14px",
           fontWeight: 500,
-          color: "#FF9900",
+          color: "#fff",
           width: "100%",
           marginTop: 12,
         }}
@@ -219,13 +219,13 @@ const WithdrawFlow = ({
         }}
         style={{
           background: "#1B1B1B",
-          border: "solid 1px #FF9900",
+          border: "solid 1px #fff",
           borderRadius: "8px",
           padding: "5px 20px",
           cursor: "pointer",
           fontSize: "14px",
           fontWeight: 500,
-          color: "#FF9900",
+          color: "#fff",
           width: "100%",
           marginTop: 12,
         }}
@@ -358,7 +358,7 @@ const Account = ({ markPrice }: { markPrice: number }) => {
                     width: 20px;
                     height: 20px;
                     border-radius: 50%;
-                    background: #ff9900; // Thumb color
+                    background: #fff; // Thumb color
                     cursor: pointer;
                   }
 
@@ -408,63 +408,65 @@ const Account = ({ markPrice }: { markPrice: number }) => {
       <div
         style={{
           display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
+          flexDirection: "column",
+          alignItems: "center", // Center the Account button
           marginBottom: "10px",
           paddingBottom: "10px",
           borderBottom: "1px solid #4B4B4B",
         }}
       >
+      
         <div
           style={{
-            fontSize: "16px",
-            fontWeight: 500,
-            color: "#D4D4D4",
-            fontFamily: "Sk-Modernist-Bold",
-            cursor: "pointer",
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%", // Ensure buttons take full width
+            maxWidth: "300px", // Optional: limit the max width of the button container
+            padding: "0 10px", // Add padding to create space from the ends
           }}
-          onClick={() => setShowStage("account")}
         >
-          Account
+          <button
+            style={{
+              background: "#1B1B1B",
+              border: "none",
+              borderRadius: "8px",
+              padding: "5px 20px",
+              cursor: "pointer",
+              fontSize: "14px",
+              fontWeight: 500,
+              color: "grey",
+              flex: 1, // Make buttons take equal space
+              marginRight: "10px", // Add space between buttons
+            }}
+            onClick={() =>
+              setShowStage((prevStage) =>
+                prevStage === "deposit" ? "account" : "deposit"
+              )
+            }
+          >
+            {showStage === "deposit" ? "Close" : "Deposit"}
+          </button>
+          <button
+            style={{
+              background: "#1B1B1B",
+              border: "none",
+              borderRadius: "8px",
+              padding: "5px 20px",
+              cursor: "pointer",
+              fontSize: "14px",
+              fontWeight: 500,
+              color: "grey",
+              flex: 1, // Make buttons take equal space
+            }}
+            onClick={() =>
+              setShowStage((prevStage) =>
+                prevStage === "withdraw" ? "account" : "withdraw"
+              )
+            }
+          >
+            {showStage === "withdraw" ? "Close" : "Withdraw"}
+          </button>
         </div>
-        <button
-          style={{
-            background: "#1B1B1B",
-            border: "none",
-            borderRadius: "8px",
-            padding: "5px 20px",
-            cursor: "pointer",
-            fontSize: "14px",
-            fontWeight: 500,
-            color: "#FF9900",
-          }}
-          onClick={() =>
-            setShowStage((prevStage) =>
-              prevStage === "deposit" ? "account" : "deposit"
-            )
-          }
-        >
-          {showStage === "deposit" ? "Close" : "Deposit"}
-        </button>{" "}
-        <button
-          style={{
-            background: "#1B1B1B",
-            border: "none",
-            borderRadius: "8px",
-            padding: "5px 20px",
-            cursor: "pointer",
-            fontSize: "14px",
-            fontWeight: 500,
-            color: "#FF9900",
-          }}
-          onClick={() =>
-            setShowStage((prevStage) =>
-              prevStage === "withdraw" ? "account" : "withdraw"
-            )
-          }
-        >
-          {showStage === "withdraw" ? "Close" : "Withdraw"}
-        </button>
       </div>
       {renderStages()}
     </div>

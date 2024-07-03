@@ -8,6 +8,8 @@ const tabs = [
   { name: "Trade", path: "/", external: false },
   { name: "Docs", path: "https://docs.xade.finance", external: true },
   { name: "Leaderboard", path: "https://app.orderly.network", external: true  },
+  { name: "Campaigns", path: "https://app.galxe.com/quest/orderlynetwork/GCv3DtgSdQ", external: true },
+  { name: "Community", path: "https://t.me/xadeofficial", external: true },
   { name: "Mobile App", path: "https://bit.ly/xadefinance", external: true }
 ];
 
@@ -43,7 +45,7 @@ const Tab = ({ text, selected, setSelected, path, external }: TabProps) => {
     return (
       <button
         onClick={() => window.open(path, "_blank")}
-        className={`relative rounded-md px-2 py-8 text-sm font-medium transition-colors duration-300 ${selected ? "text-white" : "text-gray-500"} focus-within:outline-red-500/50`}
+        className={`relative rounded-md px-2 py-6 text-sm font-medium transition-colors duration-300 ${selected ? "text-white" : "text-gray-500"} focus-within:outline-red-500/50`}
       >
         <span className="relative z-10">{text}</span>
         {selected && (
@@ -59,7 +61,7 @@ const Tab = ({ text, selected, setSelected, path, external }: TabProps) => {
       <Link
         to={path}
         onClick={() => setSelected(text)}
-        className={`relative rounded-md px-2 py-8 text-sm font-medium transition-colors duration-300 ${selected ? "text-white" : "text-gray-500"} focus-within:outline-red-500/50`}
+        className={`relative rounded-md px-2 py-6 text-sm font-medium transition-colors duration-300 ${selected ? "text-white" : "text-gray-500"} focus-within:outline-red-500/50`}
       >
         <span className="relative z-10">{text}</span>
         {selected && (
@@ -133,7 +135,7 @@ const NavBar = ({ center, customID }: NavBarProps) => {
         <div style={{ marginRight: "20px" }}>
           <div
             style={{
-              padding: isMobile ? "5px 10px" : "10px 20px",
+              padding: isMobile ? "2px 5px" : "0px 0px", // Adjust the vertical padding here
               fontSize: isMobile ? "0.8rem" : "1rem",
             }}
           >

@@ -5,7 +5,7 @@ import "./index.css";
 
 const Orderbook = ({ symbol }: { symbol: string }) => {
   const [data, { isLoading }] = useOrderbookStream(symbol, undefined, {
-    level: 19,
+    level: 11,
   });
   const [prevMarkPrice, setPrevMarkPrice] = useState<number | null>(null);
   const [priceColor, setPriceColor] = useState<string>("");
@@ -29,7 +29,7 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
         maxHeight: "100%",
         height: "100%",
         width: "100%",
-        padding: "0px 0", // Added vertical padding
+        padding: "0px 0px", // Added vertical padding
         borderLeft: "1px solid #3B3B3B",
         borderBottom: "1px solid #3B3B3B",
       }}
@@ -54,7 +54,7 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
           display: "flex",
           flexDirection: "row",
           border: "1px solid #3B3B3B",
-          padding: "12px",
+          padding: "5px",
           borderTop: 0,
         }}
       >

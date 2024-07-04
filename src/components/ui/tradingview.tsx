@@ -1,6 +1,7 @@
-import styled from "styled-components";
-import { TradingView } from "@orderly.network/trading-view";
-import Portfolio from "./portfolio";
+import React from 'react';
+import styled from 'styled-components';
+import { TradingView } from '@orderly.network/trading-view';
+import Portfolio from './portfolio';
 
 const Container = styled.div`
   height: 130vh;
@@ -18,9 +19,13 @@ const Container = styled.div`
 const TradingViewChart = ({ symbol }: { symbol: string }) => {
   return (
     <Container>
-      <div className="" style={{ width: "100%", height: "90%" }}>
+      <div style={{ width: '100%', height: '90%' }}>
         <TradingView
           symbol={symbol}
+          interval="D"
+          theme="Dark"
+          topToolbarOpenSetting={true}
+          topToolbarOpenIndicators={true}
           libraryPath="charting_library/bundles"
           tradingViewScriptSrc="charting_library/charting_library.js"
           overrides={{
@@ -40,15 +45,15 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
             "toolbarProperties.background": "#ffffff",
             "timeScale.backgroundColor": "#000",
             "timeScale.borderColor": "#333333",
-            "paneProperties.legendProperties.showSeriesTitle": "true",
-            "paneProperties.legendProperties.showLegend": "true",
+            "paneProperties.legendProperties.showSeriesTitle": 'true',
+            "paneProperties.legendProperties.showLegend": 'true',
             "scalesProperties.lineColor": "#333333",
             "scalesProperties.textColor": "#B2B5BE",
             "scalesProperties.backgroundColor": "#1B1B1B",
-            "paneProperties.legendProperties.showSeriesOHLC": "true",
-            "paneProperties.legendProperties.showVolume": "true",
-            "paneProperties.legendProperties.showBackground": "true",
-            "paneProperties.legendProperties.backgroundTransparency": "90",
+            "paneProperties.legendProperties.showSeriesOHLC": 'true',
+            "paneProperties.legendProperties.showVolume": 'true',
+            "paneProperties.legendProperties.showBackground": 'true',
+            "paneProperties.legendProperties.backgroundTransparency": '90',
             "crossHairProperties.color": "#626c72",
             "crossHairProperties.style": "1",
             "crossHairProperties.width": "1",
@@ -58,12 +63,11 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
             "timeScale.rightOffset": "10",
             "timeScale.barSpacing": "8",
             "timeScale.lockVisibleTimeRangeOnResize": "true",
-            "timeScale.visible": "true",
-            "timeScale.timeVisible": "true",
-            "timeScale.secondsVisible": "false",
+            "timeScale.visible": 'true',
+            "timeScale.timeVisible": 'true',
+            "timeScale.secondsVisible": 'false',
             volumePaneSize: "medium",
           }}
-          tradingViewCustomCssUrl="styles/chart.css"
         />
       </div>
       <Portfolio symbol={symbol} />

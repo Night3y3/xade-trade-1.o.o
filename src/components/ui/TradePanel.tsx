@@ -608,7 +608,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
             fontSize: "12px",
             fontWeight: 400,
             font: "Sk-Modernist",
-            color: "#4B4B4B",
+            color: "#fff",
             textAlign: "start",
           }}
         >

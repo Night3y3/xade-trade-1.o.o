@@ -9,7 +9,7 @@ import injectedModule from "@web3-onboard/injected-wallets";
 // import Portfolio from "./components/ui/portfolio";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { config } from "./config";
-import { BrowserRouter as Router, Route, Switch, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { BROKER_ID, supportedChains } from "./utils/constantValues";
 import { ThemeProvider } from "./components/theme-provider";
 import { OrderlyConfigProvider } from "@orderly.network/hooks";
@@ -19,6 +19,8 @@ import walletConnectModule from "@web3-onboard/walletconnect";
 import Chart from "./components/Charts";
 import Trade from "./components/Trade";
 import Leaderboard from "./components/Leaderboard";
+import DepositFromCEX from "./components/DepositFromCEX";
+import DepositFiat from './components/DepositFiat';
 
 const queryClient = new QueryClient();
 
@@ -70,6 +72,8 @@ function App() {
                   <Router>
                     <NavBar />
                     <Routes>
+                      <Route path="/deposit-cex" element={<DepositFromCEX />} />
+                      <Route path="/deposit-fiat" element={<DepositFiat />} />
                       <Route path="/trade" element={<Trade />} />
                       <Route path="/leaderboard" element={<Leaderboard />} />
                       <Route path="/" element={<Trade />} />
@@ -88,3 +92,4 @@ function App() {
 }
 
 export default App;
+

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import WalletConnectButton from "./WalletConnectButton";
 import { Link } from "react-router-dom";
@@ -74,6 +75,38 @@ const Tab = ({ text, selected, setSelected, path, external }: TabProps) => {
   }
 };
 
+const AddFundsDropdown = ({ setSelected }: { setSelected: (text: string) => void }) => {
+  const navigate = useNavigate();
+
+  return (
+    <div className="relative group">
+      <button className="relative rounded-md px-2 py-6 text-sm font-medium transition-colors duration-300 text-gray-500 focus-within:outline-red-500/50">
+        Add Funds
+      </button>
+      <div className="absolute right-0 mt-2 w-48 bg-black rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <button
+          onClick={() => {
+            setSelected("Add Funds");
+            navigate("/deposit-cex");
+          }}
+          className="block w-full px-4 py-2 text-left text-sm text-white hover:text-gray-500 hover:bg-gray-100"
+        >
+          Deposit from CEX
+        </button>
+        <button
+          onClick={() => {
+            setSelected("Add Funds");
+            navigate("/deposit-fiat");
+          }}
+          className="block w-full px-4 py-2 text-left text-sm text-white hover:text-gray-500 hover:bg-gray-100"
+        >
+          Deposit Fiat
+        </button>
+      </div>
+    </div>
+  );
+};
+
 interface NavBarProps {
   center?: boolean;
   customID?: string;
@@ -130,6 +163,7 @@ const NavBar = ({ center, customID }: NavBarProps) => {
                 external={tab.external}
               />
             ))}
+            <AddFundsDropdown setSelected={setSelected} />
           </div>
         )}
         <div style={{ marginRight: "20px" }}>

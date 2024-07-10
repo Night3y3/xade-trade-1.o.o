@@ -1,0 +1,63 @@
+/* customTradingViewStyles.css */
+
+/* General chart background and text color */
+.tv-custom-theme .chart-container {
+    background-color: var(--tv-color-platform-background, #000);
+    color: var(--tv-color-toolbar-button-text-active, #fff);
+}
+
+/* Toolbar button styles */
+.tv-custom-theme .tv-button {
+    background-color: var(--tv-color-toolbar-button-background-active, #333);
+    color: var(--tv-color-toolbar-button-text-active, #fff);
+}
+
+.tv-custom-theme .tv-button:hover {
+    background-color: var(--tv-color-toolbar-button-background-hover, #444);
+    color: var(--tv-color-toolbar-button-text-hover, #fff);
+}
+
+/* Active item text color */
+.tv-custom-theme .tv-active-item {
+    color: var(--tv-color-item-active-text, #06f);
+}
+
+/* Popup element styles */
+.tv-custom-theme .tv-popup {
+    background-color: var(--tv-color-popup-background, #f1bce1);
+    color: var(--tv-color-popup-element-text, #88184f);
+}
+
+.tv-custom-theme .tv-popup .tv-element:hover {
+    background-color: var(--tv-color-popup-element-background-hover, #f48fb1);
+    color: var(--tv-color-popup-element-text-hover, #4a148c);
+}
+
+/* Legend styles */
+.tv-custom-theme .tv-legend {
+    background-color: var(--tv-color-popup-background, #f1bce1);
+    color: var(--tv-color-popup-element-text, #88184f);
+    border: 1px solid var(--tv-color-popup-element-divider-background, #fbdfec);
+}
+
+/* Grid line styles */
+.tv-custom-theme .tv-grid-line {
+    stroke: var(--tv-color-toolbar-divider-background, #fbdfec);
+}
+
+/* Crosshair styles */
+.tv-custom-theme .tv-crosshair {
+    stroke: var(--tv-color-popup-element-text, #88184f);
+}
+
+/* Tooltip styles */
+.tv-custom-theme .tv-tooltip {
+    background-color: var(--tv-color-popup-background, #f1bce1);
+    color: var(--tv-color-popup-element-text, #88184f);
+    border: 1px solid var(--tv-color-popup-element-divider-background, #fbdfec);
+}
+
+/* Drawing toolbar styles */
+.tv-custom-theme .tv-floating-toolbar {
+    background-color: black !important;
+}

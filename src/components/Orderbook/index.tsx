@@ -103,6 +103,7 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
                       display: "flex",
                       flexDirection: "row",
                       justifyContent: "space-between",
+                      marginBottom:'0.9px'
                     }}
                   >
                     <div
@@ -177,6 +178,7 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
                       display: "flex",
                       flexDirection: "row",
                       justifyContent: "space-between",
+                      marginBottom:'1px'
                     }}
                   >
                     <div
@@ -223,3 +225,4 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
   );
 };
 export default Orderbook;
+

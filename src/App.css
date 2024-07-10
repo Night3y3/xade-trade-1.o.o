@@ -101,9 +101,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #4b4b4b;
   padding: 0 10px;
   overflow-x: auto;
+  border-bottom: 1px solid #4b4b4b;
 }
 
 .price-bar-content {
@@ -152,7 +152,6 @@
 .market-section {
   display: flex;
   flex-direction: row;
-  /* height: 100vh; */
   width: 100%;
 }
 
@@ -170,6 +169,10 @@
   width: 20%;
   margin: 0;
   padding: 0;
+  border-left: 1px solid #4B4B4B;
+  border-right: 1px solid #4B4B4B;
+  border-bottom: 1px solid #4B4B4B;
+
 }
 
 .tradepanel-container {
@@ -177,7 +180,6 @@
   height: 100%;
   width: 20%;
   background: #000;
-  border-left: solid #4b4b4b 1px;
   margin: 0;
   padding: 0;
 }

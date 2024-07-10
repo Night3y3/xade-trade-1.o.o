@@ -53,7 +53,7 @@ const Chart = ({ center, customID }: ChartProps) => {
     return (
         <div
             className={cn(
-                'flex flex-wrap items-center gap-2 border-b border-gray-200 dark:border-gray-600',
+                'flex flex-wrap items-center gap-2 ',
                 center && 'justify-center',
             )}
         >

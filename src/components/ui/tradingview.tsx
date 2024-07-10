@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { TradingView } from '@orderly.network/trading-view';
 import './themed.css'; // Import the theme CSS
 import './customTradingViewStyles.css'; // Import the custom CSS file
-import { FaExpand } from 'react-icons/fa';
+import { FaExpand, FaCog, FaChartBar, FaChartLine, FaFx } from 'react-icons/fa';
 import Portfolio from './portfolio'; // Import the Portfolio component
 
 // Extend the Window interface to include tvWidget
@@ -61,6 +61,9 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
   const [timeframe, setTimeframe] = useState('D');
   const [fullscreen, setFullscreen] = useState(false);
   const [chartType, setChartType] = useState('1'); // Default to candle chart
+  const [settingsOpen, setSettingsOpen] = useState(true); // State for settings
+  const [indicatorsOpen, setIndicatorsOpen] = useState(true); // State for indicators
+  const [lineType, setLineType] = useState('1'); // State for line type
 
   useEffect(() => {
     // Add the theme-dark class to the root element to apply the dark theme variables
@@ -74,6 +77,18 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
 
   const toggleFullscreen = () => {
     setFullscreen(!fullscreen);
+  };
+
+  const toggleSettings = () => {
+    setSettingsOpen(!settingsOpen);
+  };
+
+  const toggleIndicators = () => {
+    setIndicatorsOpen(!indicatorsOpen);
+  };
+
+  const toggleLineType = () => {
+    setLineType(lineType === '1' ? '2' : '1'); // Toggle between two line types
   };
 
   return (
@@ -90,6 +105,15 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
           <Button selected={timeframe === 'M'} onClick={() => setTimeframe('M')}>30D</Button>
         </div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Button selected={false} onClick={toggleSettings}>
+            <FaCog />
+          </Button>
+          <Button selected={false} onClick={toggleIndicators}>
+            <FaFx />
+          </Button>
+          <Button selected={false} onClick={toggleLineType}>
+            <FaChartLine />
+          </Button>
           <Button selected={false} onClick={toggleFullscreen}>
             <FaExpand />
           </Button>
@@ -101,8 +125,9 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
           interval={timeframe}
           theme="Dark"
           mode={2}
-          topToolbarOpenSetting={true} // Ensure toolbar settings are open
-          topToolbarOpenIndicators={true} // Ensure toolbar indicators are open
+          topToolbarOpenSetting={settingsOpen} // Use state for settings
+          topToolbarOpenIndicators={indicatorsOpen} // Use state for indicators
+          topToolbarLineType={lineType} // Use state for line type
           libraryPath="charting_library/bundles"
           tradingViewCustomCssUrl='/styles/chart.css'
           tradingViewScriptSrc="charting_library/charting_library.js"

@@ -271,12 +271,7 @@ const OrderOverview = ({
             color: "white",
           }}
         >
-          {estLiqPrice ?? ""}
-          {` ${
-            orderSide === OrderSide.BUY
-              ? symbolConfig?.quote
-              : symbolConfig?.base
-          }`}
+          ${estLiqPrice ?? ""}
         </div>
       </div>
       <div

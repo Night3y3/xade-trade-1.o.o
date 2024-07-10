@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { TradingView } from '@orderly.network/trading-view';
 import './themed.css'; // Import the theme CSS
 import './customTradingViewStyles.css'; // Import the custom CSS file
-import { FaExpand, FaCog, FaChartBar, FaChartLine, FaFx } from 'react-icons/fa';
+import { FaExpand, FaCog, FaChartBar, FaChartLine } from 'react-icons/fa';
 import Portfolio from './portfolio'; // Import the Portfolio component
 
 // Extend the Window interface to include tvWidget
@@ -109,7 +109,7 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
             <FaCog />
           </Button>
           <Button selected={false} onClick={toggleIndicators}>
-            <FaFx />
+            <FaChartBar />
           </Button>
           <Button selected={false} onClick={toggleLineType}>
             <FaChartLine />

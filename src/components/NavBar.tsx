@@ -8,20 +8,20 @@ import "../App.css";
 const tabs = [
   { name: "Trade", path: "/", external: false },
   { name: "Docs", path: "https://docs.xade.finance", external: true },
-  { name: "Leaderboard", path: "https://app.orderly.network", external: true  },
+  { name: "Leaderboard", path: "/leaderboard", external: false  },
   { name: "Campaigns", path: "https://app.galxe.com/quest/orderlynetwork/GCv3DtgSdQ", external: true },
   { name: "Community", path: "https://t.me/xadeofficial", external: true },
   { name: "Mobile App", path: "https://bit.ly/xadefinance", external: true }
 ];
 
-const handleTabClick = (text: string, setSelected: (text: string) => void) => {
+const handleTabClick = (text: string, setSelected: (text: string) => void, navigate: (path: string) => void) => {
   switch (text) {
     case "Docs":
       window.open("https://docs.xade.finance");
       break;
     case "Leaderboard":
-
-      alert("Coming soon");
+      setSelected(text); // Mark as selected
+      navigate("/leaderboard");
       break;
     case "Mobile App":
       window.open("https://bit.ly/xadefinance");
@@ -115,6 +115,7 @@ interface NavBarProps {
 const NavBar = ({ center, customID }: NavBarProps) => {
   const [selected, setSelected] = useState<string>(tabs[0].name);
   const isMobile = window.innerWidth <= 768;
+  const navigate = useNavigate();
 
   return (
     <div
@@ -156,7 +157,7 @@ const NavBar = ({ center, customID }: NavBarProps) => {
               <Tab
                 text={tab.name}
                 selected={selected === tab.name}
-                setSelected={setSelected}
+                setSelected={(text) => handleTabClick(text, setSelected, navigate)}
                 key={tab.name}
                 customID={customID}
                 path={tab.path}

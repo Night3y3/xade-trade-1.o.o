@@ -41,6 +41,7 @@ const Leaderboard: React.FC<LeaderboardProps> = () => {
                     <div style={{ color: '#E4E1D5', fontFamily: 'Sk-Modernist-Regular', fontSize: 20 }}>
                         Earn upto $200k in rewards in this trading competition exclusively for Xade degens
                     </div>
+                  
                     <button style={{
                         padding: '10px 25px',
                         border: '1px solid #fff',
@@ -55,42 +56,7 @@ const Leaderboard: React.FC<LeaderboardProps> = () => {
                     }} onClick={() => window.open('https://cooing-slope-6a6.notion.site/Xade-Degens-Trading-Competition-56c8c7afc55c4f6a92debbf835eb4922', '_blank')}>Learn More</button>
                 </div>
             </div>
-            <div style={{
-                width: '80%',
-                backgroundColor: '#0f0f0f',
-                margin: '20px auto', // Center the box horizontally
-                padding: '20px', // Add some padding inside the box
-                color: '#fff', // Ensure text inside the box is visible
-                textAlign: 'center', // Center the text inside the box
-                fontFamily: 'Sk-Modernist-Regular' // Set font family for the entire box
-            }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'Sk-Modernist-Regular' }}>
-                    <thead>
-                    <tr>
-                            <th style={{ padding: '8px', color: '#727272' }}>Rank</th>
-                            <th style={{ padding: '8px', color: '#727272' }}>Address</th>
-                            <th style={{ padding: '8px', color: '#727272' }}>Xade Shards</th>
-                            <th style={{ padding: '8px', color: '#727272' }}>Spot Volume</th>
-                            {/* <th style={{ padding: '8px', color: '#727272' }}>Futures Volume</th> */}
-                            <th style={{ padding: '8px', color: '#727272' }}>Content Shards</th>
-                            <th style={{ padding: '8px', color: '#727272' }}>Referral Shards</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {/* Add table rows here */}
-                        <tr>
-                            <td style={{ padding: '8px' }}>1</td>
-                            <td style={{ padding: '8px' }}>0xdddhjsjshshjdn</td>
-                            <td style={{ padding: '8px' }}>1000</td>
-                            <td style={{ padding: '8px' }}>$500,000</td>
-                            {/* <td style={{ padding: '8px' }}>$1,000,000</td> */}
-                            <td style={{ padding: '8px' }}>200</td>
-                            <td style={{ padding: '8px' }}>50</td>
-                        </tr>
-                        {/* Add more rows as needed */}
-                    </tbody>
-                </table>
-            </div>
+         
         </>
     );
 };

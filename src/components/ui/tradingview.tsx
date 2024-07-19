@@ -52,6 +52,7 @@ const TopBar = styled.div`
   padding: 10px;
   background-color: #000;
   color: white;
+  border-bottom: 1px solid #333; // Added bottom border
 `;
 
 const Button = styled.button<{ selected: boolean }>`

@@ -117,7 +117,11 @@ export function Portfolio({ symbol }: { symbol: string }) {
         </div>
       </div>
       {tabType === "Positions" && <Position symbol={symbol} />}
-      {tabType === "Orders" && <Orders symbol={symbol} />}
+      {tabType === "Orders" && (
+        <div style={{ minHeight: "200px" }}>
+          <Orders symbol={symbol} />
+        </div>
+      )}
     </div>
   );
 }

@@ -365,7 +365,7 @@ const TradePanel: React.FC<MarketSectionProps> = ({
         width: "100%", // Reduced width
         alignItems: "center",
         flexDirection: "column",
-        padding: "24px 0px",
+        padding: "15px 0px",
       }}
     >
       <Account markPrice={markPrice} />

@@ -404,7 +404,7 @@ const Account = ({ markPrice }: { markPrice: number }) => {
         width: "100%",
         padding: "0px 5px",
         paddingTop: "0px",
-        borderBottom: "1px solid #1d1d1d",
+     
       }}
     >
       <div

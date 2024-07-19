@@ -83,9 +83,9 @@ const MarketSection: React.FC<MarketSectionProps> = () => {
         <Chart />
         <TradingView symbol={marketSymbol} />
       </div>
-      <div className="orderbook-container">
+      {/* <div className="orderbook-container">
         <OrderBook symbol={marketSymbol} />
-      </div>
+      </div> */}
       {showTradePanel && (
         <div
           className="trade-overlay"
@@ -99,7 +99,7 @@ const MarketSection: React.FC<MarketSectionProps> = () => {
         onClick={() => setShowTradePanel(false)}
       >
         <div
-          className="tradepanel-content"
+         
           onClick={(e) => e.stopPropagation()}
         >
           <TradePanel

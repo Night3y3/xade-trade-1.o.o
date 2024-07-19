@@ -5,7 +5,11 @@ import './themed.css'; // Import the theme CSS
 import './customTradingViewStyles.css'; // Import the custom CSS file
 import { FaExpand, FaCog, FaChartBar, FaChartLine } from 'react-icons/fa';
 import Portfolio from './portfolio'; // Import the Portfolio component
-
+import OrderBook from '../Orderbook/index'; // Import the OrderBook component
+import settings from '../../assets/settings.svg'
+import indicators from '../../assets/chart-area.svg'
+import chart from '../../assets/chart-line.svg'
+import expand from '../../assets/capture.svg'
 // Extend the Window interface to include tvWidget
 declare global {
   interface Window {
@@ -15,7 +19,7 @@ declare global {
 
 // Styled component for the container
 const Container = styled.div`
-  height: 130vh;
+  height: 100vh; // Adjusted to 100vh for full viewport height
   width: 100%;
   background-color: black;
   display: flex;
@@ -23,6 +27,7 @@ const Container = styled.div`
   margin-right: 0;
   border-top: none;
   border-right: none;
+  overflow: hidden; // Ensure no overflow
 
   // Responsive design for smaller screens
   @media (max-width: 768px) {
@@ -93,7 +98,9 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
 
   return (
     <Container className={`custom-tradingview-container ${fullscreen ? 'fullscreen' : ''}`}>
-      <TopBar>
+      <div style={{ display: 'flex', width: '100%', height: '100%' }}>
+        <div className="custom-tradingview-toolbar" style={{ flex: 1, overflow: 'hidden' }}>
+        <TopBar>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Button selected={timeframe === '1'} onClick={() => setTimeframe('1')}>1M</Button>
           <Button selected={timeframe === '5'} onClick={() => setTimeframe('5')}>5M</Button>
@@ -106,76 +113,73 @@ const TradingViewChart = ({ symbol }: { symbol: string }) => {
         </div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Button selected={false} onClick={toggleSettings}>
-            <FaCog />
+            <img src={settings} alt="Settings" />
           </Button>
           <Button selected={false} onClick={toggleIndicators}>
-            <FaChartBar />
+          <img src={indicators} alt="Settings" />
           </Button>
           <Button selected={false} onClick={toggleLineType}>
-            <FaChartLine />
+          <img src={chart} alt="Settings" />
           </Button>
           <Button selected={false} onClick={toggleFullscreen}>
-            <FaExpand />
+          <img src={expand} alt="Settings" />
           </Button>
         </div>
       </TopBar>
-      <div className="custom-tradingview-toolbar" style={{ width: '100%', height: fullscreen ? '100%' : '90%' }}>
-        <TradingView
-          symbol={symbol}
-          interval={timeframe}
-          theme="Dark"
-          mode={2}
-          topToolbarOpenSetting={settingsOpen} // Use state for settings
-          topToolbarOpenIndicators={indicatorsOpen} // Use state for indicators
-          topToolbarLineType={lineType} // Use state for line type
-          libraryPath="charting_library/bundles"
-          tradingViewCustomCssUrl='/styles/chart.css'
-          tradingViewScriptSrc="charting_library/charting_library.js"
-          overrides={{
-            "mainSeriesProperties.candleStyle.borderDownColor": "#F35540",
-            "mainSeriesProperties.candleStyle.borderUpColor": "#40F388",
-            "mainSeriesProperties.candleStyle.downColor": "#F35540",
-            "mainSeriesProperties.candleStyle.upColor": "#40F388",
-            "mainSeriesProperties.candleStyle.wickDownColor": "#F36B40",
-            "mainSeriesProperties.candleStyle.wickUpColor": "#40F388",
-            "paneProperties.background": "#000000",
-            "paneProperties.backgroundType": "solid",
-            "paneProperties.separatorColor": "#1d1d1d",
-            "paneProperties.horzGridProperties.color": "#1d1d1d",
-            "paneProperties.vertGridProperties.color": "#1d1d1d",
-            "paneProperties.vertGridProperties.style": '1',
-            "paneProperties.horzGridProperties.style": '1',
-            "toolbarProperties.background": "#000000",
-            "timeScale.backgroundColor": "#000",
-            "timeScale.borderColor": "#333333",
-            "paneProperties.legendProperties.showSeriesTitle": 'true',
-            "paneProperties.legendProperties.showLegend": 'true',
-            "scalesProperties.lineColor": "#333333",
-            "scalesProperties.textColor": "#B2B5BE",
-            "scalesProperties.backgroundColor": "#1B1B1B",
-            "crossHairProperties.color": "#626c72",
-            "crossHairProperties.style": '1',
-            "crossHairProperties.width": '1',
-            "mainSeriesProperties.priceLineColor": "#FFFFFF",
-            "mainSeriesProperties.priceLineWidth": '1',
-            "mainSeriesProperties.showPriceLine": 'true',
-            "timeScale.lockVisibleTimeRangeOnResize": 'true',
-            "timeScale.visible": 'true',
-            "timeScale.timeVisible": 'true',
-            "timeScale.secondsVisible": 'false',
-            "volumePaneSize": "medium",
-          }}
-          studiesOverrides={{
-            "volume.volume.color.0": "#40F388",
-            "volume.volume.color.1": "#F36B40",
-            "volume.volume.transparency": '70',
-            "volume.volume ma.color": "#FF0000",
-            "volume.volume ma.transparency": '30',
-            "volume.volume ma.linewidth": '5',
-            "volume.show ma": 'true',
-            "volume.volume ma.length": '20',
-          }}
-        />
+          <TradingView
+            symbol={symbol}
+            interval={timeframe}
+            theme="Dark"
+            mode={2}
+            topToolbarOpenSetting={settingsOpen}
+            topToolbarOpenIndicators={indicatorsOpen}
+            topToolbarLineType={lineType}
+            libraryPath="charting_library/bundles"
+            tradingViewCustomCssUrl='/styles/chart.css'
+            tradingViewScriptSrc="charting_library/charting_library.js"
+            overrides={{
+              hide_side_toolbar: "false",
+              "mainSeriesProperties.candleStyle.borderDownColor": "#EF454A",
+              "mainSeriesProperties.candleStyle.borderUpColor": "#20B26C",
+              "mainSeriesProperties.candleStyle.downColor": "#EF454A",
+              "mainSeriesProperties.candleStyle.upColor": "#20B26C",
+              "mainSeriesProperties.candleStyle.wickDownColor": "#EF454A",
+              "mainSeriesProperties.candleStyle.wickUpColor": "#20B26C",
+              "paneProperties.background": "#000000",
+              "paneProperties.backgroundType": "solid",
+              "paneProperties.separatorColor": "#1d1d1d",
+              "paneProperties.horzGridProperties.color": "#1d1d1d",
+              "paneProperties.vertGridProperties.color": "#1d1d1d",
+              "paneProperties.vertGridProperties.style": '1',
+              "paneProperties.horzGridProperties.style": '1',
+              "toolbarProperties.background": "#000000",
+              "timeScale.backgroundColor": "#000",
+              "timeScale.borderColor": "#333333",
+              "paneProperties.legendProperties.showSeriesTitle": 'true',
+              "paneProperties.legendProperties.showLegend": 'true',
+              "scalesProperties.lineColor": "#333333",
+              "scalesProperties.textColor": "#B2B5BE",
+              "scalesProperties.backgroundColor": "#1B1B1B",
+              "crossHairProperties.color": "#626c72",
+              "crossHairProperties.style": '1',
+              "crossHairProperties.width": '1',
+              "mainSeriesProperties.priceLineColor": "#FFFFFF",
+              "mainSeriesProperties.priceLineWidth": '1',
+              "mainSeriesProperties.showPriceLine": 'true',
+              "timeScale.lockVisibleTimeRangeOnResize": 'true',
+              "timeScale.visible": 'true',
+              "timeScale.timeVisible": 'true',
+              "timeScale.secondsVisible": 'false',
+              "volumePaneSize": "medium",
+              "left_toolbar": "true"
+            }}
+          />
+        </div>
+        {!fullscreen && (
+          <div style={{ width: '25%', height: '100%', overflow: 'auto' }}>
+            <OrderBook symbol={symbol} />
+          </div>
+        )}
       </div>
       {!fullscreen && <Portfolio symbol={symbol} />}
     </Container>

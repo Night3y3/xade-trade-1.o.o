@@ -21,10 +21,10 @@ export function Portfolio({ symbol }: { symbol: string }) {
   // const unrealisedPnl = "$200";
 
   return (
-    <div className="block flex-col bg-black h-full">
+    <div className="block flex-col bg-black h-full" style={{ borderRight: "1px solid #3B3B3B" }}>
       <div
         className="w-full border-t border-b border-solid border-[#4B4B4B] overflow-x-auto"
-        style={{ height: "20%" }}
+        style={{ height: "30%" }}
       >
         {/* New section for portfolio details */}
         <div className="flex justify-start text-[#767676] text-[16px] font-[Sk-Modernist-Regular] h-full items-center space-x-16 pl-4 min-w-[600px]">

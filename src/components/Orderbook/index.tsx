@@ -5,7 +5,7 @@ import "./index.css";
 
 const Orderbook = ({ symbol }: { symbol: string }) => {
   const [data, { isLoading }] = useOrderbookStream(symbol, undefined, {
-    level: 11,
+    level: 8,  // Adjust the level here for 100% height
   });
   const [prevMarkPrice, setPrevMarkPrice] = useState<number | null>(null);
   const [priceColor, setPriceColor] = useState<string>("");
@@ -26,12 +26,13 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
   return (
     <div
       style={{
-        maxHeight: "100%",
-        height: "100%",
+        maxHeight: "100%", // Ensure height is 100%
+        height: "100%", // Ensure height is 100%
         width: "100%",
         padding: "0px 0px", // Added vertical padding
         borderLeft: "1px solid #3B3B3B",
         borderBottom: "1px solid #3B3B3B",
+        borderRight: "1px solid #3B3B3B", // Add right border
       }}
     >
       <div
@@ -46,7 +47,7 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
           fontSize: 16,
         }}
       >
-        Order Book
+      Order Book
       </div>
       <div
         style={{
@@ -152,6 +153,7 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
               borderBottom: "1px solid #3B3B3B",
               borderTop: "1px solid #3B3B3B",
               padding: "10px 6px", // Increased vertical padding
+              borderRight: "1px solid #3B3B3B", // Add right border
             }}
           >
             <div
@@ -225,4 +227,3 @@ const Orderbook = ({ symbol }: { symbol: string }) => {
   );
 };
 export default Orderbook;
-

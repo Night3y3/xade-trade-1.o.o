@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import banner from '../assets/leaderboard_banner.png';
 
 interface LeaderboardProps {
@@ -6,7 +7,44 @@ interface LeaderboardProps {
 }
 
 const Leaderboard: React.FC<LeaderboardProps> = () => {
-    // Component logic using props
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<Error | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('https://api.zcx.com/trade/v1/info/trades', {
+                    params: {
+                        limit: 30,
+                        offset: 0,
+                        dateFrom: '2024-06-11T09:02:04.847Z',
+                        dateTo: '2024-07-18T09:02:04.847Z'
+                    },
+                    headers: {
+                        'accept': 'application/json',
+                        'Authorization': 'Bearer af0e50ed-6636-414f-afa3-2626db5c6acf'
+                    }
+                });
+                setData(response.data);
+                setLoading(false);
+            } catch (error) {
+                setError(error as Error);
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error.message || 'Network Error'}</div>;
+    }
+
     return (
         <>
             <div style={{
@@ -56,7 +94,10 @@ const Leaderboard: React.FC<LeaderboardProps> = () => {
                     }} onClick={() => window.open('https://cooing-slope-6a6.notion.site/Xade-Degens-Trading-Competition-56c8c7afc55c4f6a92debbf835eb4922', '_blank')}>Learn More</button>
                 </div>
             </div>
-         
+            <div>
+                <h2>API Response:</h2>
+                <pre>{JSON.stringify(data, null, 2)}</pre>
+            </div>
         </>
     );
 };

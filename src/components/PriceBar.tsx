@@ -23,17 +23,21 @@ const PriceBar: React.FC<PriceBarProps> = () => {
     <div className="price-bar">
       <div className="price-bar-content">
         <div style={{ display: "flex", alignItems: "center" }}>
-          <SelectingMarket />
+          <div>
+            <SelectingMarket />
+          </div>
           <Separator className="h-full w-[1px] bg-[#4B4B4B] dark:bg-gray-700" />
-          <h1
-            className={`text-xl font-bold price ${
-              market.mark_price >= previousMarkPriceRef.current
-                ? "text-green-500"
-                : "text-red-500"
-            }`}
-          >
-            ${market.mark_price.toLocaleString()}
-          </h1>
+          <div>
+            <h1
+              className={`text-xl font-bold price ${
+                market.mark_price >= previousMarkPriceRef.current
+                  ? "text-green-500"
+                  : "text-red-500"
+              }`}
+            >
+              ${market.mark_price.toLocaleString()}
+            </h1>
+          </div>
         </div>
         <Separator className="h-full w-[1px] bg-[#4B4B4B] dark:bg-gray-700" />
         <div className="price-bar-item">
@@ -73,7 +77,7 @@ const PriceBar: React.FC<PriceBarProps> = () => {
           <h1 className="text-[#4B4B4B] font-normal text-sm">
             Est Funding Rate
           </h1>
-          <h1 className="price text-[#fff]">{market.funding_rate_8h}</h1>
+          <h1 className="price text-[#fff]">{market.funding_rate_8h}%</h1>
         </div>
       </div>
     </div>

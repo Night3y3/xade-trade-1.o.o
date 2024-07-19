@@ -68,7 +68,7 @@ function App() {
               })}
             >
               <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-                <div className="flex flex-col overflow-hidden -mt-7">
+                <div className="flex flex-col overflow-hidden -mt-7" style={{ borderBottom: "2px solid #3B3B3B" }}>
                   <Router>
                     <NavBar />
                     <Routes>
@@ -92,4 +92,3 @@ function App() {
 }
 
 export default App;
-

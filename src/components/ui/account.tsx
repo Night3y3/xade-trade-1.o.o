@@ -14,7 +14,8 @@ import { API, OrderSide } from "@orderly.network/types";
 import { useMemo, useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { message } from "antd";
-
+import icon from "../../assets/icon.png"
+import withdrawimg from "../../assets/withdraw.png"
 const DepositFlow = ({
   depositAmount,
   deposit,
@@ -437,6 +438,9 @@ const Account = ({ markPrice }: { markPrice: number }) => {
               color: "grey",
               flex: 1, // Make buttons take equal space
               marginRight: "10px", // Add space between buttons
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
             onClick={() =>
               setShowStage((prevStage) =>
@@ -444,6 +448,7 @@ const Account = ({ markPrice }: { markPrice: number }) => {
               )
             }
           >
+            {showStage === "deposit" ? "" : <img src={icon} alt="icon" style={{ width: "16px", height: "16px", marginRight: "8px" }} />}
             {showStage === "deposit" ? "Close" : "Deposit"}
           </button>
           <button
@@ -456,7 +461,10 @@ const Account = ({ markPrice }: { markPrice: number }) => {
               fontSize: "14px",
               fontWeight: 500,
               color: "grey",
-              flex: 1, // Make buttons take equal space
+              flex: 1, 
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",// Make buttons take equal space
             }}
             onClick={() =>
               setShowStage((prevStage) =>
@@ -464,6 +472,7 @@ const Account = ({ markPrice }: { markPrice: number }) => {
               )
             }
           >
+            {showStage === "withdraw" ? "" : <img src={withdrawimg} alt="icon" style={{ width: "16px", height: "16px", marginRight: "8px" }} />}  
             {showStage === "withdraw" ? "Close" : "Withdraw"}
           </button>
         </div>

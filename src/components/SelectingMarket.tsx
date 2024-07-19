@@ -19,6 +19,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useFundingRate } from "@orderly.network/hooks";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
 interface SelectingMarketProps {
   // Define prop types here
@@ -171,7 +172,14 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
           >
             {market}/USD
           </span>
-          {!isSelectorOpen && (
+          {isSelectorOpen ? (
+            <ExpandLessIcon
+              style={{
+                color: "white",
+                alignSelf: "center",
+              }}
+            />
+          ) : (
             <ExpandMoreIcon
               style={{
                 color: "white",
@@ -190,17 +198,20 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
               zIndex: 1000,
               height: "32%",
               overflowX: "auto",
-              paddingTop: "0.5%",
               color: "white",
               marginLeft: "-20px",
             }}
           >
             <div
               style={{
-                position: "relative",
-                width: "96%",
+                position: "sticky",
+                top: 0,
+                marginTop:'2%',
                 marginBottom: "8px",
                 marginLeft: "2%",
+                marginRight: "2%",
+                backgroundColor: "BLACK",
+                zIndex: 1001,
               }}
             >
               <SearchIcon
@@ -246,6 +257,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                         padding: "8px 24px",
                         textAlign: "left",
                         fontFamily: "Sk-Modernist-Regular",
+                        color: "#4b4b4b",
                         cursor: "pointer",
                       }}
                       onClick={() => handleSort("symbol")}
@@ -264,6 +276,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                         padding: "8px 24px",
                         textAlign: "left",
                         fontFamily: "Sk-Modernist-Regular",
+                        color: "#4b4b4b",
                         cursor: "pointer",
                       }}
                       onClick={() => handleSort("mark_price")}
@@ -282,6 +295,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                         padding: "8px 24px",
                         textAlign: "left",
                         fontFamily: "Sk-Modernist-Regular",
+                        color: "#4b4b4b",
                         cursor: "pointer",
                       }}
                       onClick={() => handleSort("24h_change")}
@@ -300,6 +314,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                         padding: "8px 24px",
                         textAlign: "left",
                         fontFamily: "Sk-Modernist-Regular",
+                        color: "#4b4b4b",
                         cursor: "pointer",
                       }}
                       onClick={() => handleSort("24h_change_percent")}
@@ -318,6 +333,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                         padding: "8px 24px",
                         textAlign: "left",
                         fontFamily: "Sk-Modernist-Regular",
+                        color: "#4b4b4b",
                         cursor: "pointer",
                       }}
                       onClick={() => handleSort("24h_volume")}
@@ -336,6 +352,7 @@ const SelectingMarket: React.FC<SelectingMarketProps> = () => {
                         padding: "8px 24px",
                         textAlign: "left",
                         fontFamily: "Sk-Modernist-Regular",
+                        color: "#4b4b4b",
                         cursor: "pointer",
                       }}
                       onClick={() => handleSort("open_interest")}

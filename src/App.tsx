@@ -55,7 +55,7 @@ function App() {
   });
   return (
     <OrderlyConfigProvider brokerId={BROKER_ID} networkId="mainnet">
-      <Web3OnboardProvider web3Onboard={web3Onboard}>
+      {/* <Web3OnboardProvider web3Onboard={web3Onboard}> */}
         <WagmiProvider config={config}>
           <QueryClientProvider client={queryClient}>
             <RainbowKitProvider
@@ -86,7 +86,7 @@ function App() {
             </RainbowKitProvider>
           </QueryClientProvider>
         </WagmiProvider>
-      </Web3OnboardProvider>
+      {/* </Web3OnboardProvider> */}
     </OrderlyConfigProvider>
   );
 }

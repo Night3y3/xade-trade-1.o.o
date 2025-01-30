@@ -1,15 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ExitIcon } from "@radix-ui/react-icons";
+import { usePrivy, Wallet } from '@privy-io/react-auth';
 
-import { useConnectWallet } from "@web3-onboard/react";
+// import { useConnectWallet } from "@web3-onboard/react";
 
 interface WalletConnectButtonProps {
   // Define prop types here
 }
 
 const WalletConnectButton: React.FC<WalletConnectButtonProps> = () => {
-  const [{ wallet }, connectWallet, disconnectWallet] = useConnectWallet();
-  console.log(wallet?.accounts);
+  const [wallet, setWallet] = useState<Wallet | undefined>(undefined);
+  const [loading, setLoading] = useState<boolean | undefined>(false);
+  const { login, logout, user, authenticated } = usePrivy();
+
+  useEffect(() => {
+    if (authenticated && user) {
+      console.log("user", user?.wallet);
+      setWallet(user?.wallet);
+    } else {
+      setWallet(undefined);
+    }
+  }, [authenticated, user]);
+
+  const handleConnect = async () => {
+    try {
+      await login(); // Specify the provider
+    } catch (err) {
+      console.error('Error connecting wallet:', err);
+    }
+  };
+
+  const handleDisconnect = async () => {
+    try {
+      setLoading(true);
+      await logout();
+      setWallet(undefined); // Clear wallet after disconnecting
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      console.error('Error disconnecting wallet:', err);
+    }
+  };
+
   return (
     <div className="block pt-4">
       {/* <ConnectButton.Custom>
@@ -124,7 +156,7 @@ const WalletConnectButton: React.FC<WalletConnectButtonProps> = () => {
       >
         Connect wallet
       </Button> */}
-      {!wallet ? (
+      {/* {!wallet ? (
         <button
           onClick={async () => {
             if (wallet) return;
@@ -148,6 +180,35 @@ const WalletConnectButton: React.FC<WalletConnectButtonProps> = () => {
           <ExitIcon className=" size-4" onClick={async () => {
             await disconnectWallet({ label: wallet.label });
           }} />
+        </button>
+      )} */}
+
+      {!wallet ? (
+        <button
+          onClick={async () => {
+            if (wallet) return;
+            await handleConnect();
+          }}
+          type="button"
+          className="bg-white border-2 border-black text-black rounded-lg px-8 py-1.5 font-bold shadow-xl shadow-black/30 hover:bg-gray-700 w"
+          style={{ fontFamily: 'SK-Modernist-Bold' }}
+        >
+          Connect
+        </button>
+      ) : (
+        <button
+          type="button"
+          disabled={loading}
+          onClick={async () => {
+            await handleDisconnect();
+          }} 
+          className="bg-[#1E1E1E]  border-2 border-black text-[#D5CCE5] rounded-lg px-4 py-1.5 font-bold shadow-xl  shadow-black/30 hover:bg-gray-700 flex gap-3 items-center justify-center"
+        >
+          {/* <img src={wallet.chains[0].id === "0x66eee" ? "https://docs.arbitrum.io/img/logo.svg" : wallet.icon} alt="" className=" size-6" onClick={() => console.log("bruhhh ", wallet.chains[0].id)} /> */}
+          {wallet?.address?.substring(0, 3) +
+            "..." +
+            wallet?.address?.slice(-5)}
+          <ExitIcon className=" size-4" />
         </button>
       )}
     </div>
